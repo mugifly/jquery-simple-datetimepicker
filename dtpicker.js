@@ -8,9 +8,43 @@
 	var DAYS_OF_WEEK_EN= ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 	var DAYS_OF_WEEK_JA= ['日', '月', '火', '水', '木', '金', '土'];
 	
+	var PickerObjects = [];
 	var inputObjects = [];
 	
-	var draw = function($container, year, month, day){
+	var getParentPickerObject = function($obj){
+		var $picker;
+		if($obj.hasClass('datepicker')){
+			$picker = $obj;
+		}else{
+			$picker = $obj.parent('.datepicker');
+		}
+		return $picker;
+	};
+	
+	var beforeMonth = function($obj){
+		var $picker = getParentPickerObject($obj);
+		var date = getPickedDate($picker);
+		draw($picker, date.getYear() + 1900, date.getMonth() - 1, date.getDate());
+	};
+	
+	var nextMonth = function($obj){
+		var $picker = getParentPickerObject($obj);
+		var date = getPickedDate($picker);
+		draw($picker, date.getYear() + 1900, date.getMonth() + 1, date.getDate());
+	};
+	
+	var getPickedDate = function($obj){
+		var $picker = getParentPickerObject($obj);
+		return $picker.data("pickedDate");
+	};
+	
+	var zpadding = function(num){
+		num = ("0" + num).slice(-2);
+		return num
+	};
+	
+	var draw = function($picker, year, month, day){
+		console.log("dtpicker - draw()..." + year + "," + month + "," + day);
 		var date = new Date();
 		if(year != null){
 			date = new Date(year, month, day);
@@ -18,15 +52,36 @@
 			date = new Date();
 		}
 		
+		$picker.data("pickedDate", date);
+		
 		var firstWday = new Date(date.getYear() + 1900, date.getMonth(),  1).getDay();
 		var lastDay = new Date(date.getYear() + 1900, date.getMonth() + 1,  0).getDate();
 		
 		/* Header */
-		var $header = $container.children('.datepicker_header');
-		$header.text("<< " + (date.getYear() + 1900) + " / " + (date.getMonth() + 1) + " >>");
+		var $header = $picker.children('.datepicker_header');
+		$header.children().remove();
+		var $link_before_month = $('<a>');
+		$link_before_month.text('<');
+		$link_before_month.click(function(){
+			beforeMonth($picker);
+		});
+		
+		var $now_month = $('<span>');
+		$now_month.text((date.getYear() + 1900) + " / " + zpadding(date.getMonth() + 1));
+		
+		var $link_next_month = $('<a>');
+		$link_next_month.text('>');
+		$link_next_month.click(function(){
+			nextMonth($picker);
+		});
+		
+		$header.append($link_before_month);
+		$header.append($now_month);
+		$header.append($link_next_month);
 		
 		/* Calendar > Table */
-		var $table = $container.children('.datepicker_inner_container').children('.datepicker_calendar').children('.datepicker_table');
+		var $table = $picker.children('.datepicker_inner_container').children('.datepicker_calendar').children('.datepicker_table');
+		$table.children().remove();
 		var $tr = $('<tr>');
 		$table.append($tr);
 		
@@ -78,13 +133,13 @@
 		}
 		
 		/* Timelist */
-		var $timelist = $container.children('.datepicker_inner_container').children('.datepicker_timelist');
+		var $timelist = $picker.children('.datepicker_inner_container').children('.datepicker_timelist');
 		$timelist.children().remove();
 		for(var hour=0;hour<24;hour++){
 			for(var min=0;min<=30;min+=30){
 				var $o = $('<div>');
 				$o.addClass('timelist_item');
-				$o.text(("0"+hour).slice(-2) +":"+ ("0"+min).slice(-2));
+				$o.text(zpadding(hour) +":"+ zpadding(min));
 				$timelist.append($o);
 				
 				$o.click(function(){
@@ -112,18 +167,21 @@
 	var init = function($obj){
 		console.log("dtpicker init... ");
 		
+		$obj.data("pickerId",PickerObjects.length);
+		PickerObjects.push($obj);
+		
 		/* Container */
-		var $container = $('<div>');
-		$container.addClass('datepicker')
-		$obj.append($container);
+		var $picker = $('<div>');
+		$picker.addClass('datepicker')
+		$obj.append($picker);
 		/* Header */
 		var $header = $('<div>');
 		$header.addClass('datepicker_header');
-		$container.append($header);
+		$picker.append($header);
 		/* InnerContainer*/
 		var $inner = $('<div>');
 		$inner.addClass('datepicker_inner_container');
-		$container.append($inner);
+		$picker.append($inner);
 		/* Calendar */
 		var $calendar = $('<div>');
 		$calendar.addClass('datepicker_calendar');
@@ -136,7 +194,7 @@
 		$timelist.addClass('datepicker_timelist');
 		$inner.append($timelist);
 		
-		draw($container);
+		draw($picker);
 	};
 	
 	/* Initialize dtpicker */

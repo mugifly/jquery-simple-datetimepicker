@@ -30,6 +30,28 @@
 	font-weight: bold;
 }
 
+.datepicker > .datepicker_header > a{
+	user-select: none;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+	cursor: pointer;
+}
+
+.datepicker > .datepicker_header > a:hover {
+	color: #000000;
+	background-color:	#c8c8c8;
+}
+
+.datepicker > .datepicker_header > a:active {
+	color: #ffffff;
+	background-color:	#808080;
+}
+
+.datepicker > .datepicker_header > span {
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
 /*
  * datepicker_inner_container 
 */
