@@ -11,6 +11,11 @@
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="javascripts/dtpicker.js"></script>
+	<link href="stylesheets/dtpicker.css" type="text/css" rel="stylesheet" />
+    
   </head>
   <body>
     <div class="wrapper">
@@ -28,23 +33,33 @@
         </ul>
       </header>
       <section>
-        <h1>dtpicker (jquery-simple-datetimepicker)</h1>
+        <h1>jquery-simple-datetimepicker</h1>
 
 <p>Date and time picker, simply. (jquery plugin)</p>
 
-<p>This project has just launched development.</p>
+<p><b><em>This project has just launched development.</b></em></p>
 
 <p>Your feedback is highly appreciated.
-you can send requests and bug reports as Issues on GitHub.</p>
+you can send requests and bug reports as Issues on <a href="https://github.com/mugifly/jquery-simple-datetimepicker">GitHub</a>.</p>
 
 <p><img src="https://raw.github.com/mugifly/jquery-simple-datetimepicker/master/design/dtpicker_mock.png" alt="screenshot"></p>
 
-<h2>Sample demo</h2>
+<h2>Sample demo (still developing now...)</h2>
+	<div style="height:300px">
+		<input type="text" name="date" value="2012/12/01 10:00">
+		<script type="text/javascript">
+			$(function(){
+				$('*[name=date]').appendDtpicker();
+			});
+		</script>
+	</div>
+	
+	more: <a href="https://github.com/mugifly/jquery-simple-datetimepicker/blob/master/dtpicker.html">Sample HTML source code</a>
 
 <h2>Requirements</h2>
 
 <ul>
-<li>jQuery 1.8.0 or later</li>
+<li>jQuery 1.7.2 or later</li>
 </ul><h2>License and author</h2>
 
 <p>Copyright (c) 2012 Masanori Ohgita (<a href="http://ohgita.info/">http://ohgita.info/</a>). </p>
