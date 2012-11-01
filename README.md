@@ -14,7 +14,7 @@ you can send requests and bug reports as Issues on GitHub.
 
 ## Requirements
 
-* jQuery 1.8.0 or later
+* jQuery 1.7.2 or later
 
 ## License and author
 
