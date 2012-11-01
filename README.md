@@ -3,12 +3,14 @@ dtpicker (jquery-simple-datetimepicker)
 
 Date and time picker, simply. (jquery plugin)
 
+![screenshot](https://raw.github.com/mugifly/jquery-simple-datetimepicker/master/design/dtpicker_mock.png)
+
+Details and samples: http://mugifly.github.com/jquery-simple-datetimepicker
+
 This project has just launched development.
 
 Your feedback is highly appreciated.
 you can send requests and bug reports as Issues on GitHub.
-
-![screenshot](https://raw.github.com/mugifly/jquery-simple-datetimepicker/master/design/dtpicker_mock.png)
 
 ## Requirements
 
