@@ -62,7 +62,6 @@
 
 .datepicker > .datepicker_inner_container > .datepicker_calendar {
 	float: left;
-	width: 100px;
 	margin-top: -0.5px;
 	margin-left: -2px;
 	margin-bottom: -2px;
@@ -79,12 +78,48 @@
 }
 
 /*
- * datepicker_inner_container > datepicker_calendar > day
+ * datepicker_inner_container > datepicker_calendar > datepicker_table > tbody > tr > th (WDay-cell)
 */
 
-.datepicker > .datepicker_inner_container > .datepicker_calendar > .datepicker_day {
-	width: 20px;
-	float: left;
+.datepicker > .datepicker_inner_container > .datepicker_calendar > .datepicker_table > tbody > tr > th {
+	color:	#646464;
+	width: 18px;
+	font-size: small;
+	font-weight: normal;
+	text-align:center;
+}
+
+/*
+ * datepicker_inner_container > datepicker_calendar > datepicker_table > tbody > tr > td (Day-cell)
+*/
+
+.datepicker > .datepicker_inner_container > .datepicker_calendar > .datepicker_table > tbody > tr > td {
+	color:	#000000;
+	font-size: small;
+	text-align:center;
+	
+	user-select: none;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+	cursor: pointer;
+}
+
+.datepicker > .datepicker_inner_container > .datepicker_calendar > .datepicker_table > tbody > tr > td.wday_sat {
+	color:	#0044aa;
+}
+
+.datepicker > .datepicker_inner_container > .datepicker_calendar > .datepicker_table > tbody > tr > td.wday_sun {
+	color:	#e13b00;
+}
+
+.datepicker > .datepicker_inner_container > .datepicker_calendar > .datepicker_table > tbody > tr > td.active {
+	color: #ffffff;
+	background-color:	#808080;
+}
+
+.datepicker > .datepicker_inner_container > .datepicker_calendar > .datepicker_table > tbody > tr > td.hover {
+	color: #000000;
+	background-color:	#c8c8c8;
 }
 
 /*
@@ -94,8 +129,8 @@
 .datepicker > .datepicker_inner_container > .datepicker_timelist {
 	margin-top: -0.5px;
 	padding: 5px;
-	padding-left: 7px;
-	padding-right: 20px;
+	padding-left: 0px;
+	padding-right: 0px;
 	float: right;
 	background-color:	#ffffff;
 	height: 118px;
@@ -147,3 +182,29 @@
 .datepicker > .datepicker_inner_container > .datepicker_timelist::-webkit-scrollbar-corner {
 	background: #333;
 }
+
+.datepicker > .datepicker_inner_container > .datepicker_timelist > div.timelist_item {
+	padding-top:   1px;
+	padding-bottom:1px;
+	padding-left:  7px;
+	padding-right: 20px;
+	margin-top: 5px;
+	margin-bottom: 2px;
+	font-size: small;
+	
+	user-select: none;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+	cursor: pointer;
+}
+
+.datepicker > .datepicker_inner_container > .datepicker_timelist > div.timelist_item.active {
+	color: #ffffff;
+	background-color:	#808080;
+}
+
+.datepicker > .datepicker_inner_container > .datepicker_timelist > div.timelist_item.hover {
+	color: #000000;
+	background-color:	#c8c8c8;
+}
+
