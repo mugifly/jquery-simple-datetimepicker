@@ -40,13 +40,13 @@
 	var beforeMonth = function($obj){
 		var $picker = getParentPickerObject($obj);
 		var date = getPickedDate($picker);
-		draw($picker, date.getYear() + 1900, date.getMonth() - 1, date.getDate());
+		draw($picker, true, date.getYear() + 1900, date.getMonth() - 1, date.getDate());
 	};
 	
 	var nextMonth = function($obj){
 		var $picker = getParentPickerObject($obj);
 		var date = getPickedDate($picker);
-		draw($picker, date.getYear() + 1900, date.getMonth() + 1, date.getDate());
+		draw($picker, true, date.getYear() + 1900, date.getMonth() + 1, date.getDate());
 	};
 	
 	var outputToInputObject = function($obj){
@@ -67,7 +67,7 @@
 		return num
 	};
 	
-	var draw = function($picker, year, month, day, hour, min){
+	var draw = function($picker, isAnim, year, month, day, hour, min){
 		console.log("dtpicker - draw()..." + year + "," + month + "," + day + " " + hour + ":" + min);
 		var date = new Date();
 		if(hour != null){
@@ -84,7 +84,10 @@
 		var lastDay = new Date(date.getYear() + 1900, date.getMonth() + 1,  0).getDate();
 		
 		var $inner = $picker.children('.datepicker_inner_container');
-		$inner.fadeTo("fast",0.5);
+		
+		if(isAnim == true){
+			$inner.fadeTo("fast",0.5);
+		}
 		
 		/* Header */
 		var $header = $picker.children('.datepicker_header');
@@ -121,6 +124,8 @@
 		}
 		
 		for (var i=0;i<firstWday+lastDay;i++){
+			var realDay = i+1-firstWday;
+			
 			if(i%7==0){
 				$tr = $('<tr>');
 				$table.append($tr);
@@ -130,7 +135,7 @@
 			if(firstWday > i){
 				$td.text(" ");
 			}else{
-				$td.text(i+1-firstWday);
+				$td.text(realDay);
 			}
 			
 			if (i%7==0){ /* Sunday */
@@ -139,7 +144,11 @@
 				$td.addClass('wday_sat');
 			}
 			
-			$td.data("day", i+1-firstWday);
+			if (realDay == day){/* selectedDay */
+				$td.addClass('active');
+			}
+			
+			$td.data("day", realDay);
 			
 			/* Set event-handler to Calendar day cell */
 			
@@ -151,7 +160,7 @@
 				
 				var $picker = getParentPickerObject($(this));
 				var date = getPickedDate($picker);
-				draw($picker, date.getYear() + 1900, date.getMonth(), $(this).data("day"));
+				draw($picker, false, date.getYear() + 1900, date.getMonth(), $(this).data("day"));
 			});
 			
 			$td.hover(
@@ -200,7 +209,9 @@
 			}
 		}
 		
-		$inner.fadeTo("fast",1.0);
+		if(isAnim == true){
+			$inner.fadeTo("fast",1.0);
+		}
 		
 		/* Output to InputForm */
 		outputToInputObject($picker);
@@ -240,7 +251,7 @@
 		$timelist.addClass('datepicker_timelist');
 		$inner.append($timelist);
 		
-		draw($picker);
+		draw($picker, true);
 	};
 	
 	/* Initialize dtpicker */
