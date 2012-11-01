@@ -11,15 +11,31 @@
 	var PickerObjects = [];
 	var inputObjects = [];
 	
-	var getParentPickerObject = function($obj){
+	var getParentPickerObject = function(obj){
+		var $obj = $(obj);
 		var $picker;
 		if($obj.hasClass('datepicker')){
 			$picker = $obj;
 		}else{
-			$picker = $obj.parent('.datepicker');
+			var parents = $obj.parents();
+			for(var i=0;i<parents.length;i++){
+				if($(parents[i]).hasClass('datepicker')){
+					$picker = $(parents[i]);
+				}
+			}
+			console.log($picker);
 		}
 		return $picker;
 	};
+	
+	var getPickersInputObject = function($obj){
+		var $picker = getParentPickerObject($obj);
+		console.log($picker.data());
+		if($picker.data("inputObjectId") != null){
+			return $(inputObjects[$picker.data("inputObjectId")]);
+		}
+		return null;
+	}
 	
 	var beforeMonth = function($obj){
 		var $picker = getParentPickerObject($obj);
@@ -33,6 +49,14 @@
 		draw($picker, date.getYear() + 1900, date.getMonth() + 1, date.getDate());
 	};
 	
+	var outputToInputObject = function($obj){
+		var date = getPickedDate($obj);
+		var $inp = getPickersInputObject($obj);
+		if($inp != null){
+			$inp.val(date.getYear()+1900 + "/" + zpadding(date.getMonth() + 1) + "/" + zpadding(date.getDate())  );
+		}
+	};
+	
 	var getPickedDate = function($obj){
 		var $picker = getParentPickerObject($obj);
 		return $picker.data("pickedDate");
@@ -43,19 +67,24 @@
 		return num
 	};
 	
-	var draw = function($picker, year, month, day){
-		console.log("dtpicker - draw()..." + year + "," + month + "," + day);
+	var draw = function($picker, year, month, day, hour, min){
+		console.log("dtpicker - draw()..." + year + "," + month + "," + day + " " + hour + ":" + min);
 		var date = new Date();
-		if(year != null){
+		if(hour != null){
+			date = new Date(year, month, day, hour, min);
+		}else if(year != null){
 			date = new Date(year, month, day);
 		}else{
 			date = new Date();
 		}
 		
-		$picker.data("pickedDate", date);
+		$($picker).data("pickedDate", date);
 		
 		var firstWday = new Date(date.getYear() + 1900, date.getMonth(),  1).getDay();
 		var lastDay = new Date(date.getYear() + 1900, date.getMonth() + 1,  0).getDate();
+		
+		var $inner = $picker.children('.datepicker_inner_container');
+		$inner.fadeTo("fast",0.5);
 		
 		/* Header */
 		var $header = $picker.children('.datepicker_header');
@@ -110,11 +139,19 @@
 				$td.addClass('wday_sat');
 			}
 			
+			$td.data("day", i+1-firstWday);
+			
+			/* Set event-handler to Calendar day cell */
+			
 			$td.click(function(){
 				if($(this).hasClass('hover')){
 					$(this).removeClass('hover');
 				}
 				$(this).addClass('active');
+				
+				var $picker = getParentPickerObject($(this));
+				var date = getPickedDate($picker);
+				draw($picker, date.getYear() + 1900, date.getMonth(), $(this).data("day"));
 			});
 			
 			$td.hover(
@@ -162,18 +199,27 @@
 				);
 			}
 		}
+		
+		$inner.fadeTo("fast",1.0);
+		
+		/* Output to InputForm */
+		outputToInputObject($picker);
 	};
 	
-	var init = function($obj){
+	var init = function($obj, opt_inputObjectId){
 		console.log("dtpicker init... ");
-		
-		$obj.data("pickerId",PickerObjects.length);
-		PickerObjects.push($obj);
 		
 		/* Container */
 		var $picker = $('<div>');
 		$picker.addClass('datepicker')
 		$obj.append($picker);
+		
+		if(opt_inputObjectId != null){
+			$picker.data("inputObjectId",opt_inputObjectId);
+		}
+		$picker.data("pickerId",PickerObjects.length);
+		PickerObjects.push($picker);
+		
 		/* Header */
 		var $header = $('<div>');
 		$header.addClass('datepicker_header');
@@ -204,7 +250,7 @@
         }
         var options=$.extend(defaults, config);
         return this.each(function(i){
-			init($(this));
+			init($(this), config.inputObjectId);
         });
     };
 	
@@ -215,11 +261,12 @@
         }
         var options=$.extend(defaults, config);
         return this.each(function(i){
+        	var input = this;
+        	var inputObjectId = inputObjects.length;
         	inputObjects.push(this);
         	var $d = $('<div>');
         	$d.insertAfter(this);
-        	console.log(inputObjects);
-			$($d).dtpicker();
+			var $picker = $($d).dtpicker({"inputObjectId":inputObjectId});
         });
 	};
 })(jQuery);
