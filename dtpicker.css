@@ -134,6 +134,10 @@
 	color:	#e13b00;
 }
 
+.datepicker > .datepicker_inner_container > .datepicker_calendar > .datepicker_table > tbody > tr > td.day_another_month {
+	color:	#cccccc;
+}
+
 .datepicker > .datepicker_inner_container > .datepicker_calendar > .datepicker_table > tbody > tr > td.active {
 	color: #ffffff;
 	background-color:	#808080;

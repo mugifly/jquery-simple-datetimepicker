@@ -68,7 +68,6 @@
 	};
 	
 	var draw = function($picker, isAnim, year, month, day, hour, min){
-		console.log("dtpicker - draw()..." + year + "," + month + "," + day + " " + hour + ":" + min);
 		var date = new Date();
 		if(hour != null){
 			date = new Date(year, month, day, hour, min);
@@ -77,15 +76,20 @@
 		}else{
 			date = new Date();
 		}
+		console.log("dtpicker - draw()..." + year + "," + month + "," + day + " " + hour + ":" + min + " -> " + date);
 		
 		$($picker).data("pickedDate", date);
 		
 		var firstWday = new Date(date.getYear() + 1900, date.getMonth(),  1).getDay();
 		var lastDay = new Date(date.getYear() + 1900, date.getMonth() + 1,  0).getDate();
+		var beforeMonthLastDay = new Date(date.getYear() + 1900, date.getMonth(), 0).getDate();
+		var dateBeforeMonth = new Date(date.getYear() + 1900, date.getMonth(), 0);
+		var dateNextMonth = new Date(date.getYear() + 1900, date.getMonth() + 2, 0);
 		
 		var $inner = $picker.children('.datepicker_inner_container');
 		
 		if(isAnim == true){
+			$inner.stop().queue([]);
 			$inner.fadeTo("fast",0.5);
 		}
 		
@@ -123,9 +127,9 @@
 			$tr.append($td);
 		}
 		
-		for (var i=0;i<firstWday+lastDay;i++){
+		var allCellNum = Math.ceil((firstWday+lastDay) / 7) * 7;
+		for (var i=0;i<allCellNum;i++){
 			var realDay = i+1-firstWday;
-			
 			if(i%7==0){
 				$tr = $('<tr>');
 				$table.append($tr);
@@ -133,9 +137,19 @@
 			
 			var $td = $('<td>');
 			if(firstWday > i){
-				$td.text(" ");
-			}else{
+				/* Before months day */
+				$td.text(beforeMonthLastDay + realDay);
+				$td.addClass('day_another_month');
+				$td.data("dateStr", dateBeforeMonth.getYear()+1900 + "/" + (dateBeforeMonth.getMonth()+1) + "/" + (beforeMonthLastDay + realDay));
+			}else if(i < firstWday+lastDay){
+				/* Now months day */
 				$td.text(realDay);
+				$td.data("dateStr", (date.getYear()+1900) + "/" + (date.getMonth()+1) + "/" + realDay);
+			}else{
+				/* Next months day*/
+				$td.text(realDay-lastDay);
+				$td.addClass('day_another_month');
+				$td.data("dateStr", dateNextMonth.getYear()+1900 + "/" + (dateNextMonth.getMonth()+1) + "/" + (realDay-lastDay));
 			}
 			
 			if (i%7==0){ /* Sunday */
@@ -144,7 +158,7 @@
 				$td.addClass('wday_sat');
 			}
 			
-			if (realDay == day){/* selectedDay */
+			if (realDay == date.getDate()){/* selectedDay */
 				$td.addClass('active');
 			}
 			
@@ -159,8 +173,9 @@
 				$(this).addClass('active');
 				
 				var $picker = getParentPickerObject($(this));
-				var date = getPickedDate($picker);
-				draw($picker, false, date.getYear() + 1900, date.getMonth(), $(this).data("day"));
+				console.log($(this).data("dateStr"));
+				var date = new Date($(this).data("dateStr"));
+				draw($picker, false, date.getYear()+1900, date.getMonth(), date.getDate());
 			});
 			
 			$td.hover(
