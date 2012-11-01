@@ -40,20 +40,29 @@
 	var beforeMonth = function($obj){
 		var $picker = getParentPickerObject($obj);
 		var date = getPickedDate($picker);
-		draw($picker, true, date.getYear() + 1900, date.getMonth() - 1, date.getDate());
+		var targetMonth_lastDay = new Date(date.getYear() + 1900, date.getMonth(), 0).getDate();
+		console.log(targetMonth_lastDay);
+		if(targetMonth_lastDay < date.getDate()){
+			date.setDate(targetMonth_lastDay);
+		}
+		draw($picker, true, date.getYear() + 1900, date.getMonth() - 1, date.getDate(), date.getHours(), date.getMinutes());
 	};
 	
 	var nextMonth = function($obj){
 		var $picker = getParentPickerObject($obj);
 		var date = getPickedDate($picker);
-		draw($picker, true, date.getYear() + 1900, date.getMonth() + 1, date.getDate());
+		var targetMonth_lastDay = new Date(date.getYear() + 1900, date.getMonth() + 1, 0).getDate();
+		if(targetMonth_lastDay < date.getDate()){
+			date.setDate(targetMonth_lastDay);
+		}
+		draw($picker, true, date.getYear() + 1900, date.getMonth() + 1, date.getDate(), date.getHours(), date.getMinutes());
 	};
 	
 	var outputToInputObject = function($obj){
 		var date = getPickedDate($obj);
 		var $inp = getPickersInputObject($obj);
 		if($inp != null){
-			$inp.val(date.getYear()+1900 + "/" + zpadding(date.getMonth() + 1) + "/" + zpadding(date.getDate())  );
+			$inp.val(date.getYear()+1900 + "/" + zpadding(date.getMonth() + 1) + "/" + zpadding(date.getDate()) + "  " + zpadding(date.getHours()) + ":" + zpadding(date.getMinutes()) );
 		}
 	};
 	
@@ -70,7 +79,7 @@
 	var draw = function($picker, isAnim, year, month, day, hour, min){
 		var date = new Date();
 		if(hour != null){
-			date = new Date(year, month, day, hour, min);
+			date = new Date(year, month, day, hour, min, 0);
 		}else if(year != null){
 			date = new Date(year, month, day);
 		}else{
@@ -121,14 +130,16 @@
 		var $tr = $('<tr>');
 		$table.append($tr);
 		
+		/* Output wday cells */
 		for (var i=0;i<7;i++){
 			var $td = $('<th>');
 			$td.text(DAYS_OF_WEEK_EN[i]);
 			$tr.append($td);
 		}
 		
-		var allCellNum = Math.ceil((firstWday+lastDay) / 7) * 7;
-		for (var i=0;i<allCellNum;i++){
+		/* Output day cells */
+		var cellNum = Math.ceil((firstWday+lastDay) / 7) * 7;
+		for (var i=0;i<cellNum;i++){
 			var realDay = i+1-firstWday;
 			if(i%7==0){
 				$tr = $('<tr>');
@@ -136,17 +147,15 @@
 			}
 			
 			var $td = $('<td>');
-			if(firstWday > i){
-				/* Before months day */
+			
+			if(firstWday > i){ /* Before months day */
 				$td.text(beforeMonthLastDay + realDay);
 				$td.addClass('day_another_month');
 				$td.data("dateStr", dateBeforeMonth.getYear()+1900 + "/" + (dateBeforeMonth.getMonth()+1) + "/" + (beforeMonthLastDay + realDay));
-			}else if(i < firstWday+lastDay){
-				/* Now months day */
+			}else if(i < firstWday+lastDay){ /* Now months day */
 				$td.text(realDay);
 				$td.data("dateStr", (date.getYear()+1900) + "/" + (date.getMonth()+1) + "/" + realDay);
-			}else{
-				/* Next months day*/
+			}else{	/* Next months day */
 				$td.text(realDay-lastDay);
 				$td.addClass('day_another_month');
 				$td.data("dateStr", dateNextMonth.getYear()+1900 + "/" + (dateNextMonth.getMonth()+1) + "/" + (realDay-lastDay));
@@ -158,13 +167,13 @@
 				$td.addClass('wday_sat');
 			}
 			
-			if (realDay == date.getDate()){/* selectedDay */
+			if (realDay == date.getDate()){/* selected day */
 				$td.addClass('active');
 			}
 			
 			$td.data("day", realDay);
 			
-			/* Set event-handler to Calendar day cell */
+			/* Set event-handler to day cell */
 			
 			$td.click(function(){
 				if($(this).hasClass('hover')){
@@ -174,8 +183,9 @@
 				
 				var $picker = getParentPickerObject($(this));
 				console.log($(this).data("dateStr"));
-				var date = new Date($(this).data("dateStr"));
-				draw($picker, false, date.getYear()+1900, date.getMonth(), date.getDate());
+				var targetDate = new Date($(this).data("dateStr"));
+				var selectedDate = getPickedDate($picker);
+				draw($picker, false, targetDate.getYear()+1900, targetDate.getMonth(), targetDate.getDate(), selectedDate.getHours(), selectedDate.getMinutes());
 			});
 			
 			$td.hover(
@@ -196,18 +206,35 @@
 		/* Timelist */
 		var $timelist = $picker.children('.datepicker_inner_container').children('.datepicker_timelist');
 		$timelist.children().remove();
+		
+		/* Output time cells */
 		for(var hour=0;hour<24;hour++){
 			for(var min=0;min<=30;min+=30){
 				var $o = $('<div>');
 				$o.addClass('timelist_item');
 				$o.text(zpadding(hour) +":"+ zpadding(min));
+				
+				$o.data("hour", hour);
+				$o.data("min", min);
+				
 				$timelist.append($o);
 				
+				if (hour == date.getHours() && min == date.getMinutes()){ /* selected time */
+					$o.addClass('active');
+				}
+				
+				/* Set event handler to time cell */
 				$o.click(function(){
 					if($(this).hasClass('hover')){
 						$(this).removeClass('hover');
 					}
 					$(this).addClass('active');
+					
+					var $picker = getParentPickerObject($(this));
+					var date = getPickedDate($picker);
+					var hour = $(this).data("hour");
+					var min = $(this).data("min");
+					draw($picker, false, date.getYear()+1900, date.getMonth(), date.getDate(), hour, min);
 				});
 				$o.hover(
 					function(){
