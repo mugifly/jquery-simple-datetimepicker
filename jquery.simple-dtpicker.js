@@ -8,8 +8,9 @@
 	var DAYS_OF_WEEK_EN = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 	var DAYS_OF_WEEK_JA = ['日', '月', '火', '水', '木', '金', '土'];
 
-	var pickerObjects = [];
-	var inputObjects = [];
+	var PickerObjects = [];
+	var InputObjects = [];
+	var ActivePickerId = -1;
 
 	var getParentPickerObject = function(obj) {
 		var $obj = $(obj);
@@ -32,7 +33,7 @@
 		var $picker = getParentPickerObject($obj);
 		console.log($picker.data());
 		if ($picker.data("inputObjectId") != null) {
-			return $(inputObjects[$picker.data("inputObjectId")]);
+			return $(InputObjects[$picker.data("inputObjectId")]);
 		}
 		return null;
 	}
@@ -287,7 +288,7 @@
 		if (opt_inputObjectId != null) {
 			$picker.data("inputObjectId", opt_inputObjectId);
 		}
-		$picker.data("pickerId", pickerObjects.length);
+		$picker.data("pickerId", PickerObjects.length);
 
 		/* Header */
 		var $header = $('<div>');
@@ -309,12 +310,24 @@
 		$timelist.addClass('datepicker_timelist');
 		$inner.append($timelist);
 
-		pickerObjects.push($picker);
+		/* Set event handler to picker */
+		$picker.hover(
+			function(){
+				ActivePickerId = $(this).data("pickerId");
+			},
+			function(){
+				ActivePickerId = -1;
+			}
+		);
+
+		PickerObjects.push($picker);
 
 		draw($picker, true, true);
 	};
-
-	/* Initialize dtpicker */
+	
+	/**
+	 * Initialize dtpicker
+	 */
 	$.fn.dtpicker = function(config) {
 		var defaults = {
 
@@ -329,7 +342,9 @@
 		});
 	};
 
-	/* Initialize dtpicker, append to Text input field */
+	/**
+	 * Initialize dtpicker, append to Text input field
+	 * */
 	$.fn.appendDtpicker = function(config) {
 		var defaults = {
 			"inline": false
@@ -338,20 +353,21 @@
 		return this.each(function(i) {
 			/* Add input-field with inputsObjects array */
 			var input = this;
-			var inputObjectId = inputObjects.length;
-			inputObjects.push(input);
+			var inputObjectId = InputObjects.length;
+			InputObjects.push(input);
 
 			/* Make parent-div for picker */
 			console.log(this);
 			var $d = $('<div>');
 			$d.insertAfter(input);
 
-			var pickerId = pickerObjects.length;
+			var pickerId = PickerObjects.length;
 
 			/* Initialize picker */
 			var $picker_parent = $($d).dtpicker({
 				"inputObjectId" : inputObjectId
 			});
+			var $picker = $picker_parent.children('.datepicker');
 
 			/* Link input-field with picker*/
 			$(input).data('pickerId', pickerId);
@@ -360,7 +376,7 @@
 			
 			$(input).keyup(function() {
 				var $input = $(this);
-				var $picker = $(pickerObjects[$input.data('pickerId')]);
+				var $picker = $(PickerObjects[$input.data('pickerId')]);
 				if ($input.val() != null) {
 					var date = new Date($input.val());
 					if (isNaN(date.getDate()) == false) {/* Valid format... */
@@ -374,17 +390,43 @@
 				$(this).trigger('keyup');
 			});
 			
-			/* for NOT inline mode */
-			if(options.inline == false){
+			if(options.inline == true){
+				/* inline mode */
+				$picker.data('isInline',true);
+			}else{
+				/* float mode */
+				$picker.data('isInline',false);
 				$picker_parent.css("position","absolute");
-				$picker_parent.hide();
+				
+				/* Hide this picker */
+				$picker.hide();
+				
+				/* Set onClick event handler for input-field */
 				$(input).click(function(){
 					var $input = $(this);
-					var $picker = $(pickerObjects[$input.data('pickerId')]);
-					$($picker.parent()).show();
+					var $picker = $(PickerObjects[$input.data('pickerId')]);
+					ActivePickerId = $input.data('pickerId');
+					console.log("show:"+ActivePickerId);
+					$picker.show();
 				});
 			}
-
 		});
 	};
+	
+	/* Set event handler to Body element, for hide a floated-picker */
+	$(function(){
+		$('body').click(function(){
+			for(var i=0;i<PickerObjects.length;i++){
+				var $picker = $(PickerObjects[i]);
+				if(ActivePickerId != i){	/* if not-active picker */
+					if($picker.data("inputObjectId") != null && $picker.data("isInline") == false){
+						/* if append input-field && float picker */
+						console.log("hide:"+i);
+						$picker.hide();
+					}
+				}
+			}
+		});
+	});
+	
 })(jQuery); 
