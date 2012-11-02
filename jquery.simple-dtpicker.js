@@ -437,6 +437,7 @@
 				/* float mode */
 				$picker.data('isInline',false);
 				$picker_parent.css({"zIndex": 100});
+				$picker.css("width","auto");
 				
 				/* Hide this picker */
 				$picker.hide();
@@ -447,7 +448,8 @@
 					var $picker = $(PickerObjects[$input.data('pickerId')]);
 					ActivePickerId = $input.data('pickerId');
 					$picker.show();
-					$picker.parent().css("left", $input.offset().left);
+					$picker.parent().css("top", $input.offset().top + $input.outerHeight() + 2 + "px");
+					$picker.parent().css("left", $input.offset().left + "px");
 				});
 			}
 		});
