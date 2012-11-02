@@ -1,4 +1,4 @@
-dtpicker (jquery-simple-datetimepicker)
+jquery-simple-datetimepicker (jquery.simple-dtpicker.js)
 ========
 
 Date and time picker, simply. (jquery plugin)
