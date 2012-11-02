@@ -130,7 +130,8 @@
 		$header.append($link_next_month);
 
 		/* Calendar > Table */
-		var $table = $picker.children('.datepicker_inner_container').children('.datepicker_calendar').children('.datepicker_table');
+		var $calendar = $picker.children('.datepicker_inner_container').children('.datepicker_calendar');
+		var $table = $calendar.children('.datepicker_table');
 		$table.children().remove();
 		var $tr = $('<tr>');
 		$table.append($tr);
@@ -212,6 +213,9 @@
 		/* Timelist */
 		var $timelist = $picker.children('.datepicker_inner_container').children('.datepicker_timelist');
 		$timelist.children().remove();
+		
+		/* Set height to Timelist (Calendar innerHeight - Calendar padding) */
+		$timelist.css("height", $calendar.innerHeight() - 10 + 'px');
 
 		/* Output time cells */
 		for (var hour = 0; hour < 24; hour++) {
