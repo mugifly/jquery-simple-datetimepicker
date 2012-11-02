@@ -25,8 +25,9 @@
 	padding-left:	5px;
 	padding-right: 5px;
 	background-color:	#d2d2d2;
+	color: #636363;
 	text-align: center;
-	font-size: 10pt;
+	font-size: 9pt;
 	font-weight: bold;
 }
 
@@ -35,6 +36,7 @@
 		-webkit-user-select: none;
 		-moz-user-select: none;
 	cursor: pointer;
+	color: #6ba7c6;
 }
 
 .datepicker > .datepicker_header > a:hover {
@@ -64,9 +66,9 @@
 		-webkit-border-radius: 5px;  
 		-moz-border-radius: 5px;
 
-	box-shadow: 0.5px 0px 4px #c8c8c8;
-		-webkit-box-shadow: 0.5px 0px 4px #c8c8c8;
-		-moz-box-shadow: 0.5px 0px 4px #c8c8c8;
+	box-shadow: 0.5px 0px 5px #c8c8c8;
+		-webkit-box-shadow: 0.5px 0px 5px #c8c8c8;
+		-moz-box-shadow: 0.5px 0px 5px #c8c8c8;
 }
 
 .datepicker > .datepicker_inner_container:after {
@@ -124,6 +126,11 @@
 		-webkit-user-select: none;
 		-moz-user-select: none;
 	cursor: pointer;
+}
+
+.datepicker > .datepicker_inner_container > .datepicker_calendar > .datepicker_table > tbody > tr > td.today {
+	border-bottom: #bfbfbf solid 2px;
+	margin-bottom: -2px;
 }
 
 .datepicker > .datepicker_inner_container > .datepicker_calendar > .datepicker_table > tbody > tr > td.wday_sat {

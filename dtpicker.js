@@ -81,6 +81,7 @@
 
 	var draw = function($picker, isAnim, isOutputToInputObject, year, month, day, hour, min) {
 		var date = new Date();
+		
 		if (hour != null) {
 			date = new Date(year, month, day, hour, min, 0);
 		} else if (year != null) {
@@ -92,6 +93,7 @@
 
 		$($picker).data("pickedDate", date);
 
+		var todayDate = new Date(); 
 		var firstWday = new Date(date.getYear() + 1900, date.getMonth(), 1).getDay();
 		var lastDay = new Date(date.getYear() + 1900, date.getMonth() + 1, 0).getDate();
 		var beforeMonthLastDay = new Date(date.getYear() + 1900, date.getMonth(), 0).getDate();
@@ -150,7 +152,10 @@
 			}
 
 			var $td = $('<td>');
-
+			$td.data("day", realDay);
+			
+			$tr.append($td);
+			
 			if (firstWday > i) {/* Before months day */
 				$td.text(beforeMonthLastDay + realDay);
 				$td.addClass('day_another_month');
@@ -173,8 +178,10 @@
 			if (realDay == date.getDate()) {/* selected day */
 				$td.addClass('active');
 			}
-
-			$td.data("day", realDay);
+			
+			if (date.getMonth() == todayDate.getMonth() && realDay == todayDate.getDate()) {/* today */
+				$td.addClass('today');
+			}
 
 			/* Set event-handler to day cell */
 
@@ -200,8 +207,6 @@
 					$(this).removeClass('hover');
 				}
 			});
-
-			$tr.append($td);
 		}
 
 		/* Timelist */
@@ -225,6 +230,7 @@
 				}
 
 				/* Set event handler to time cell */
+				
 				$o.click(function() {
 					if ($(this).hasClass('hover')) {
 						$(this).removeClass('hover');
@@ -237,6 +243,7 @@
 					var min = $(this).data("min");
 					draw($picker, false, true, date.getYear() + 1900, date.getMonth(), date.getDate(), hour, min);
 				});
+				
 				$o.hover(function() {
 					if (! $(this).hasClass('active')) {
 						$(this).addClass('hover');
