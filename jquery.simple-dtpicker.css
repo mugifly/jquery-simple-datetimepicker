@@ -164,7 +164,7 @@
 */
 
 .datepicker > .datepicker_inner_container > .datepicker_timelist {
-	/*float: left;*/
+	float: left;
 	width: auto;
 	height: 118px;
 	
@@ -227,6 +227,9 @@
 
 .datepicker > .datepicker_inner_container > .datepicker_timelist::-webkit-scrollbar-thumb {
 	background: #aaaaaa;
+	border-radius: 3px;
+		-webkit-border-radius: 3px;  
+		-moz-border-radius: 3px;
 }
 
 .datepicker > .datepicker_inner_container > .datepicker_timelist::-webkit-scrollbar-corner {
@@ -237,7 +240,7 @@
 	padding-top:   1px;
 	padding-bottom:1px;
 	padding-left:  7px;
-	padding-right: 20px;
+	padding-right: 25px;
 	margin-top: 5px;
 	margin-bottom: 2px;
 	font-size: small;
