@@ -106,8 +106,13 @@
 			$inner.stop().queue([]);
 			$inner.fadeTo("fast", 0.5);
 		}
-
-		/* Header */
+		
+		/* Remind scroll state */
+		var $timelist = $picker.children('.datepicker_inner_container').children('.datepicker_timelist');
+		var drawBefore_timeList_scrollTop = $timelist.scrollTop();
+		console.log(drawBefore_timeList_scrollTop);
+		
+		/* Header ----- */
 		var $header = $picker.children('.datepicker_header');
 		$header.children().remove();
 		var $link_before_month = $('<a>');
@@ -129,7 +134,7 @@
 		$header.append($now_month);
 		$header.append($link_next_month);
 
-		/* Calendar > Table */
+		/* Calendar > Table ----- */
 		var $calendar = $picker.children('.datepicker_inner_container').children('.datepicker_calendar');
 		var $table = $calendar.children('.datepicker_table');
 		$table.children().remove();
@@ -210,8 +215,7 @@
 			});
 		}
 
-		/* Timelist */
-		var $timelist = $picker.children('.datepicker_inner_container').children('.datepicker_timelist');
+		/* Timelist ----- */
 		$timelist.children().remove();
 		
 		/* Set height to Timelist (Calendar innerHeight - Calendar padding) */
@@ -259,6 +263,8 @@
 				});
 			}
 		}
+		
+		$timelist.scrollTop(drawBefore_timeList_scrollTop);
 
 		if (isAnim == true) {
 			$inner.fadeTo("fast", 1.0);
