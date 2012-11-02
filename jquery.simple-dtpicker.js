@@ -390,6 +390,12 @@
 
 			/* Make parent-div for picker */
 			var $d = $('<div>');
+			
+			if(options.inline == false){
+				/* float mode */
+				$d.css("position","absolute");
+			}
+			
 			$d.insertAfter(input);
 
 			var pickerId = PickerObjects.length;
@@ -430,7 +436,7 @@
 			}else{
 				/* float mode */
 				$picker.data('isInline',false);
-				$picker_parent.css("position","absolute");
+				$picker_parent.css({"zIndex": 100});
 				
 				/* Hide this picker */
 				$picker.hide();
