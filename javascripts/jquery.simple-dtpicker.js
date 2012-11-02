@@ -8,8 +8,9 @@
 	var DAYS_OF_WEEK_EN = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 	var DAYS_OF_WEEK_JA = ['日', '月', '火', '水', '木', '金', '土'];
 
-	var pickerObjects = [];
-	var inputObjects = [];
+	var PickerObjects = [];
+	var InputObjects = [];
+	var ActivePickerId = -1;
 
 	var getParentPickerObject = function(obj) {
 		var $obj = $(obj);
@@ -23,16 +24,14 @@
 					$picker = $(parents[i]);
 				}
 			}
-			console.log($picker);
 		}
 		return $picker;
 	};
 
 	var getPickersInputObject = function($obj) {
 		var $picker = getParentPickerObject($obj);
-		console.log($picker.data());
 		if ($picker.data("inputObjectId") != null) {
-			return $(inputObjects[$picker.data("inputObjectId")]);
+			return $(InputObjects[$picker.data("inputObjectId")]);
 		}
 		return null;
 	}
@@ -40,7 +39,6 @@
 		var $picker = getParentPickerObject($obj);
 		var date = getPickedDate($picker);
 		var targetMonth_lastDay = new Date(date.getYear() + 1900, date.getMonth(), 0).getDate();
-		console.log(targetMonth_lastDay);
 		if (targetMonth_lastDay < date.getDate()) {
 			date.setDate(targetMonth_lastDay);
 		}
@@ -89,31 +87,56 @@
 		} else {
 			date = new Date();
 		}
-		console.log("dtpicker - draw()..." + year + "," + month + "," + day + " " + hour + ":" + min + " -> " + date);
-
-		$($picker).data("pickedDate", date);
-
+		//console.log("dtpicker - draw()..." + year + "," + month + "," + day + " " + hour + ":" + min + " -> " + date);
+		
 		var todayDate = new Date(); 
 		var firstWday = new Date(date.getYear() + 1900, date.getMonth(), 1).getDay();
 		var lastDay = new Date(date.getYear() + 1900, date.getMonth() + 1, 0).getDate();
 		var beforeMonthLastDay = new Date(date.getYear() + 1900, date.getMonth(), 0).getDate();
 		var dateBeforeMonth = new Date(date.getYear() + 1900, date.getMonth(), 0);
 		var dateNextMonth = new Date(date.getYear() + 1900, date.getMonth() + 2, 0);
-
+		
+		/* Collect each part */
+		var $header = $picker.children('.datepicker_header');
 		var $inner = $picker.children('.datepicker_inner_container');
-
-		if (isAnim == true) {
-			$inner.stop().queue([]);
-			$inner.fadeTo("fast", 0.5);
+			var $calendar = $picker.children('.datepicker_inner_container').children('.datepicker_calendar');
+				var $table = $calendar.children('.datepicker_table');
+			var $timelist = $picker.children('.datepicker_inner_container').children('.datepicker_timelist');
+		
+		/* Grasp a point that will be changed */
+		var changePoint = "";
+		var oldDate = getPickedDate($picker);
+		if(oldDate != null){
+			if(oldDate.getMonth() != date.getMonth() || oldDate.getDate() != date.getDate()){
+				changePoint = "calendar";
+			} else if (oldDate.getHours() != date.getHours() || oldDate.getMinutes() != date.getMinutes()){
+				if(date.getMinutes() == 0 || date.getMinutes() == 30){
+					changePoint = "timelist";
+				}
+			}
 		}
 		
-		/* Remind scroll state */
-		var $timelist = $picker.children('.datepicker_inner_container').children('.datepicker_timelist');
+		/* Save newly date to Picker data */
+		$($picker).data("pickedDate", date);
+		
+		/* Fade-out animation */
+		if (isAnim == true) {
+			if(changePoint == "calendar"){
+				$calendar.stop().queue([]);
+				$calendar.fadeTo("fast", 0.5);
+			}else if(changePoint == "timelist"){
+				$timelist.stop().queue([]);
+				$timelist.fadeTo("fast", 0.5);
+			}
+		}
+		
+		/* Remind timelist scroll state */
 		var drawBefore_timeList_scrollTop = $timelist.scrollTop();
-		console.log(drawBefore_timeList_scrollTop);
+		
+		/* New timelist  */
+		var timelist_activeTimeCell_offsetTop = -1;
 		
 		/* Header ----- */
-		var $header = $picker.children('.datepicker_header');
 		$header.children().remove();
 		var $link_before_month = $('<a>');
 		$link_before_month.text('<');
@@ -135,8 +158,6 @@
 		$header.append($link_next_month);
 
 		/* Calendar > Table ----- */
-		var $calendar = $picker.children('.datepicker_inner_container').children('.datepicker_calendar');
-		var $table = $calendar.children('.datepicker_table');
 		$table.children().remove();
 		var $tr = $('<tr>');
 		$table.append($tr);
@@ -198,7 +219,6 @@
 				$(this).addClass('active');
 
 				var $picker = getParentPickerObject($(this));
-				console.log($(this).data("dateStr"));
 				var targetDate = new Date($(this).data("dateStr"));
 				var selectedDate = getPickedDate($picker);
 				draw($picker, false, true, targetDate.getYear() + 1900, targetDate.getMonth(), targetDate.getDate(), selectedDate.getHours(), selectedDate.getMinutes());
@@ -235,6 +255,7 @@
 
 				if (hour == date.getHours() && min == date.getMinutes()) {/* selected time */
 					$o.addClass('active');
+					timelist_activeTimeCell_offsetTop = $o.offset().top;
 				}
 
 				/* Set event handler to time cell */
@@ -264,12 +285,24 @@
 			}
 		}
 		
-		$timelist.scrollTop(drawBefore_timeList_scrollTop);
-
-		if (isAnim == true) {
-			$inner.fadeTo("fast", 1.0);
+		/* Scroll the timelist */
+		if(isAnim == true){
+			/* Scroll to new active time-cell position */
+			$timelist.scrollTop(timelist_activeTimeCell_offsetTop - $timelist.offset().top);
+		}else{
+			/* Scroll to position that before redraw. */
+			$timelist.scrollTop(drawBefore_timeList_scrollTop);
 		}
 
+		/* Fade-in animation */
+		if (isAnim == true) {
+			if(changePoint == "calendar"){
+				$calendar.fadeTo("fast", 1.0);
+			}else if(changePoint == "timelist"){
+				$timelist.fadeTo("fast", 1.0);
+			}
+		}
+		
 		/* Output to InputForm */
 		if (isOutputToInputObject == true) {
 			outputToInputObject($picker);
@@ -277,7 +310,7 @@
 	};
 
 	var init = function($obj, opt_inputObjectId) {
-		console.log("dtpicker init... ");
+		//console.log("dtpicker init... ");
 
 		/* Container */
 		var $picker = $('<div>');
@@ -287,7 +320,7 @@
 		if (opt_inputObjectId != null) {
 			$picker.data("inputObjectId", opt_inputObjectId);
 		}
-		$picker.data("pickerId", pickerObjects.length);
+		$picker.data("pickerId", PickerObjects.length);
 
 		/* Header */
 		var $header = $('<div>');
@@ -309,12 +342,24 @@
 		$timelist.addClass('datepicker_timelist');
 		$inner.append($timelist);
 
-		pickerObjects.push($picker);
+		/* Set event handler to picker */
+		$picker.hover(
+			function(){
+				ActivePickerId = $(this).data("pickerId");
+			},
+			function(){
+				ActivePickerId = -1;
+			}
+		);
+
+		PickerObjects.push($picker);
 
 		draw($picker, true, true);
 	};
-
-	/* Initialize dtpicker */
+	
+	/**
+	 * Initialize dtpicker
+	 */
 	$.fn.dtpicker = function(config) {
 		var defaults = {
 
@@ -329,7 +374,9 @@
 		});
 	};
 
-	/* Initialize dtpicker, append to Text input field */
+	/**
+	 * Initialize dtpicker, append to Text input field
+	 * */
 	$.fn.appendDtpicker = function(config) {
 		var defaults = {
 			"inline": false
@@ -338,20 +385,20 @@
 		return this.each(function(i) {
 			/* Add input-field with inputsObjects array */
 			var input = this;
-			var inputObjectId = inputObjects.length;
-			inputObjects.push(input);
+			var inputObjectId = InputObjects.length;
+			InputObjects.push(input);
 
 			/* Make parent-div for picker */
-			console.log(this);
 			var $d = $('<div>');
 			$d.insertAfter(input);
 
-			var pickerId = pickerObjects.length;
+			var pickerId = PickerObjects.length;
 
 			/* Initialize picker */
 			var $picker_parent = $($d).dtpicker({
 				"inputObjectId" : inputObjectId
 			});
+			var $picker = $picker_parent.children('.datepicker');
 
 			/* Link input-field with picker*/
 			$(input).data('pickerId', pickerId);
@@ -360,31 +407,58 @@
 			
 			$(input).keyup(function() {
 				var $input = $(this);
-				var $picker = $(pickerObjects[$input.data('pickerId')]);
-				if ($input.val() != null) {
+				var $picker = $(PickerObjects[$input.data('pickerId')]);
+				if ($input.val() != null && (
+						$input.data('beforeVal') == null ||
+						( $input.data('beforeVal') != null && $input.data('beforeVal') != $input.val())	)
+				) { /* beforeValue == null || beforeValue != nowValue  */
 					var date = new Date($input.val());
 					if (isNaN(date.getDate()) == false) {/* Valid format... */
-						console.log(date.getDate())
 						draw_date($picker, true, false, date);
 					}
 				}
+				$input.data('beforeVal',$input.val())
 			});
 			
 			$(input).change(function(){
 				$(this).trigger('keyup');
 			});
 			
-			/* for NOT inline mode */
-			if(options.inline == false){
+			if(options.inline == true){
+				/* inline mode */
+				$picker.data('isInline',true);
+			}else{
+				/* float mode */
+				$picker.data('isInline',false);
 				$picker_parent.css("position","absolute");
-				$picker_parent.hide();
+				
+				/* Hide this picker */
+				$picker.hide();
+				
+				/* Set onClick event handler for input-field */
 				$(input).click(function(){
 					var $input = $(this);
-					var $picker = $(pickerObjects[$input.data('pickerId')]);
-					$($picker.parent()).show();
+					var $picker = $(PickerObjects[$input.data('pickerId')]);
+					ActivePickerId = $input.data('pickerId');
+					$picker.show();
 				});
 			}
-
 		});
 	};
+	
+	/* Set event handler to Body element, for hide a floated-picker */
+	$(function(){
+		$('body').click(function(){
+			for(var i=0;i<PickerObjects.length;i++){
+				var $picker = $(PickerObjects[i]);
+				if(ActivePickerId != i){	/* if not-active picker */
+					if($picker.data("inputObjectId") != null && $picker.data("isInline") == false){
+						/* if append input-field && float picker */
+						$picker.hide();
+					}
+				}
+			}
+		});
+	});
+	
 })(jQuery); 
