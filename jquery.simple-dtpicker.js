@@ -447,6 +447,7 @@
 					var $picker = $(PickerObjects[$input.data('pickerId')]);
 					ActivePickerId = $input.data('pickerId');
 					$picker.show();
+					$picker.parent().css("left", $input.offset().left);
 				});
 			}
 		});
