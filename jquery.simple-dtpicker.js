@@ -24,14 +24,12 @@
 					$picker = $(parents[i]);
 				}
 			}
-			console.log($picker);
 		}
 		return $picker;
 	};
 
 	var getPickersInputObject = function($obj) {
 		var $picker = getParentPickerObject($obj);
-		console.log($picker.data());
 		if ($picker.data("inputObjectId") != null) {
 			return $(InputObjects[$picker.data("inputObjectId")]);
 		}
@@ -91,30 +89,52 @@
 			date = new Date();
 		}
 		console.log("dtpicker - draw()..." + year + "," + month + "," + day + " " + hour + ":" + min + " -> " + date);
-
-		$($picker).data("pickedDate", date);
-
+		
 		var todayDate = new Date(); 
 		var firstWday = new Date(date.getYear() + 1900, date.getMonth(), 1).getDay();
 		var lastDay = new Date(date.getYear() + 1900, date.getMonth() + 1, 0).getDate();
 		var beforeMonthLastDay = new Date(date.getYear() + 1900, date.getMonth(), 0).getDate();
 		var dateBeforeMonth = new Date(date.getYear() + 1900, date.getMonth(), 0);
 		var dateNextMonth = new Date(date.getYear() + 1900, date.getMonth() + 2, 0);
-
+		
+		/* Collect each part */
+		var $header = $picker.children('.datepicker_header');
 		var $inner = $picker.children('.datepicker_inner_container');
-
+			var $calendar = $picker.children('.datepicker_inner_container').children('.datepicker_calendar');
+				var $table = $calendar.children('.datepicker_table');
+			var $timelist = $picker.children('.datepicker_inner_container').children('.datepicker_timelist');
+		
+		/* Grasp a point that will be changed */
+		var changePoint = "";
+		var oldDate = getPickedDate($picker);
+		if(oldDate != null){
+			if(oldDate.getMonth() != date.getMonth() || oldDate.getDate() != date.getDate()){
+				changePoint = "calendar";
+			} else if (oldDate.getHours() != date.getHours() || oldDate.getMinutes() != date.getMinutes()){
+				if(date.getMinutes() == 0 || date.getMinutes() == 30){
+					changePoint = "timelist";
+				}
+			}
+		}
+		
+		/* Save newly date to Picker data */
+		$($picker).data("pickedDate", date);
+		
+		/* Fade-out animation */
 		if (isAnim == true) {
-			$inner.stop().queue([]);
-			$inner.fadeTo("fast", 0.5);
+			if(changePoint == "calendar"){
+				$calendar.stop().queue([]);
+				$calendar.fadeTo("fast", 0.5);
+			}else if(changePoint == "timelist"){
+				$timelist.stop().queue([]);
+				$timelist.fadeTo("fast", 0.5);
+			}
 		}
 		
 		/* Remind scroll state */
-		var $timelist = $picker.children('.datepicker_inner_container').children('.datepicker_timelist');
 		var drawBefore_timeList_scrollTop = $timelist.scrollTop();
-		console.log(drawBefore_timeList_scrollTop);
 		
 		/* Header ----- */
-		var $header = $picker.children('.datepicker_header');
 		$header.children().remove();
 		var $link_before_month = $('<a>');
 		$link_before_month.text('<');
@@ -136,8 +156,6 @@
 		$header.append($link_next_month);
 
 		/* Calendar > Table ----- */
-		var $calendar = $picker.children('.datepicker_inner_container').children('.datepicker_calendar');
-		var $table = $calendar.children('.datepicker_table');
 		$table.children().remove();
 		var $tr = $('<tr>');
 		$table.append($tr);
@@ -199,7 +217,6 @@
 				$(this).addClass('active');
 
 				var $picker = getParentPickerObject($(this));
-				console.log($(this).data("dateStr"));
 				var targetDate = new Date($(this).data("dateStr"));
 				var selectedDate = getPickedDate($picker);
 				draw($picker, false, true, targetDate.getYear() + 1900, targetDate.getMonth(), targetDate.getDate(), selectedDate.getHours(), selectedDate.getMinutes());
@@ -267,10 +284,15 @@
 		
 		$timelist.scrollTop(drawBefore_timeList_scrollTop);
 
+		/* Fade-in animation */
 		if (isAnim == true) {
-			$inner.fadeTo("fast", 1.0);
+			if(changePoint == "calendar"){
+				$calendar.fadeTo("fast", 1.0);
+			}else if(changePoint == "timelist"){
+				$timelist.fadeTo("fast", 1.0);
+			}
 		}
-
+		
 		/* Output to InputForm */
 		if (isOutputToInputObject == true) {
 			outputToInputObject($picker);
@@ -357,7 +379,6 @@
 			InputObjects.push(input);
 
 			/* Make parent-div for picker */
-			console.log(this);
 			var $d = $('<div>');
 			$d.insertAfter(input);
 
@@ -380,7 +401,6 @@
 				if ($input.val() != null) {
 					var date = new Date($input.val());
 					if (isNaN(date.getDate()) == false) {/* Valid format... */
-						console.log(date.getDate())
 						draw_date($picker, true, false, date);
 					}
 				}
@@ -406,7 +426,6 @@
 					var $input = $(this);
 					var $picker = $(PickerObjects[$input.data('pickerId')]);
 					ActivePickerId = $input.data('pickerId');
-					console.log("show:"+ActivePickerId);
 					$picker.show();
 				});
 			}
@@ -421,7 +440,6 @@
 				if(ActivePickerId != i){	/* if not-active picker */
 					if($picker.data("inputObjectId") != null && $picker.data("isInline") == false){
 						/* if append input-field && float picker */
-						console.log("hide:"+i);
 						$picker.hide();
 					}
 				}
