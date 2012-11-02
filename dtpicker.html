@@ -15,10 +15,29 @@
 		<h2>Demo - dtpicker (jquery-simple-datetimepicker)</h2>
 	</header>
 	
+	<h4>Inline</h4>
+	<div id="date_picker"> </div>
+	<script type="text/javascript">
+		$(function(){
+			$('#date_picker').dtpicker();
+		});
+	</script>
+	
+	<h4>Append to Input-field</h4>
 	<input type="text" name="date" value="2012/12/01 10:00">
 	<script type="text/javascript">
 		$(function(){
 			$('*[name=date]').appendDtpicker();
+		});
+	</script>
+	<br>
+	aaaaaaaaaaaaaaaaaaaaaaaaaaaa<br>
+	
+	<h4>Append to Input-field (Inline)</h4>
+	<input type="text" name="date2" value="2012/12/01 10:00">
+	<script type="text/javascript">
+		$(function(){
+			$('*[name=date2]').appendDtpicker({"inline": true});
 		});
 	</script>
 	
