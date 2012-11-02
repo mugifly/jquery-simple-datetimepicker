@@ -171,7 +171,7 @@
 	margin-top: -0.5px;
 	padding: 5px;
 	padding-left: 0px;
-	padding-right: 0px;
+	/*padding-right: 0px;*/
 	
 	overflow: auto;
 	overflow-x: hidden; 
