@@ -164,7 +164,7 @@
 */
 
 .datepicker > .datepicker_inner_container > .datepicker_timelist {
-	/*float: left;*/
+	float: left;
 	width: auto;
 	height: 118px;
 	
