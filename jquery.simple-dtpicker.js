@@ -39,7 +39,6 @@
 		var $picker = getParentPickerObject($obj);
 		var date = getPickedDate($picker);
 		var targetMonth_lastDay = new Date(date.getYear() + 1900, date.getMonth(), 0).getDate();
-		console.log(targetMonth_lastDay);
 		if (targetMonth_lastDay < date.getDate()) {
 			date.setDate(targetMonth_lastDay);
 		}
@@ -88,7 +87,7 @@
 		} else {
 			date = new Date();
 		}
-		console.log("dtpicker - draw()..." + year + "," + month + "," + day + " " + hour + ":" + min + " -> " + date);
+		//console.log("dtpicker - draw()..." + year + "," + month + "," + day + " " + hour + ":" + min + " -> " + date);
 		
 		var todayDate = new Date(); 
 		var firstWday = new Date(date.getYear() + 1900, date.getMonth(), 1).getDay();
@@ -131,8 +130,11 @@
 			}
 		}
 		
-		/* Remind scroll state */
+		/* Remind timelist scroll state */
 		var drawBefore_timeList_scrollTop = $timelist.scrollTop();
+		
+		/* New timelist  */
+		var timelist_activeTimeCell_offsetTop = -1;
 		
 		/* Header ----- */
 		$header.children().remove();
@@ -253,6 +255,7 @@
 
 				if (hour == date.getHours() && min == date.getMinutes()) {/* selected time */
 					$o.addClass('active');
+					timelist_activeTimeCell_offsetTop = $o.offset().top;
 				}
 
 				/* Set event handler to time cell */
@@ -282,7 +285,14 @@
 			}
 		}
 		
-		$timelist.scrollTop(drawBefore_timeList_scrollTop);
+		/* Scroll the timelist */
+		if(isAnim == true){
+			/* Scroll to new active time-cell position */
+			$timelist.scrollTop(timelist_activeTimeCell_offsetTop - $timelist.offset().top);
+		}else{
+			/* Scroll to position that before redraw. */
+			$timelist.scrollTop(drawBefore_timeList_scrollTop);
+		}
 
 		/* Fade-in animation */
 		if (isAnim == true) {
@@ -300,7 +310,7 @@
 	};
 
 	var init = function($obj, opt_inputObjectId) {
-		console.log("dtpicker init... ");
+		//console.log("dtpicker init... ");
 
 		/* Container */
 		var $picker = $('<div>');
@@ -398,12 +408,16 @@
 			$(input).keyup(function() {
 				var $input = $(this);
 				var $picker = $(PickerObjects[$input.data('pickerId')]);
-				if ($input.val() != null) {
+				if ($input.val() != null && (
+						$input.data('beforeVal') == null ||
+						( $input.data('beforeVal') != null && $input.data('beforeVal') != $input.val())	)
+				) { /* beforeValue == null || beforeValue != nowValue  */
 					var date = new Date($input.val());
 					if (isNaN(date.getDate()) == false) {/* Valid format... */
 						draw_date($picker, true, false, date);
 					}
 				}
+				$input.data('beforeVal',$input.val())
 			});
 			
 			$(input).change(function(){
