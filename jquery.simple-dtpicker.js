@@ -390,6 +390,12 @@
 
 			/* Make parent-div for picker */
 			var $d = $('<div>');
+			
+			if(options.inline == false){
+				/* float mode */
+				$d.css("position","absolute");
+			}
+			
 			$d.insertAfter(input);
 
 			var pickerId = PickerObjects.length;
@@ -430,7 +436,8 @@
 			}else{
 				/* float mode */
 				$picker.data('isInline',false);
-				$picker_parent.css("position","absolute");
+				$picker_parent.css({"zIndex": 100});
+				$picker.css("width","auto");
 				
 				/* Hide this picker */
 				$picker.hide();
@@ -441,6 +448,8 @@
 					var $picker = $(PickerObjects[$input.data('pickerId')]);
 					ActivePickerId = $input.data('pickerId');
 					$picker.show();
+					$picker.parent().css("top", $input.offset().top + $input.outerHeight() + 2 + "px");
+					$picker.parent().css("left", $input.offset().left + "px");
 				});
 			}
 		});
