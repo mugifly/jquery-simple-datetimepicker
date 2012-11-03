@@ -45,15 +45,30 @@
 	</script>
 	
 	<h4>Set options</h4>
+		About details for these options, please see: <a href="https://github.com/mugifly/jquery-simple-datetimepicker/wiki/Options">Wiki</a>.
 	
-		<h5>Current date ("current": "2012/3/4 12:30")</h5>
+		<h5>Current date ("current": "2012-3-4 12:30")</h5>
 		<input type="text" name="date3" value="">
 		<script type="text/javascript">
 			$(function(){
-				$('*[name=date3]').appendDtpicker({"inline": true, "current": "2012/3/4 12:30"});
+				$('*[name=date3]').appendDtpicker({
+					"inline": true,
+					"current": "2012-3-4 12:30"
+				});
 			});
 		</script>
-	
+
+		<h5>dateFormat ("dateFormat": "yy/mm/dd h:m")</h5>
+		<input type="text" name="date4" value="">
+		<script type="text/javascript">
+			$(function(){
+				$('*[name=date4]').appendDtpicker({
+					"inline": true,
+					"dateFormat": "yy/mm/dd h:m"
+				});
+			});
+		</script>
+		
 	<footer>
 		<a href="https://github.com/mugifly/jquery-simple-datetimepicker">jquery.simple-dtpicker.js (jquery-simple-datetimepicker)</a><br>
 		 - Your feedback is highly appreciated :) 
