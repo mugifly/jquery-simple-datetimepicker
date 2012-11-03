@@ -58,13 +58,25 @@
 			});
 		</script>
 
-		<h5>dateFormat ("dateFormat": "yy/mm/dd h:m")</h5>
+		<h5>dateFormat ("dateFormat": "YY/MM/DD h:m")</h5>
 		<input type="text" name="date4" value="">
 		<script type="text/javascript">
 			$(function(){
 				$('*[name=date4]').appendDtpicker({
 					"inline": true,
-					"dateFormat": "yy/mm/dd h:m"
+					"dateFormat": "YY/MM/DD h:m"
+				});
+			});
+		</script>
+		
+
+		<h5>locale ("locale": "ja")</h5>
+		<input type="text" name="date5" value="">
+		<script type="text/javascript">
+			$(function(){
+				$('*[name=date5]').appendDtpicker({
+					"inline": true,
+					"locale": "ja"
 				});
 			});
 		</script>

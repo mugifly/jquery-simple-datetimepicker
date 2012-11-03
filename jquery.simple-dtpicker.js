@@ -59,32 +59,37 @@
 		var date = getPickedDate($picker);
 		var $inp = getPickersInputObject($picker);
 		var dateFormat = $picker.data("dateFormat");
+		var locale = $picker.data("locale");
 		var str = "";
 		if ($inp == null) {
 			return;
 		}
 		console.log(dateFormat);
+		
 		if (dateFormat == "default"){
-			str = (date.getYear() + 1900) + "-" + zpadding(date.getMonth() + 1) + "-" + zpadding(date.getDate())
-					+ " " + zpadding(date.getHours()) + ":" + zpadding(date.getMinutes());
-		}else{
-			str = dateFormat;
-			var y = date.getYear() + 1900;
-			var m = date.getMonth() + 1;
-			var d = date.getDate();
-			var hou = date.getHours();
-			var min = date.getMinutes();
-			str = str.replace(/YYYY/gi, y)
-				.replace(/YY/gi, y - 2000)/* century */
-				.replace(/MM/gi, zpadding(m))
-				.replace(/M/gi, m)
-				.replace(/DD/gi, zpadding(d))
-				.replace(/D/gi, d)
-				.replace(/HH/gi, zpadding(hou))
-				.replace(/H/gi, hou)
-				.replace(/MM/gi, zpadding(min))
-				.replace(/M/gi, min);
+			if(locale == "ja"){
+				dateFormat = "YYYY/MM/DD hh:mm";
+			}else{
+				dateFormat = "YYYY-MM-DD hh:mm";
+			}
 		}
+		
+		str = dateFormat;
+		var y = date.getYear() + 1900;
+		var m = date.getMonth() + 1;
+		var d = date.getDate();
+		var hou = date.getHours();
+		var min = date.getMinutes();
+		str = str.replace(/YYYY/gi, y)
+			.replace(/YY/g, y - 2000)/* century */
+			.replace(/MM/g, zpadding(m))
+			.replace(/M/g, m)
+			.replace(/DD/g, zpadding(d))
+			.replace(/D/g, d)
+			.replace(/hh/g, zpadding(hou))
+			.replace(/h/g, hou)
+			.replace(/mm/g, zpadding(min))
+			.replace(/m/g, min);
 		$inp.val(str);
 	};
 
@@ -117,6 +122,13 @@
 		/* Read options */
 		var isAnim = option.isAnim;
 		var isOutputToInputObject = option.isOutputToInputObject;
+		
+		/* Read locale option */
+		var locale = $picker.data("locale");
+		var daysOfWeek = DAYS_OF_WEEK_EN;
+		if(locale == "ja"){
+			daysOfWeek = DAYS_OF_WEEK_JA;
+		}  
 		
 		/* Calculate dates */
 		var todayDate = new Date(); 
@@ -175,7 +187,11 @@
 		});
 
 		var $now_month = $('<span>');
-		$now_month.text((date.getYear() + 1900) + " / " + zpadding(date.getMonth() + 1));
+		if(locale == "en"){
+			$now_month.text((date.getYear() + 1900) + " - " + zpadding(date.getMonth() + 1));
+		}else if(locale == "ja"){
+			$now_month.text((date.getYear() + 1900) + " / " + zpadding(date.getMonth() + 1));
+		}
 
 		var $link_next_month = $('<a>');
 		$link_next_month.text('>');
@@ -195,7 +211,7 @@
 		/* Output wday cells */
 		for (var i = 0; i < 7; i++) {
 			var $td = $('<th>');
-			$td.text(DAYS_OF_WEEK_EN[i]);
+			$td.text(daysOfWeek[i]);
 			$tr.append($td);
 		}
 
@@ -354,6 +370,7 @@
 		}
 		$picker.data("pickerId", PickerObjects.length);
 		$picker.data("dateFormat", opt.dateFormat);
+		$picker.data("locale", opt.locale);
 
 		/* Header */
 		var $header = $('<div>');
@@ -395,9 +412,10 @@
 	 */
 	$.fn.dtpicker = function(config) {
 		var defaults = {
-			"inputObjectId": undefined,
-			"current": new Date().toString(),
-			"dateFormat": "default"
+			"inputObjectId": 	undefined,
+			"current": 		new Date().toString(),
+			"dateFormat": 	"default",
+			"locale": 			"en"
 		};
 		
 		var options = $.extend(defaults, config);
@@ -415,7 +433,8 @@
 		var defaults = {
 			"inline": false,
 			"current": new Date().toString(),
-			"dateFormat": "default"
+			"dateFormat": "default",
+			"locale": 			"en"
 		}
 		var options = $.extend(defaults, config);
 		return this.each(function(i) {
