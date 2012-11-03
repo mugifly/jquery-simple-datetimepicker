@@ -309,7 +309,7 @@
 		}
 	};
 
-	var init = function($obj, opt_inputObjectId) {
+	var init = function($obj, opt) {
 		//console.log("dtpicker init... ");
 
 		/* Container */
@@ -317,8 +317,8 @@
 		$picker.addClass('datepicker')
 		$obj.append($picker);
 
-		if (opt_inputObjectId != null) {
-			$picker.data("inputObjectId", opt_inputObjectId);
+		if (opt.inputObjectId != null) {
+			$picker.data("inputObjectId", opt.inputObjectId);
 		}
 		$picker.data("pickerId", PickerObjects.length);
 
@@ -354,7 +354,7 @@
 
 		PickerObjects.push($picker);
 
-		draw($picker, true, true);
+		draw_date($picker, true, true, opt.current);
 	};
 	
 	/**
@@ -362,15 +362,15 @@
 	 */
 	$.fn.dtpicker = function(config) {
 		var defaults = {
-
-		}
+			"current": new Date().toString(),
+			"inputObjectId": undefined
+		};
 		var options = $.extend(defaults, config);
 		return this.each(function(i) {
-			if(config == null || config.inputObjectId == undefined){
-				init($(this));
-			}else{
-				init($(this), config.inputObjectId);
-			}
+			init($(this), {
+				"current": 		new Date(options.current),
+				"inputObjectId": 	options.inputObjectId
+			});
 		});
 	};
 
@@ -379,29 +379,38 @@
 	 * */
 	$.fn.appendDtpicker = function(config) {
 		var defaults = {
-			"inline": false
+			"inline": false,
+			"current": new Date().toString()
 		}
 		var options = $.extend(defaults, config);
 		return this.each(function(i) {
+			
 			/* Add input-field with inputsObjects array */
 			var input = this;
 			var inputObjectId = InputObjects.length;
 			InputObjects.push(input);
-
+			
+			/* Current date */
+			var currentDate;
+			if($(input).val() != null && $(input).val() != ""){
+				currentDate = new Date($(input).val());
+			} else {
+				currentDate = new Date(options.current); 
+			}
+			
 			/* Make parent-div for picker */
 			var $d = $('<div>');
-			
 			if(options.inline == false){
 				/* float mode */
 				$d.css("position","absolute");
 			}
-			
 			$d.insertAfter(input);
 
-			var pickerId = PickerObjects.length;
 
 			/* Initialize picker */
+			var pickerId = PickerObjects.length;
 			var $picker_parent = $($d).dtpicker({
+				"current" : currentDate,
 				"inputObjectId" : inputObjectId
 			});
 			var $picker = $picker_parent.children('.datepicker');

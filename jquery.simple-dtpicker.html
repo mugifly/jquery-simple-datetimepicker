@@ -3,11 +3,16 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Demo - jquery-simple-datetimepicker</title>
+	
+	<!--Requirement jQuery-->
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<!--Load Script and Stylesheet -->
 	<script type="text/javascript" src="jquery.simple-dtpicker.js"></script>
-	<link href="jquery.simple-dtpicker.css" type="text/css" rel="stylesheet" />
+	<link type="text/css" href="jquery.simple-dtpicker.css" rel="stylesheet" />
+	<!---->
+	
 	<style type="text/css">
-		footer{font-size:small;position:absolute;right:5px;bottom:5px;}
+		footer{font-size:small;position:fixed;right:5px;bottom:5px;}
 	</style>
 </head>
 <body>
@@ -32,15 +37,26 @@
 	</script>
 	
 	<h4>Append to Input-field (Inline)</h4>
-	<input type="text" name="date2" value="2012/12/01 10:00">
+	<input type="text" name="date2" value="2012/01/01 10:00">
 	<script type="text/javascript">
 		$(function(){
 			$('*[name=date2]').appendDtpicker({"inline": true});
 		});
 	</script>
 	
+	<h4>Set options</h4>
+	
+		<h5>Current date ("current": "2012/3/4 12:30")</h5>
+		<input type="text" name="date3" value="">
+		<script type="text/javascript">
+			$(function(){
+				$('*[name=date3]').appendDtpicker({"inline": true, "current": "2012/3/4 12:30"});
+			});
+		</script>
+	
 	<footer>
-		<a href="https://github.com/mugifly/jquery-simple-datetimepicker">jquery.simple-dtpicker.js (jquery-simple-datetimepicker)</a>
+		<a href="https://github.com/mugifly/jquery-simple-datetimepicker">jquery.simple-dtpicker.js (jquery-simple-datetimepicker)</a><br>
+		 - Your feedback is highly appreciated :) 
 	</footer>
 </body>
 </html>
