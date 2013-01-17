@@ -120,7 +120,13 @@
 		//console.log("dtpicker - draw()..." + year + "," + month + "," + day + " " + hour + ":" + min + " -> " + date);
 		
 		/* Read options */
+		var isScroll = option.isAnim; /* It same with isAnim */ 
+
 		var isAnim = option.isAnim;
+		if($picker.data("animation") == false){ // If disabled by user option.
+			isAnim = false;
+		}
+		 
 		var isOutputToInputObject = option.isOutputToInputObject;
 		
 		/* Read locale option */
@@ -332,7 +338,7 @@
 		}
 		
 		/* Scroll the timelist */
-		if(isAnim == true){
+		if(isScroll == true){
 			/* Scroll to new active time-cell position */
 			$timelist.scrollTop(timelist_activeTimeCell_offsetTop - $timelist.offset().top);
 		}else{
@@ -371,6 +377,7 @@
 		$picker.data("pickerId", PickerObjects.length);
 		$picker.data("dateFormat", opt.dateFormat);
 		$picker.data("locale", opt.locale);
+		$picker.data("animation", opt.animation);
 
 		/* Header */
 		var $header = $('<div>');
@@ -415,7 +422,8 @@
 			"inputObjectId": 	undefined,
 			"current": 		new Date().toString(),
 			"dateFormat": 	"default",
-			"locale": 			"en"
+			"locale": 			"en",
+			"animation": true
 		};
 		
 		var options = $.extend(defaults, config);
@@ -434,7 +442,8 @@
 			"inline": false,
 			"current": new Date().toString(),
 			"dateFormat": "default",
-			"locale": 			"en"
+			"locale": 			"en",
+			"animation": true
 		}
 		var options = $.extend(defaults, config);
 		return this.each(function(i) {
