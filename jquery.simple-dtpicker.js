@@ -171,10 +171,10 @@
 		if (isAnim == true) {
 			if(changePoint == "calendar"){
 				$calendar.stop().queue([]);
-				$calendar.fadeTo("fast", 0.5);
+				$calendar.fadeTo("fast", 0.8);
 			}else if(changePoint == "timelist"){
 				$timelist.stop().queue([]);
-				$timelist.fadeTo("fast", 0.5);
+				$timelist.fadeTo("fast", 0.8);
 			}
 		}
 		
