@@ -3,6 +3,7 @@ Version history for query-simple-datetimepicker
 1.1.0  2013-**-**
    - [Implement] Option to disable the animation.
    - [Improve] Animation and parts.
+   - [Fixed] Support Firefox in current date (Thanks to: LeandroSe).
 
 1.0.0  2012-11-02
    - Initial release.
