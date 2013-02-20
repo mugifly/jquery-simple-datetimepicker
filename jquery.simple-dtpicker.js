@@ -62,10 +62,15 @@
     };
     
     var getDate = function (str) {
-        var re = /^(\d{4})[-/](\d{1,2})[-/](\d{1,2}) (\d{1,2}):(\d{1,2})$/;
+        var re = /^(\d{2,4})[-/](\d{1,2})[-/](\d{1,2}) (\d{1,2}):(\d{1,2})$/;
         var m = re.exec(str);
-        // Retornar
-        return new Date(m[1], m[2], m[3], m[4], m[5]);
+        // change year for 4 digits
+        if (m[1] < 99) {
+            var date = new Date();
+            m[1] = parseInt(m[1]) + parseInt(date.getFullYear().toString().substr(0, 2) + "00");
+        }
+        // return
+        return new Date(m[1], m[2] - 1, m[3], m[4], m[5]);
     }
 
     var outputToInputObject = function($picker) {
