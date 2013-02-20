@@ -4,7 +4,7 @@
  */
 
 .datepicker {
-	width: 250px;
+    display: inline-block;
 	
 	border: 2px solid #c8c8c8;
 	
@@ -91,7 +91,6 @@
 	margin-top: -0.5px;
 	margin-left: -1px;
 	margin-bottom: -2px;
-	padding: 10px;
 	
 	background-color:	#ffffff;
 	border: 1px solid #c8c8c8;
@@ -103,6 +102,10 @@
 		-webkit-border-bottom-left-radius: 5px;
 		-moz-border-radius-topleft:		5px;
 		-moz-border-radius-bottomleft:	5px;
+}
+
+.datepicker > .datepicker_inner_container > .datepicker_calendar > table {
+    padding: 10px;
 }
 
 /*
@@ -196,7 +199,7 @@
 }
 */
 
-.datepicker > .datepicker_inner_container > .datepicker_timelist::-webkit-scrollbar {
+/*.datepicker > .datepicker_inner_container > .datepicker_timelist::-webkit-scrollbar {
 	overflow: hidden;
 	width: 6px;
 	background: #fafafa;
@@ -207,7 +210,7 @@
 	-webkit-border-bottom-right-radius: 5px;
 	-moz-border-radius-topright:		5px;
 	-moz-border-radius-bottomright:	5px;
-}
+}*/
 
 .datepicker > .datepicker_inner_container > .datepicker_timelist::-webkit-scrollbar:horizontal {
 	height: 1px;

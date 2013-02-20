@@ -16,9 +16,13 @@ you can send requests and bug reports as Issues on GitHub.
 
 * jQuery 1.7.2 or later
 
+## Contributors
+Thank you to: [LeandroSe] (https://github.com/LeandroSe/).
+
 ## License and author
 
 Copyright (c) 2013 Masanori Ohgita (http://ohgita.info/). 
 
 This program is free software distributed under the terms of the MIT license. 
 See LICENSE.txt for details.
+
