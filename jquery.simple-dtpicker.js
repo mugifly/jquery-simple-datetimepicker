@@ -7,6 +7,7 @@
 (function($) {
     var DAYS_OF_WEEK_EN = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
     var DAYS_OF_WEEK_JA = ['日', '月', '火', '水', '木', '金', '土'];
+    var MONTHS_EN = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
 
     var PickerObjects = [];
     var InputObjects = [];
@@ -206,7 +207,7 @@
 
         var $now_month = $('<span>');
         if(locale == "en"){
-            $now_month.text((date.getYear() + 1900) + " - " + zpadding(date.getMonth() + 1));
+            $now_month.text((date.getYear() + 1900) + " - " + MONTHS_EN[date.getMonth()]);
         }else if(locale == "ja"){
             $now_month.text((date.getYear() + 1900) + " / " + zpadding(date.getMonth() + 1));
         }
@@ -565,4 +566,4 @@
         });
     });
 	
-})(jQuery); 
+})(jQuery);
