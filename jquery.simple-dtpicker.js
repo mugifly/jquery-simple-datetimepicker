@@ -473,13 +473,10 @@
             options.inputObjectId = inputObjectId;
             
             /* Current date */
-            var currentDate, date, strDate, strTime;
+            var date, strDate, strTime;
             if($(input).val() != null && $(input).val() != ""){
-                currentDate = getDate($(input).val());
-            } else {
-                currentDate = getDate(options.current);
+                options.current = $(input).val();
             }
-            options.currentDate = currentDate;
 			
             /* Make parent-div for picker */
             var $d = $('<div>');
