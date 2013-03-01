@@ -438,7 +438,7 @@
         var date = new Date();
         var defaults = {
             "inputObjectId": 	undefined,
-            "current": 		date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes(),
+            "current": 		date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes(),
             "dateFormat": 	"default",
             "locale": 			"en"
         };
@@ -457,7 +457,7 @@
         var date = new Date();
         var defaults = {
             "inline": false,
-            "current": date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes(),
+            "current": date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes(),
             "dateFormat": "default",
             "locale": 			"en"
         }
