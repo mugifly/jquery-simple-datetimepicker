@@ -17,7 +17,10 @@ you can send requests and bug reports as Issues on GitHub.
 * jQuery 1.7.2 or later
 
 ## Contributors
-Thank you to: [LeandroSe] (https://github.com/LeandroSe/).
+Thank you to:
+
+* [LeandroSe](https://github.com/LeandroSe/)
+* [dsims](https://github.com/dsims/)
 
 ## License and author
 
