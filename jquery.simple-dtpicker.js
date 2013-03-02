@@ -139,7 +139,7 @@
         //console.log("dtpicker - draw()..." + year + "," + month + "," + day + " " + hour + ":" + min + " -> " + date);
 		
 		/* Read options */
-		var isScroll = option.isAnim; /* It same with isAnim */ 
+		var isScroll = option.isAnim; /* It same with isAnim */
 
 		var isAnim = option.isAnim;
 		if($picker.data("animation") == false){ // If disabled by user option.
@@ -379,25 +379,6 @@
 			}
 		}
 
-        /* Scroll the timelist */
-        if(isAnim == true){
-            /* Scroll to new active time-cell position */
-            $timelist.scrollTop(timelist_activeTimeCell_offsetTop - $timelist.offset().top);
-        }else{
-            /* Scroll to position that before redraw. */
-            $timelist.scrollTop(drawBefore_timeList_scrollTop);
-        }
-
-        /* Fade-in animation */
-        if (isAnim == true) {
-            if(changePoint == "calendar"){
-                $calendar.fadeTo("fast", 1.0);
-            }else if(changePoint == "timelist"){
-                $timelist.fadeTo("fast", 1.0);
-            }
-        }
-		
-
         /* Output to InputForm */
         if (isOutputToInputObject == true) {
             outputToInputObject($picker);
@@ -417,6 +398,7 @@
         $picker.data("pickerId", PickerObjects.length);
         $picker.data("dateFormat", opt.dateFormat);
         $picker.data("locale", opt.locale);
+        $picker.data("animation", opt.animation);
 
         /* Header */
         var $header = $('<div>');
@@ -465,7 +447,8 @@
             "inputObjectId": 	undefined,
             "current": 		date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes(),
             "dateFormat": 	"default",
-            "locale": 			"en"
+            "locale": 			"en",
+            "animation":           true
         };
 		
         var options = $.extend(defaults, config);
@@ -485,7 +468,7 @@
             "current": date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes(),
             "dateFormat": "default",
             "locale": 			"en",
-				"animation": true
+            "animation": true
         }
         var options = $.extend(defaults, config);
         return this.each(function(i) {
