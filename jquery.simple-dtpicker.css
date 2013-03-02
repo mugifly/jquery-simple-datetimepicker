@@ -53,6 +53,9 @@
 .datepicker > .datepicker_header > span {
 	margin-left: 20px;
 	margin-right: 20px;
+	user-select: none;
+		-webkit-user-select: none;
+		-moz-user-select: none;
 }
 
 /*
