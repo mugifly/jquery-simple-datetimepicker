@@ -4,7 +4,7 @@
  */
 
 .datepicker {
-	width: 250px;
+    display: inline-block;
 	
 	border: 2px solid #c8c8c8;
 	
@@ -26,7 +26,7 @@
 	padding-left:	5px;
 	padding-right: 5px;
 	background-color:	#d2d2d2;
-	color: #636363;
+	color: #3f3f3f;
 	text-align: center;
 	font-size: 9pt;
 	font-weight: bold;
@@ -37,7 +37,7 @@
 		-webkit-user-select: none;
 		-moz-user-select: none;
 	cursor: pointer;
-	color: #6ba7c6;
+	color: #559abd;
 }
 
 .datepicker > .datepicker_header > a:hover {
@@ -53,6 +53,9 @@
 .datepicker > .datepicker_header > span {
 	margin-left: 20px;
 	margin-right: 20px;
+	user-select: none;
+		-webkit-user-select: none;
+		-moz-user-select: none;
 }
 
 /*
@@ -89,12 +92,11 @@
 	width: auto;
 	
 	margin-top: -0.5px;
-	margin-left: -2px;
+	margin-left: -1px;
 	margin-bottom: -2px;
-	padding: 10px;
 	
 	background-color:	#ffffff;
-	border: 2px solid #c8c8c8;
+	border: 1px solid #c8c8c8;
 	
 	border-top:none;
 	border-top-left-radius: 5px;
@@ -103,6 +105,10 @@
 		-webkit-border-bottom-left-radius: 5px;
 		-moz-border-radius-topleft:		5px;
 		-moz-border-radius-bottomleft:	5px;
+}
+
+.datepicker > .datepicker_inner_container > .datepicker_calendar > table {
+    padding: 10px;
 }
 
 /*
