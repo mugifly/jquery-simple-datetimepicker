@@ -29,7 +29,7 @@
 	</script>
 	
 	<h4>Append to Input-field</h4>
-	<input type="text" name="date" value="2012/12/01 10:00">
+	<input type="text" name="date" value="">
 	<script type="text/javascript">
 		$(function(){
 			$('*[name=date]').appendDtpicker();
@@ -43,6 +43,7 @@
 			$('*[name=date2]').appendDtpicker({"inline": true});
 		});
 	</script>
+	<small>In addition, this default date has specified by the input's value ("2012-01-01 10:00").</small>
 	
 	<h4>Set options</h4>
 		About details for these options, please see: <a href="https://github.com/mugifly/jquery-simple-datetimepicker/wiki/Options">Wiki</a>.
