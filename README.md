@@ -7,10 +7,8 @@ Date and time picker, simply. (jquery plugin)
 
 Details and samples: http://mugifly.github.com/jquery-simple-datetimepicker
 
-This project has just launched development.
-
 Your feedback is highly appreciated.
-you can send requests and bug reports as Issues on GitHub.
+you can send requests and bug reports as [Issues on GitHub](https://github.com/mugifly/jquery-simple-datetimepicker/issues).
 
 ## Requirements
 

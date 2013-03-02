@@ -1,6 +1,6 @@
 /**
  * dtpicker (jquery-simple-datetimepicker)
- * (c) Masanori Ohgita - 2012.
+ * (c) Masanori Ohgita - 2013.
  * https://github.com/mugifly/jquery-simple-datetimepicker
  */
 
