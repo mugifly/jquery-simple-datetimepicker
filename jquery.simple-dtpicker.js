@@ -7,6 +7,7 @@
 (function($) {
     var DAYS_OF_WEEK_EN = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
     var DAYS_OF_WEEK_JA = ['日', '月', '火', '水', '木', '金', '土'];
+    var MONTHS_EN = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
 
     var PickerObjects = [];
     var InputObjects = [];
@@ -211,7 +212,7 @@
 
         var $now_month = $('<span>');
         if(locale == "en"){
-            $now_month.text((date.getYear() + 1900) + " - " + zpadding(date.getMonth() + 1));
+            $now_month.text((date.getYear() + 1900) + " - " + MONTHS_EN[date.getMonth()]);
         }else if(locale == "ja"){
             $now_month.text((date.getYear() + 1900) + " / " + zpadding(date.getMonth() + 1));
         }
@@ -462,7 +463,7 @@
         var date = new Date();
         var defaults = {
             "inputObjectId": 	undefined,
-            "current": 		date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes(),
+            "current": 		date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes(),
             "dateFormat": 	"default",
             "locale": 			"en"
         };
@@ -481,7 +482,7 @@
         var date = new Date();
         var defaults = {
             "inline": false,
-            "current": date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes(),
+            "current": date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes(),
             "dateFormat": "default",
             "locale": 			"en",
 				"animation": true
@@ -497,13 +498,10 @@
             options.inputObjectId = inputObjectId;
             
             /* Current date */
-            var currentDate, date, strDate, strTime;
+            var date, strDate, strTime;
             if($(input).val() != null && $(input).val() != ""){
-                currentDate = getDate($(input).val());
-            } else {
-                currentDate = getDate(options.current);
+                options.current = $(input).val();
             }
-            options.currentDate = currentDate;
 			
             /* Make parent-div for picker */
             var $d = $('<div>');
@@ -590,4 +588,4 @@
         });
     });
 	
-})(jQuery); 
+})(jQuery);
