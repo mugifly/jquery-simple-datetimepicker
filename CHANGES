@@ -3,7 +3,11 @@ Version history for query-simple-datetimepicker
 1.1.0  2013-**-**
    - [Implement] Option to disable the animation.
    - [Improve] Animation and parts.
-   - [Fixed] Support Firefox in current date (Thanks to: LeandroSe).
+   - [Fixed] Support dateFormat and fix bug (Thanks to: LeandroSe).
+   - [Fixed] Support Firefox in current date (Thanks: LeandroSe).
+   - [Improve] Show the month name instead of number in header (Thanks to: dsims).
+   - [Fixed] appendDtpicker is not overriding the default date with the input's value (Thanks: dsims).
+   - [Fixed] default month (Thanks: dsims).
 
 1.0.0  2012-11-02
    - Initial release.
