@@ -1,7 +1,7 @@
 {
     "name": "simple-dtpicker",
     "title": "jquery-simple-datetimepicker",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "author": {
         "name": "Masanori Ohgita",
         "url": "https://github.com/mugifly"
@@ -17,7 +17,7 @@
     ],
     "files": ["jquery.simple-dtpicker.js"],
     "description": "Date and time picker, simply.",
-    "keywords": ["date","time","picker"],
+    "keywords": ["date","time","picker","input","form","datepicker","timepicker"],
     "homepage": "http://mugifly.github.com/jquery-simple-datetimepicker/",
     "demo": "http://mugifly.github.com/jquery-simple-datetimepicker/jquery.simple-dtpicker.html",
     "docs": "https://github.com/mugifly/jquery-simple-datetimepicker/blob/master/README.md",
