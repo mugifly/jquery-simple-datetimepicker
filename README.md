@@ -19,6 +19,7 @@ Thank you to:
 
 * [LeandroSe](https://github.com/LeandroSe/)
 * [dsims](https://github.com/dsims/)
+* [jjsgro](https://github.com/jjsgro)
 
 ## License and author
 

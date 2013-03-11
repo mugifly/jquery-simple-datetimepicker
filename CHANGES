@@ -1,6 +1,9 @@
 Version history for query-simple-datetimepicker
 https://github.com/mugifly/jquery-simple-datetimepicker/
 
+1.1.1  2013-03-12
+  - [Fixed] Fixed width of timelist for bug in ie9 (Thanks to: jjsgro).
+
 1.1.0  2013-03-02
    - [Implement] Option to disable the animation.
    - [Improve] Animation and parts.
