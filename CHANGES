@@ -1,6 +1,9 @@
 Version history for query-simple-datetimepicker
 https://github.com/mugifly/jquery-simple-datetimepicker/
 
+1.1.2  2013-05-09
+  - [Fixed] IE8 compatibility (Thanks to: mackeian).
+
 1.1.1  2013-03-12
   - [Fixed] Fixed width of timelist for bug in ie9 (Thanks to: jjsgro).
 

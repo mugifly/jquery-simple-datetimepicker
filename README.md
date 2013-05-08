@@ -17,9 +17,10 @@ you can send requests and bug reports as [Issues on GitHub](https://github.com/m
 ## Contributors
 Thank you to:
 
-* [LeandroSe](https://github.com/LeandroSe/)
-* [dsims](https://github.com/dsims/)
+* [LeandroSe](https://github.com/LeandroSe)
+* [dsims](https://github.com/dsims)
 * [jjsgro](https://github.com/jjsgro)
+* [mackeian](https://github.com/mackeian)
 
 ## License and author
 
