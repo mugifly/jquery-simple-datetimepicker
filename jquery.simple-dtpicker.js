@@ -39,27 +39,27 @@
  	var beforeMonth = function($obj) {
  		var $picker = getParentPickerObject($obj);
  		var date = getPickedDate($picker);
- 		var targetMonth_lastDay = new Date(date.getYear() + 1900, date.getMonth(), 0).getDate();
+ 		var targetMonth_lastDay = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
  		if (targetMonth_lastDay < date.getDate()) {
  			date.setDate(targetMonth_lastDay);
  		}
  		draw($picker, {
  			"isAnim": true, 
  			"isOutputToInputObject": true
- 		}, date.getYear() + 1900, date.getMonth() - 1, date.getDate(), date.getHours(), date.getMinutes());
+ 		}, date.getFullYear(), date.getMonth() - 1, date.getDate(), date.getHours(), date.getMinutes());
  	};
 
  	var nextMonth = function($obj) {
  		var $picker = getParentPickerObject($obj);
  		var date = getPickedDate($picker);
- 		var targetMonth_lastDay = new Date(date.getYear() + 1900, date.getMonth() + 1, 0).getDate();
+ 		var targetMonth_lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
  		if (targetMonth_lastDay < date.getDate()) {
  			date.setDate(targetMonth_lastDay);
  		}
  		draw($picker, {
  			"isAnim": true, 
  			"isOutputToInputObject": true
- 		}, date.getYear() + 1900, date.getMonth() + 1, date.getDate(), date.getHours(), date.getMinutes());
+ 		}, date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours(), date.getMinutes());
  	};
  	
  	var getDate = function (str) {
@@ -93,7 +93,7 @@
 		}
 		
 		str = dateFormat;
-		var y = date.getYear() + 1900;
+		var y = date.getFullYear();
 		var m = date.getMonth() + 1;
 		var d = date.getDate();
 		var hou = date.getHours();
@@ -123,7 +123,7 @@
 	};
 
 	var draw_date = function($picker, option, date) {
-		draw($picker, option, date.getYear() + 1900, date.getMonth(), date.getDate(), date.getHours(), date.getMinutes());
+		draw($picker, option, date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes());
 	};
 
 	var draw = function($picker, option, year, month, day, hour, min) {
@@ -157,11 +157,11 @@
 		
 		/* Calculate dates */
 		var todayDate = new Date(); 
-		var firstWday = new Date(date.getYear() + 1900, date.getMonth(), 1).getDay();
-		var lastDay = new Date(date.getYear() + 1900, date.getMonth() + 1, 0).getDate();
-		var beforeMonthLastDay = new Date(date.getYear() + 1900, date.getMonth(), 0).getDate();
-		var dateBeforeMonth = new Date(date.getYear() + 1900, date.getMonth(), 0);
-		var dateNextMonth = new Date(date.getYear() + 1900, date.getMonth() + 2, 0);
+		var firstWday = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+		var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+		var beforeMonthLastDay = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
+		var dateBeforeMonth = new Date(date.getFullYear(), date.getMonth(), 0);
+		var dateNextMonth = new Date(date.getFullYear(), date.getMonth() + 2, 0);
 		
 		/* Collect each part */
 		var $header = $picker.children('.datepicker_header');
@@ -212,9 +212,9 @@
 
 		var $now_month = $('<span>');
 		if(locale == "en"){
-			$now_month.text((date.getYear() + 1900) + " - " + MONTHS_EN[date.getMonth()]);
+			$now_month.text(date.getFullYear() + " - " + MONTHS_EN[date.getMonth()]);
 		}else if(locale == "ja"){
-			$now_month.text((date.getYear() + 1900) + " / " + zpadding(date.getMonth() + 1));
+			$now_month.text(date.getFullYear() + " / " + zpadding(date.getMonth() + 1));
 		}
 
 		var $link_next_month = $('<a>');
@@ -256,14 +256,14 @@
 			if (firstWday > i) {/* Before months day */
 				$td.text(beforeMonthLastDay + realDay);
 				$td.addClass('day_another_month');
-				$td.data("dateStr", dateBeforeMonth.getYear() + 1900 + "/" + (dateBeforeMonth.getMonth() + 1) + "/" + (beforeMonthLastDay + realDay));
+				$td.data("dateStr", dateBeforeMonth.getFullYear() + "/" + (dateBeforeMonth.getMonth() + 1) + "/" + (beforeMonthLastDay + realDay));
 			} else if (i < firstWday + lastDay) {/* Now months day */
 				$td.text(realDay);
-				$td.data("dateStr", (date.getYear() + 1900) + "/" + (date.getMonth() + 1) + "/" + realDay);
+				$td.data("dateStr", (date.getFullYear()) + "/" + (date.getMonth() + 1) + "/" + realDay);
 			} else {/* Next months day */
 				$td.text(realDay - lastDay);
 				$td.addClass('day_another_month');
-				$td.data("dateStr", dateNextMonth.getYear() + 1900 + "/" + (dateNextMonth.getMonth() + 1) + "/" + (realDay - lastDay));
+				$td.data("dateStr", dateNextMonth.getFullYear() + "/" + (dateNextMonth.getMonth() + 1) + "/" + (realDay - lastDay));
 			}
 
 			if (i % 7 == 0) {/* Sunday */
@@ -294,7 +294,7 @@
 				draw($picker, {
 					"isAnim": false, 
 					"isOutputToInputObject": true
-				}, targetDate.getYear() + 1900, targetDate.getMonth(), targetDate.getDate(), selectedDate.getHours(), selectedDate.getMinutes());
+				}, targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate(), selectedDate.getHours(), selectedDate.getMinutes());
 			});
 
 			$td.hover(function() {
@@ -346,7 +346,7 @@
 					draw($picker, {
 						"isAnim": false, 
 						"isOutputToInputObject": true
-					}, date.getYear() + 1900, date.getMonth(), date.getDate(), hour, min);
+					}, date.getFullYear(), date.getMonth(), date.getDate(), hour, min);
 				});
 				
 				$o.hover(function() {
