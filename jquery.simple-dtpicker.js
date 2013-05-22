@@ -7,7 +7,9 @@
  (function($) {
  	var DAYS_OF_WEEK_EN = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
  	var DAYS_OF_WEEK_JA = ['日', '月', '火', '水', '木', '金', '土'];
+ 	var DAYS_OF_WEEK_RU = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
  	var MONTHS_EN = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+ 	var MONTHS_RU = [ "Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек" ];
 
  	var PickerObjects = [];
  	var InputObjects = [];
@@ -87,6 +89,8 @@
 		if (dateFormat == "default"){
 			if(locale == "ja"){
 				dateFormat = "YYYY/MM/DD hh:mm";
+			}else if(locale == "ru"){
+				dateFormat = "DD.MM.YYYY hh:mm";
 			}else{
 				dateFormat = "YYYY-MM-DD hh:mm";
 			}
@@ -153,6 +157,8 @@
 		var daysOfWeek = DAYS_OF_WEEK_EN;
 		if(locale == "ja"){
 			daysOfWeek = DAYS_OF_WEEK_JA;
+		} else if(locale == "ru"){
+			daysOfWeek = DAYS_OF_WEEK_RU;
 		}
 		
 		/* Calculate dates */
@@ -215,6 +221,8 @@
 			$now_month.text(date.getFullYear() + " - " + MONTHS_EN[date.getMonth()]);
 		}else if(locale == "ja"){
 			$now_month.text(date.getFullYear() + " / " + zpadding(date.getMonth() + 1));
+		}else if(locale == "ru"){
+			$now_month.text(date.getFullYear() + " - " + MONTHS_RU[date.getMonth()]);
 		}
 
 		var $link_next_month = $('<a>');
