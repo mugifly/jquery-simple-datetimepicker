@@ -21,6 +21,7 @@ Thank you to:
 * [dsims](https://github.com/dsims)
 * [jjsgro](https://github.com/jjsgro)
 * [mackeian](https://github.com/mackeian)
+* [rdolgushin](https://github.com/rdolgushin)
 
 ## License and author
 
