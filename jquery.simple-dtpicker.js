@@ -320,7 +320,8 @@
 		$timelist.children().remove();
 		
 		/* Set height to Timelist (Calendar innerHeight - Calendar padding) */
-		$timelist.css("height", $calendar.innerHeight() - 10 + 'px');
+		$timelist.css("height", $calendar.innerHeight() - parseInt($timelist.css("padding-top").replace(/[^-\d\.]/g, ''))
+		              - parseInt($timelist.css("padding-bottom").replace(/[^-\d\.]/g, '')) + 'px');
 
 		/* Output time cells */
 		for (var hour = 0; hour < 24; hour++) {
