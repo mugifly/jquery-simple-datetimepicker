@@ -7,10 +7,12 @@
  (function($) {
  	var DAYS_OF_WEEK_EN = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
  	var DAYS_OF_WEEK_JA = ['日', '月', '火', '水', '木', '金', '土'];
- 	var DAYS_OF_WEEK_RU = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+	var DAYS_OF_WEEK_RU = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+	var DAYS_OF_WEEK_BR = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
  	var MONTHS_EN = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
  	var MONTHS_RU = [ "Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек" ];
-
+	var MONTHS_BR = [ "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" ];
+	
  	var PickerObjects = [];
  	var InputObjects = [];
  	var ActivePickerId = -1;
@@ -91,6 +93,8 @@
 				dateFormat = "YYYY/MM/DD hh:mm";
 			}else if(locale == "ru"){
 				dateFormat = "DD.MM.YYYY hh:mm";
+			}else if (locale == "br"){
+				dateFormat = "DD/MM/YYYY hh:mm";
 			}else{
 				dateFormat = "YYYY-MM-DD hh:mm";
 			}
@@ -159,6 +163,8 @@
 			daysOfWeek = DAYS_OF_WEEK_JA;
 		} else if(locale == "ru"){
 			daysOfWeek = DAYS_OF_WEEK_RU;
+		} else if(locale == "br"){
+			daysOfWeek = DAYS_OF_WEEK_BR;
 		}
 		
 		/* Calculate dates */
@@ -223,6 +229,8 @@
 			$now_month.text(date.getFullYear() + " / " + zpadding(date.getMonth() + 1));
 		}else if(locale == "ru"){
 			$now_month.text(date.getFullYear() + " - " + MONTHS_RU[date.getMonth()]);
+		}else if(locale == "br"){
+			$now_month.text(date.getFullYear() + " - " + MONTHS_BR[date.getMonth()]);
 		}
 
 		var $link_next_month = $('<a>');
