@@ -1,6 +1,9 @@
 Version history for query-simple-datetimepicker
 https://github.com/mugifly/jquery-simple-datetimepicker/
 
+1.1.4  2013-06-02
+  - [Add] Brasil locale (Thanks to: Mauricio).
+
 1.1.3  2013-05-22
   - [Add] Russian locale (Thanks to: rdolgushin).
 
