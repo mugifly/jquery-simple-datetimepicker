@@ -22,6 +22,7 @@ Thank you to:
 * [jjsgro](https://github.com/jjsgro)
 * [mackeian](https://github.com/mackeian)
 * [rdolgushin](https://github.com/rdolgushin)
+* [Mauricio](http://www.mauricioprof.com/)
 
 ## License and author
 
