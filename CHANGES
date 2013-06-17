@@ -1,6 +1,9 @@
 Version history for query-simple-datetimepicker
 https://github.com/mugifly/jquery-simple-datetimepicker/
 
+1.2.0  2013-06-17
+  - [Add] Option for custom interval of minute (Thanks to: AndAniCalik).
+
 1.1.4  2013-06-02
   - [Add] Brasil locale (Thanks to: Mauricio).
 
