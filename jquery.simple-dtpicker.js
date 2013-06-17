@@ -148,13 +148,14 @@
 		
 		/* Read options */
 		var isScroll = option.isAnim; /* It same with isAnim */
-
 		var isAnim = option.isAnim;
 		if($picker.data("animation") == false){ // If disabled by user option.
 			isAnim = false;
 		}
 		
 		var isOutputToInputObject = option.isOutputToInputObject;
+
+		var minute_interval = $picker.data("minute_interval");
 
 		/* Read locale option */
 		var locale = $picker.data("locale");
@@ -189,7 +190,7 @@
 			if(oldDate.getMonth() != date.getMonth() || oldDate.getDate() != date.getDate()){
 				changePoint = "calendar";
 			} else if (oldDate.getHours() != date.getHours() || oldDate.getMinutes() != date.getMinutes()){
-				if(date.getMinutes() == 0 || date.getMinutes() == 30){
+				if(date.getMinutes() == 0 || date.getMinutes() % minute_interval == 0){
 					changePoint = "timelist";
 				}
 			}
@@ -332,7 +333,7 @@
 
 		/* Output time cells */
 		for (var hour = 0; hour < 24; hour++) {
-			for (var min = 0; min <= 30; min += 30) {
+			for (var min = 0; min < 60; min += minute_interval) {
 				var $o = $('<div>');
 				$o.addClass('timelist_item');
 				$o.text(zpadding(hour) + ":" + zpadding(min));
@@ -414,7 +415,12 @@
 		$picker.data("pickerId", PickerObjects.length);
 		$picker.data("dateFormat", opt.dateFormat);
 		$picker.data("locale", opt.locale);
-		$picker.data("animation", opt.animation);
+		
+		if( 5 <= opt.minute_interval && opt.minute_interval <= 30 ){
+			$picker.data("minute_interval", opt.minute_interval);
+		} else {
+			$picker.data("minute_interval", 30);
+		}
 
 		/* Header */
 		var $header = $('<div>');
@@ -464,7 +470,8 @@
 	 		"current": 		date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes(),
 	 		"dateFormat": 	"default",
 	 		"locale": 			"en",
-	 		"animation":           true
+	 		"animation":           true,
+	 		"minute_interval":  	30
 	 	};
 	 	
 	 	var options = $.extend(defaults, config);
@@ -484,7 +491,8 @@
 	 		"current": date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes(),
 	 		"dateFormat": "default",
 	 		"locale": 			"en",
-	 		"animation": true
+	 		"animation": true,
+	 		"minute_interval":  	30
 	 	}
 	 	var options = $.extend(defaults, config);
 	 	return this.each(function(i) {
