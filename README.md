@@ -23,6 +23,7 @@ Thank you to:
 * [mackeian](https://github.com/mackeian)
 * [rdolgushin](https://github.com/rdolgushin)
 * [Mauricio](http://www.mauricioprof.com/)
+* [AndAniCalik](https://twitter.com/AndAniCalik)
 
 ## License and author
 
