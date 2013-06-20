@@ -9,9 +9,11 @@
  	var DAYS_OF_WEEK_JA = ['日', '月', '火', '水', '木', '金', '土'];
 	var DAYS_OF_WEEK_RU = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
 	var DAYS_OF_WEEK_BR = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+    var DAYS_OF_WEEK_CN = ['日', '一', '二', '三', '四', '五', '六'];
  	var MONTHS_EN = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
  	var MONTHS_RU = [ "Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек" ];
 	var MONTHS_BR = [ "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" ];
+    var MONTHS_CN = [ "一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
 	
  	var PickerObjects = [];
  	var InputObjects = [];
@@ -166,7 +168,9 @@
 			daysOfWeek = DAYS_OF_WEEK_RU;
 		} else if(locale == "br"){
 			daysOfWeek = DAYS_OF_WEEK_BR;
-		}
+		} else if(locale == "cn"){
+            daysOfWeek = DAYS_OF_WEEK_CN;
+        }
 		
 		/* Calculate dates */
 		var todayDate = new Date(); 
@@ -232,7 +236,9 @@
 			$now_month.text(date.getFullYear() + " - " + MONTHS_RU[date.getMonth()]);
 		}else if(locale == "br"){
 			$now_month.text(date.getFullYear() + " - " + MONTHS_BR[date.getMonth()]);
-		}
+		}else if(locale == "cn"){
+			$now_month.text(date.getFullYear() + " - " + MONTHS_CN[date.getMonth()]);
+        }
 
 		var $link_next_month = $('<a>');
 		$link_next_month.text('>');
@@ -573,8 +579,14 @@
 					var $picker = $(PickerObjects[$input.data('pickerId')]);
 					ActivePickerId = $input.data('pickerId');
 					$picker.show();
-					$picker.parent().css("top", $input.offset().top + $input.outerHeight() + 2 + "px");
-					$picker.parent().css("left", $input.offset().left + "px");
+                    var _position = $(input).parent().css('position');
+                    if(_position === 'relative' || _position === 'absolute'){
+                        $picker.parent().css("top", $input.outerHeight() + 2 + "px");
+                    }
+                    else{
+                        $picker.parent().css("top", $input.offset().top + $input.outerHeight() + 2 + "px");
+                        $picker.parent().css("left", $input.offset().left + "px");
+                    }
 				});
 			}
 		});
