@@ -156,7 +156,6 @@
 		var isOutputToInputObject = option.isOutputToInputObject;
 
 		var minute_interval = $picker.data("minute_interval");
-		var firstDayOfWeek = $picker.data("firstDayOfweek");
 
 		/* Read locale option */
 		var locale = $picker.data("locale");
@@ -171,7 +170,7 @@
 
 		/* Calculate dates */
 
-		var firstDayDiff = 7 + firstDayOfWeek;
+		var firstDayDiff = 7 + option.firstDayOfWeek;
 		Date.prototype.getDayOpt = function(){
 			return (this.getDay() - firstDayDiff) %7;
 		}
@@ -290,9 +289,9 @@
 				$td.data("dateStr", dateNextMonth.getFullYear() + "/" + (dateNextMonth.getMonth() + 1) + "/" + (realDay - lastDay));
 			}
 
-			if ((i + firstDayOfWeek) % 7 == 0) {/* Sunday */
+			if ((i + option.firstDayOfWeek) % 7 == 0) {/* Sunday */
 				$td.addClass('wday_sun');
-			} else if ((i + firstDayOfWeek) % 7 == 6) {/* Saturday */
+			} else if ((i + option.firstDayOfWeek) % 7 == 6) {/* Saturday */
 				$td.addClass('wday_sat');
 			}
 
@@ -422,7 +421,6 @@
 		$picker.data("pickerId", PickerObjects.length);
 		$picker.data("dateFormat", opt.dateFormat);
 		$picker.data("locale", opt.locale);
-		$picker.data("firstDayOfWeek", opt.firstDayOfWeek);
 
 		if( 5 <= opt.minute_interval && opt.minute_interval <= 30 ){
 			$picker.data("minute_interval", opt.minute_interval);
@@ -464,7 +462,8 @@
 
 		draw_date($picker, {
 			"isAnim": true,
-			"isOutputToInputObject": true
+			"isOutputToInputObject": true,
+	 		"firstDayOfWeek": opt.firstDayOfWeek
 		}, opt.current);
 	};
 
