@@ -1,6 +1,9 @@
 Version history for query-simple-datetimepicker
 https://github.com/mugifly/jquery-simple-datetimepicker/
 
+1.3.0  2013-06-27
+  - [Add] Chinese locale (Thanks to: jasonslyvia).
+
 1.2.0  2013-06-17
   - [Add] Change the interval of minute (Thanks to: AndAniCalik).
 

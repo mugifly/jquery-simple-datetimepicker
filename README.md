@@ -24,6 +24,7 @@ Thank you to:
 * [rdolgushin](https://github.com/rdolgushin)
 * [Mauricio](http://www.mauricioprof.com/)
 * [AndAniCalik](https://twitter.com/AndAniCalik)
+* [jasonslyvia](https://github.com/jasonslyvia)
 
 ## License and author
 
