@@ -25,6 +25,7 @@ Thank you to:
 * [Mauricio](http://www.mauricioprof.com/)
 * [AndAniCalik](https://twitter.com/AndAniCalik)
 * [jasonslyvia](https://github.com/jasonslyvia)
+* [concept1hundred](https://github.com/concept1hundred)
 
 ## License and author
 
