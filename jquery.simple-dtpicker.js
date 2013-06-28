@@ -10,10 +10,12 @@
 	var DAYS_OF_WEEK_RU = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
 	var DAYS_OF_WEEK_BR = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
 	var DAYS_OF_WEEK_CN = ['日', '一', '二', '三', '四', '五', '六'];
+	var DAYS_OF_WEEK_DE = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
  	var MONTHS_EN = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
  	var MONTHS_RU = [ "Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек" ];
 	var MONTHS_BR = [ "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" ];
 	var MONTHS_CN = [ "一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
+	var MONTHS_DE = [ "Jan", "Feb", "März", "Apr", "Mai", "Juni", "Juli", "Aug", "Sept", "Okt", "Nov", "Dez" ];
 	
  	var PickerObjects = [];
  	var InputObjects = [];
@@ -97,6 +99,8 @@
 				dateFormat = "DD.MM.YYYY hh:mm";
 			}else if (locale == "br"){
 				dateFormat = "DD/MM/YYYY hh:mm";
+			}else if (locale == "de"){
+				dateFormat = "DD.MM.YYYY hh:mm";
 			}else{
 				dateFormat = "YYYY-MM-DD hh:mm";
 			}
@@ -171,6 +175,8 @@
 			daysOfWeek = DAYS_OF_WEEK_BR;
 		} else if(locale == "cn"){
 			daysOfWeek = DAYS_OF_WEEK_CN;
+		} else if (locale == "de"){
+			daysOfWeek = DAYS_OF_WEEK_DE;
 		}
 
 		/* Calculate dates */
@@ -235,17 +241,19 @@
 		});
 
 		var $now_month = $('<span>');
-		if(locale == "en"){
-			$now_month.text(date.getFullYear() + " - " + MONTHS_EN[date.getMonth()]);
-		}else if(locale == "ja"){
+		if(locale == "ja"){
 			$now_month.text(date.getFullYear() + " / " + zpadding(date.getMonth() + 1));
-		}else if(locale == "ru"){
+		} else if(locale == "ru"){
 			$now_month.text(date.getFullYear() + " - " + MONTHS_RU[date.getMonth()]);
-		}else if(locale == "br"){
+		} else if(locale == "br"){
 			$now_month.text(date.getFullYear() + " - " + MONTHS_BR[date.getMonth()]);
-		}else if(locale == "cn"){
+		} else if(locale == "cn"){
 			$now_month.text(date.getFullYear() + " - " + MONTHS_CN[date.getMonth()]);
-        }
+		} else if(locale == "de"){
+			$now_month.text(date.getFullYear() + " - " + MONTHS_DE[date.getMonth()]);
+		} else {
+			$now_month.text(date.getFullYear() + " - " + MONTHS_EN[date.getMonth()]);
+		}
 
 		var $link_next_month = $('<a>');
 		$link_next_month.text('>');

@@ -26,6 +26,7 @@ Thank you to:
 * [AndAniCalik](https://twitter.com/AndAniCalik)
 * [jasonslyvia](https://github.com/jasonslyvia)
 * [concept1hundred](https://github.com/concept1hundred)
+* [rtakeda](https://github.com/rtakeda)
 
 ## License and author
 
