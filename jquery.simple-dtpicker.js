@@ -16,7 +16,7 @@
  	var MONTHS_BR = [ "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" ];
  	var MONTHS_CN = [ "一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
  	var MONTHS_DE = [ "Jan", "Feb", "März", "Apr", "Mai", "Juni", "Juli", "Aug", "Sept", "Okt", "Nov", "Dez" ];
- 	
+
  	var PickerObjects = [];
  	var InputObjects = [];
  	var ActivePickerId = -1;
@@ -603,7 +603,7 @@
 					}
 					else{
 						$picker.parent().css("top", $input.offset().top + $input.outerHeight() + 2 + "px");
-						$picker.parent().css("left", $input.offset().left + "px");
+						$picker.parent().css("left", $input.position().left + "px");
 					}
 				});
 			}
