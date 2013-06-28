@@ -7,16 +7,16 @@
  (function($) {
  	var DAYS_OF_WEEK_EN = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
  	var DAYS_OF_WEEK_JA = ['日', '月', '火', '水', '木', '金', '土'];
-	var DAYS_OF_WEEK_RU = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
-	var DAYS_OF_WEEK_BR = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
-	var DAYS_OF_WEEK_CN = ['日', '一', '二', '三', '四', '五', '六'];
-	var DAYS_OF_WEEK_DE = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
+ 	var DAYS_OF_WEEK_RU = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+ 	var DAYS_OF_WEEK_BR = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+ 	var DAYS_OF_WEEK_CN = ['日', '一', '二', '三', '四', '五', '六'];
+ 	var DAYS_OF_WEEK_DE = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
  	var MONTHS_EN = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
  	var MONTHS_RU = [ "Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек" ];
-	var MONTHS_BR = [ "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" ];
-	var MONTHS_CN = [ "一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
-	var MONTHS_DE = [ "Jan", "Feb", "März", "Apr", "Mai", "Juni", "Juli", "Aug", "Sept", "Okt", "Nov", "Dez" ];
-	
+ 	var MONTHS_BR = [ "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" ];
+ 	var MONTHS_CN = [ "一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
+ 	var MONTHS_DE = [ "Jan", "Feb", "März", "Apr", "Mai", "Juni", "Juli", "Aug", "Sept", "Okt", "Nov", "Dez" ];
+ 	
  	var PickerObjects = [];
  	var InputObjects = [];
  	var ActivePickerId = -1;
@@ -597,14 +597,14 @@
 					var $picker = $(PickerObjects[$input.data('pickerId')]);
 					ActivePickerId = $input.data('pickerId');
 					$picker.show();
-                    var _position = $(input).parent().css('position');
-                    if(_position === 'relative' || _position === 'absolute'){
-                        $picker.parent().css("top", $input.outerHeight() + 2 + "px");
-                    }
-                    else{
-                        $picker.parent().css("top", $input.offset().top + $input.outerHeight() + 2 + "px");
-                        $picker.parent().css("left", $input.offset().left + "px");
-                    }
+					var _position = $(input).parent().css('position');
+					if(_position === 'relative' || _position === 'absolute'){
+						$picker.parent().css("top", $input.outerHeight() + 2 + "px");
+					}
+					else{
+						$picker.parent().css("top", $input.offset().top + $input.outerHeight() + 2 + "px");
+						$picker.parent().css("left", $input.offset().left + "px");
+					}
 				});
 			}
 		});
