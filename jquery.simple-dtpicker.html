@@ -103,6 +103,19 @@
 		<h6>Avaiable value:</h6>
 		<small>min: 5, max: 30. (default: 30 minute. it means interval of each 30 minute.)</small><br />
 
+		<h5>Change the first day of the week ("firstDayOfWeek": 1)</h5>
+		<input type="text" name="date8" value="">
+		<script type="text/javascript">
+			$(function(){
+				$('*[name=date8]').appendDtpicker({
+					"inline": true,
+					"firstDayOfWeek": 1
+				});
+			});
+		</script>
+		<h6>Avaiable value:</h6>
+		<small>min: 0 (sunday), max: 6 (satday)<br />default: 0 (sunday). </small><br />
+
 		<h5>Disable the fade animation ("animation": false)</h5>
 		<input type="text" name="date7" value="">
 		<script type="text/javascript">
