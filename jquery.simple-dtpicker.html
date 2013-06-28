@@ -85,22 +85,38 @@
 		<ul style="font-size: 0.8em;">
 			<li>"en" : English (default)</li>
 			<li>"ja" : Japanese</li>
-			<li>"ru" : Russian - Thanks to: <a href="https://github.com/rdolgushin">rdolgushin.</a></li>
-			<li>"br" : Brazil - Thanks to: <a href="http://www.mauricioprof.com/site/principal.php">Mauricio.</a></li>
+			<li>"ru" : Russian - Thanks to: <a href="https://github.com/rdolgushin">rdolgushin</a></li>
+			<li>"br" : Brazil - Thanks to: <a href="http://www.mauricioprof.com/site/principal.php">Mauricio</a></li>
+			<li>"cn" : Chinese - Thanks to: <a href="https://github.com/jasonslyvia">jasonslyvia</a></li>
+			<li>"de" : German - Thanks to: <a href="https://github.com/rtakeda">rtakeda</a></li>
 		</ul>
 
-		<h5>Change the interval of minute ("minute_interval": 15)</h5>
+		<h5>Change the interval of minute ("minuteInterval": 15)</h5>
 		<input type="text" name="date6" value="">
 		<script type="text/javascript">
 			$(function(){
 				$('*[name=date6]').appendDtpicker({
 					"inline": true,
-					"minute_interval": 15
+					"minuteInterval": 15
 				});
 			});
 		</script>
 		<h6>Avaiable value:</h6>
 		<small>min: 5, max: 30. (default: 30 minute. it means interval of each 30 minute.)</small><br />
+
+		<h5>Change the first day of the week ("firstDayOfWeek": 1)</h5>
+		<input type="text" name="date8" value="">
+		<script type="text/javascript">
+			$(function(){
+				$('*[name=date8]').appendDtpicker({
+					"inline": true,
+					"firstDayOfWeek": 1
+				});
+			});
+		</script>
+		<h6>Avaiable value:</h6>
+		<small>min: 0 (sunday), max: 6 (satday), default: 0 (sunday). </small><br />
+		<small>Thanks to: <a href="https://github.com/concept1hundred">concept1hundred</a>.</small>
 
 		<h5>Disable the fade animation ("animation": false)</h5>
 		<input type="text" name="date7" value="">
