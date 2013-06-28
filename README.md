@@ -27,6 +27,7 @@ Thank you to:
 * [jasonslyvia](https://github.com/jasonslyvia)
 * [concept1hundred](https://github.com/concept1hundred)
 * [rtakeda](https://github.com/rtakeda)
+* [insonifi](https://github.com/insonifi)
 
 ## License and author
 

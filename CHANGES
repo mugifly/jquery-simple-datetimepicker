@@ -6,6 +6,7 @@ https://github.com/mugifly/jquery-simple-datetimepicker/
   - [Add] Initial first day of the week (Thanks to: concept1hundred).
   - [Add] German locale (Thanks to: rtakeda).
   - [Change] Option name: "minute_interval" -> "minuteInterval"
+  - [Fix] misplaced when located in nested elements (Thanks to: insonifi).
 
 1.2.0  2013-06-17
   - [Add] Change the interval of minute (Thanks to: AndAniCalik).
