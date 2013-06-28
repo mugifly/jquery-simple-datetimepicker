@@ -161,7 +161,7 @@
 
 		var isOutputToInputObject = option.isOutputToInputObject;
 
-		var minute_interval = $picker.data("minute_interval");
+		var minuteInterval = $picker.data("minuteInterval");
 		var firstDayOfWeek = $picker.data("firstDayOfWeek");
 
 		/* Read locale option */
@@ -207,7 +207,7 @@
 			if(oldDate.getMonth() != date.getMonth() || oldDate.getDate() != date.getDate()){
 				changePoint = "calendar";
 			} else if (oldDate.getHours() != date.getHours() || oldDate.getMinutes() != date.getMinutes()){
-				if(date.getMinutes() == 0 || date.getMinutes() % minute_interval == 0){
+				if(date.getMinutes() == 0 || date.getMinutes() % minuteInterval == 0){
 					changePoint = "timelist";
 				}
 			}
@@ -354,7 +354,7 @@
 
 		/* Output time cells */
 		for (var hour = 0; hour < 24; hour++) {
-			for (var min = 0; min < 60; min += minute_interval) {
+			for (var min = 0; min < 60; min += minuteInterval) {
 				var $o = $('<div>');
 				$o.addClass('timelist_item');
 				$o.text(zpadding(hour) + ":" + zpadding(min));
@@ -438,10 +438,10 @@
 		$picker.data("locale", opt.locale);
 		$picker.data("firstDayOfWeek", opt.firstDayOfWeek);
 
-		if( 5 <= opt.minute_interval && opt.minute_interval <= 30 ){
-			$picker.data("minute_interval", opt.minute_interval);
+		if( 5 <= opt.minuteInterval && opt.minuteInterval <= 30 ){
+			$picker.data("minuteInterval", opt.minuteInterval);
 		} else {
-			$picker.data("minute_interval", 30);
+			$picker.data("minuteInterval", 30);
 		}
 
 		/* Header */
@@ -493,7 +493,7 @@
 	 		"dateFormat": 	"default",
 	 		"locale": 			"en",
 	 		"animation":           true,
-	 		"minute_interval":  	30,
+	 		"minuteInterval":  	30,
 	 		"firstDayOfWeek":		0
 	 	};
 
@@ -515,7 +515,7 @@
 	 		"dateFormat": "default",
 	 		"locale": 			"en",
 	 		"animation": true,
-	 		"minute_interval":  	30,
+	 		"minuteInterval":  	30,
 	 		"firstDayOfWeek":		0
 	 	}
 	 	var options = $.extend(defaults, config);

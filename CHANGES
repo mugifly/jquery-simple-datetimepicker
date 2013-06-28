@@ -5,6 +5,7 @@ https://github.com/mugifly/jquery-simple-datetimepicker/
   - [Add] Chinese locale (Thanks to: jasonslyvia).
   - [Add] Initial first day of the week (Thanks to: concept1hundred).
   - [Add] German locale (Thanks to: rtakeda).
+  - [Change] Option name: "minute_interval" -> "minuteInterval"
 
 1.2.0  2013-06-17
   - [Add] Change the interval of minute (Thanks to: AndAniCalik).
