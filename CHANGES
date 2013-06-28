@@ -1,7 +1,7 @@
 Version history for query-simple-datetimepicker
 https://github.com/mugifly/jquery-simple-datetimepicker/
 
-1.3.0  2013-06-27
+1.3.0  2013-06-29
   - [Add] Chinese locale (Thanks to: jasonslyvia).
   - [Add] Initial first day of the week (Thanks to: concept1hundred).
   - [Add] German locale (Thanks to: rtakeda).
