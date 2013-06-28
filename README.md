@@ -24,6 +24,10 @@ Thank you to:
 * [rdolgushin](https://github.com/rdolgushin)
 * [Mauricio](http://www.mauricioprof.com/)
 * [AndAniCalik](https://twitter.com/AndAniCalik)
+* [jasonslyvia](https://github.com/jasonslyvia)
+* [concept1hundred](https://github.com/concept1hundred)
+* [rtakeda](https://github.com/rtakeda)
+* [insonifi](https://github.com/insonifi)
 
 ## License and author
 
