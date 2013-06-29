@@ -1,5 +1,5 @@
 /**
- * dtpicker (jquery-simple-datetimepicker)
+ * jquery-simple-datetimepicker (jquery.simple-dtpicker.js)
  * (c) Masanori Ohgita - 2013.
  * https://github.com/mugifly/jquery-simple-datetimepicker
  */
@@ -7,11 +7,15 @@
  (function($) {
  	var DAYS_OF_WEEK_EN = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
  	var DAYS_OF_WEEK_JA = ['日', '月', '火', '水', '木', '金', '土'];
-	var DAYS_OF_WEEK_RU = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
-	var DAYS_OF_WEEK_BR = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+ 	var DAYS_OF_WEEK_RU = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+ 	var DAYS_OF_WEEK_BR = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+ 	var DAYS_OF_WEEK_CN = ['日', '一', '二', '三', '四', '五', '六'];
+ 	var DAYS_OF_WEEK_DE = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
  	var MONTHS_EN = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
  	var MONTHS_RU = [ "Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек" ];
-	var MONTHS_BR = [ "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" ];
+ 	var MONTHS_BR = [ "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" ];
+ 	var MONTHS_CN = [ "一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
+ 	var MONTHS_DE = [ "Jan", "Feb", "März", "Apr", "Mai", "Juni", "Juli", "Aug", "Sept", "Okt", "Nov", "Dez" ];
 
  	var PickerObjects = [];
  	var InputObjects = [];
@@ -95,6 +99,8 @@
 				dateFormat = "DD.MM.YYYY hh:mm";
 			}else if (locale == "br"){
 				dateFormat = "DD/MM/YYYY hh:mm";
+			}else if (locale == "de"){
+				dateFormat = "DD.MM.YYYY hh:mm";
 			}else{
 				dateFormat = "YYYY-MM-DD hh:mm";
 			}
@@ -155,7 +161,7 @@
 
 		var isOutputToInputObject = option.isOutputToInputObject;
 
-		var minute_interval = $picker.data("minute_interval");
+		var minuteInterval = $picker.data("minuteInterval");
 		var firstDayOfWeek = $picker.data("firstDayOfWeek");
 
 		/* Read locale option */
@@ -167,17 +173,15 @@
 			daysOfWeek = DAYS_OF_WEEK_RU;
 		} else if(locale == "br"){
 			daysOfWeek = DAYS_OF_WEEK_BR;
+		} else if(locale == "cn"){
+			daysOfWeek = DAYS_OF_WEEK_CN;
+		} else if (locale == "de"){
+			daysOfWeek = DAYS_OF_WEEK_DE;
 		}
 
 		/* Calculate dates */
-
-		var firstDayDiff = 7 + firstDayOfWeek;
-		Date.prototype.getDayOpt = function(){
-			return (this.getDay() - firstDayDiff) %7;
-		}
-
 		var todayDate = new Date();
-		var firstWday = (new Date(date.getFullYear(), date.getMonth(), 1).getDayOpt());
+		var firstWday = new Date(date.getFullYear(), date.getMonth(), 1).getDay() - firstDayOfWeek;
 		var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
 		var beforeMonthLastDay = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
 		var dateBeforeMonth = new Date(date.getFullYear(), date.getMonth(), 0);
@@ -197,7 +201,7 @@
 			if(oldDate.getMonth() != date.getMonth() || oldDate.getDate() != date.getDate()){
 				changePoint = "calendar";
 			} else if (oldDate.getHours() != date.getHours() || oldDate.getMinutes() != date.getMinutes()){
-				if(date.getMinutes() == 0 || date.getMinutes() % minute_interval == 0){
+				if(date.getMinutes() == 0 || date.getMinutes() % minuteInterval == 0){
 					changePoint = "timelist";
 				}
 			}
@@ -231,14 +235,18 @@
 		});
 
 		var $now_month = $('<span>');
-		if(locale == "en"){
-			$now_month.text(date.getFullYear() + " - " + MONTHS_EN[date.getMonth()]);
-		}else if(locale == "ja"){
+		if(locale == "ja"){
 			$now_month.text(date.getFullYear() + " / " + zpadding(date.getMonth() + 1));
-		}else if(locale == "ru"){
+		} else if(locale == "ru"){
 			$now_month.text(date.getFullYear() + " - " + MONTHS_RU[date.getMonth()]);
-		}else if(locale == "br"){
+		} else if(locale == "br"){
 			$now_month.text(date.getFullYear() + " - " + MONTHS_BR[date.getMonth()]);
+		} else if(locale == "cn"){
+			$now_month.text(date.getFullYear() + " - " + MONTHS_CN[date.getMonth()]);
+		} else if(locale == "de"){
+			$now_month.text(date.getFullYear() + " - " + MONTHS_DE[date.getMonth()]);
+		} else {
+			$now_month.text(date.getFullYear() + " - " + MONTHS_EN[date.getMonth()]);
 		}
 
 		var $link_next_month = $('<a>');
@@ -257,6 +265,7 @@
 		$table.append($tr);
 
 		/* Output wday cells */
+		var firstDayDiff = 7 + firstDayOfWeek;
 		for (var i = 0; i < 7; i++) {
 			var $td = $('<th>');
 			$td.text(daysOfWeek[((i + firstDayDiff) % 7)]);
@@ -265,7 +274,11 @@
 
 		/* Output day cells */
 		var cellNum = Math.ceil((firstWday + lastDay) / 7) * 7;
-		for (var i = 0; i < cellNum; i++) {
+		var i = 0;
+		if(firstWday < 0){
+			i = -7;
+		}
+		for (var zz = 0; i < cellNum; i++) {
 			var realDay = i + 1 - firstWday;
 			if (i % 7 == 0) {
 				$tr = $('<tr>');
@@ -290,9 +303,9 @@
 				$td.data("dateStr", dateNextMonth.getFullYear() + "/" + (dateNextMonth.getMonth() + 1) + "/" + (realDay - lastDay));
 			}
 
-			if ((i + firstDayOfWeek) % 7 == 0) {/* Sunday */
+			if (((i + firstDayDiff) % 7) == 0) {/* Sunday */
 				$td.addClass('wday_sun');
-			} else if ((i + firstDayOfWeek) % 7 == 6) {/* Saturday */
+			} else if (((i + firstDayDiff) % 7) == 6) {/* Saturday */
 				$td.addClass('wday_sat');
 			}
 
@@ -340,7 +353,7 @@
 
 		/* Output time cells */
 		for (var hour = 0; hour < 24; hour++) {
-			for (var min = 0; min < 60; min += minute_interval) {
+			for (var min = 0; min < 60; min += minuteInterval) {
 				var $o = $('<div>');
 				$o.addClass('timelist_item');
 				$o.text(zpadding(hour) + ":" + zpadding(min));
@@ -424,10 +437,10 @@
 		$picker.data("locale", opt.locale);
 		$picker.data("firstDayOfWeek", opt.firstDayOfWeek);
 
-		if( 5 <= opt.minute_interval && opt.minute_interval <= 30 ){
-			$picker.data("minute_interval", opt.minute_interval);
+		if( 5 <= opt.minuteInterval && opt.minuteInterval <= 30 ){
+			$picker.data("minuteInterval", opt.minuteInterval);
 		} else {
-			$picker.data("minute_interval", 30);
+			$picker.data("minuteInterval", 30);
 		}
 
 		/* Header */
@@ -479,7 +492,7 @@
 	 		"dateFormat": 	"default",
 	 		"locale": 			"en",
 	 		"animation":           true,
-	 		"minute_interval":  	30,
+	 		"minuteInterval":  	30,
 	 		"firstDayOfWeek":		0
 	 	};
 
@@ -501,7 +514,7 @@
 	 		"dateFormat": "default",
 	 		"locale": 			"en",
 	 		"animation": true,
-	 		"minute_interval":  	30,
+	 		"minuteInterval":  	30,
 	 		"firstDayOfWeek":		0
 	 	}
 	 	var options = $.extend(defaults, config);
@@ -583,8 +596,14 @@
 					var $picker = $(PickerObjects[$input.data('pickerId')]);
 					ActivePickerId = $input.data('pickerId');
 					$picker.show();
-					$picker.parent().css("top", $input.offset().top + $input.outerHeight() + 2 + "px");
-					$picker.parent().css("left", $input.offset().left + "px");
+					var _position = $(input).parent().css('position');
+					if(_position === 'relative' || _position === 'absolute'){
+						$picker.parent().css("top", $input.outerHeight() + 2 + "px");
+					}
+					else{
+						$picker.parent().css("top", $input.offset().top + $input.outerHeight() + 2 + "px");
+						$picker.parent().css("left", $input.position().left + "px");
+					}
 				});
 			}
 		});
