@@ -180,14 +180,8 @@
 		}
 
 		/* Calculate dates */
-
-		var firstDayDiff = 7 + firstDayOfWeek;
-		Date.prototype.getDayOpt = function(){
-			return (this.getDay() - firstDayDiff) %7;
-		}
-
 		var todayDate = new Date();
-		var firstWday = (new Date(date.getFullYear(), date.getMonth(), 1).getDayOpt());
+		var firstWday = new Date(date.getFullYear(), date.getMonth(), 1).getDay() - firstDayOfWeek;
 		var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
 		var beforeMonthLastDay = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
 		var dateBeforeMonth = new Date(date.getFullYear(), date.getMonth(), 0);
@@ -271,6 +265,7 @@
 		$table.append($tr);
 
 		/* Output wday cells */
+		var firstDayDiff = 7 + firstDayOfWeek;
 		for (var i = 0; i < 7; i++) {
 			var $td = $('<th>');
 			$td.text(daysOfWeek[((i + firstDayDiff) % 7)]);
@@ -279,7 +274,11 @@
 
 		/* Output day cells */
 		var cellNum = Math.ceil((firstWday + lastDay) / 7) * 7;
-		for (var i = 0; i < cellNum; i++) {
+		var i = 0;
+		if(firstWday < 0){
+			i = -7;
+		}
+		for (var zz = 0; i < cellNum; i++) {
 			var realDay = i + 1 - firstWday;
 			if (i % 7 == 0) {
 				$tr = $('<tr>');
@@ -304,9 +303,9 @@
 				$td.data("dateStr", dateNextMonth.getFullYear() + "/" + (dateNextMonth.getMonth() + 1) + "/" + (realDay - lastDay));
 			}
 
-			if ((i + firstDayOfWeek) % 7 == 0) {/* Sunday */
+			if (((i + firstDayDiff) % 7) == 0) {/* Sunday */
 				$td.addClass('wday_sun');
-			} else if ((i + firstDayOfWeek) % 7 == 6) {/* Saturday */
+			} else if (((i + firstDayDiff) % 7) == 6) {/* Saturday */
 				$td.addClass('wday_sat');
 			}
 
