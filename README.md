@@ -28,6 +28,9 @@ Thank you to:
 * [concept1hundred](https://github.com/concept1hundred)
 * [rtakeda](https://github.com/rtakeda)
 * [insonifi](https://github.com/insonifi)
+* [thisispiers]((https://github.com/thisispiers)
+* [robzlabz]((https://github.com/robzlabz)
+* [Orlac]((https://github.com/Orlac)
 
 ## License and author
 

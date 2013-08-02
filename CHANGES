@@ -1,6 +1,11 @@
 Version history for query-simple-datetimepicker
 https://github.com/mugifly/jquery-simple-datetimepicker/
 
+1.4.0  2013-08-02
+  - [Add] Indonesia locale (Thanks to: robzlabz).
+  - [Fix] "firstDayOfWeek" option and others (Thanks to: thisispiers).
+  - [Fix] should now gets format mysql-datetime (Thanks to: Orlac).
+
 1.3.0  2013-06-29
   - [Add] Chinese locale (Thanks to: jasonslyvia).
   - [Add] Initial first day of the week (Thanks to: concept1hundred).
