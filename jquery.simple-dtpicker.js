@@ -11,11 +11,13 @@
  	var DAYS_OF_WEEK_BR = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
  	var DAYS_OF_WEEK_CN = ['日', '一', '二', '三', '四', '五', '六'];
  	var DAYS_OF_WEEK_DE = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
+ 	var DAYS_OF_WEEK_ID = ['Min','Sen','Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
  	var MONTHS_EN = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
  	var MONTHS_RU = [ "Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек" ];
  	var MONTHS_BR = [ "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" ];
  	var MONTHS_CN = [ "一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
  	var MONTHS_DE = [ "Jan", "Feb", "März", "Apr", "Mai", "Juni", "Juli", "Aug", "Sept", "Okt", "Nov", "Dez" ];
+ 	var MONTHS_ID = [ "Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des" ];
 
  	var PickerObjects = [];
  	var InputObjects = [];
@@ -74,12 +76,16 @@
  		var re = /^(\d{2,4})[-/](\d{1,2})[-/](\d{1,2}) (\d{1,2}):(\d{1,2})$/;
  		var m = re.exec(str);
 		// change year for 4 digits
-		if (m[1] < 99) {
-			var date = new Date();
-			m[1] = parseInt(m[1]) + parseInt(date.getFullYear().toString().substr(0, 2) + "00");
-		}
-		// return
-		return new Date(m[1], m[2] - 1, m[3], m[4], m[5]);
+        if( m ){
+            if (m[1] < 99) {
+                var date = new Date();
+                m[1] = parseInt(m[1]) + parseInt(date.getFullYear().toString().substr(0, 2) + "00");
+            }
+            // return
+            return new Date(m[1], m[2] - 1, m[3], m[4], m[5]);
+        }else{
+            return new Date(str);
+        }
 	}
 
 	var outputToInputObject = function($picker) {
@@ -177,17 +183,13 @@
 			daysOfWeek = DAYS_OF_WEEK_CN;
 		} else if (locale == "de"){
 			daysOfWeek = DAYS_OF_WEEK_DE;
+		} else if (locale == "id"){
+			daysOfWeek = DAYS_OF_WEEK_ID;
 		}
 
 		/* Calculate dates */
-
-		var firstDayDiff = 7 + firstDayOfWeek;
-		Date.prototype.getDayOpt = function(){
-			return (this.getDay() - firstDayDiff) %7;
-		}
-
 		var todayDate = new Date();
-		var firstWday = (new Date(date.getFullYear(), date.getMonth(), 1).getDayOpt());
+		var firstWday = new Date(date.getFullYear(), date.getMonth(), 1).getDay() - firstDayOfWeek;
 		var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
 		var beforeMonthLastDay = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
 		var dateBeforeMonth = new Date(date.getFullYear(), date.getMonth(), 0);
@@ -251,6 +253,8 @@
 			$now_month.text(date.getFullYear() + " - " + MONTHS_CN[date.getMonth()]);
 		} else if(locale == "de"){
 			$now_month.text(date.getFullYear() + " - " + MONTHS_DE[date.getMonth()]);
+		} else if(locale == "id"){
+			$now_month.text(date.getFullYear() + " - " + MONTHS_ID[date.getMonth()]);
 		} else {
 			$now_month.text(date.getFullYear() + " - " + MONTHS_EN[date.getMonth()]);
 		}
@@ -271,6 +275,7 @@
 		$table.append($tr);
 
 		/* Output wday cells */
+		var firstDayDiff = 7 + firstDayOfWeek;
 		for (var i = 0; i < 7; i++) {
 			var $td = $('<th>');
 			$td.text(daysOfWeek[((i + firstDayDiff) % 7)]);
@@ -279,7 +284,11 @@
 
 		/* Output day cells */
 		var cellNum = Math.ceil((firstWday + lastDay) / 7) * 7;
-		for (var i = 0; i < cellNum; i++) {
+		var i = 0;
+		if(firstWday < 0){
+			i = -7;
+		}
+		for (var zz = 0; i < cellNum; i++) {
 			var realDay = i + 1 - firstWday;
 			if (i % 7 == 0) {
 				$tr = $('<tr>');
@@ -304,9 +313,9 @@
 				$td.data("dateStr", dateNextMonth.getFullYear() + "/" + (dateNextMonth.getMonth() + 1) + "/" + (realDay - lastDay));
 			}
 
-			if ((i + firstDayOfWeek) % 7 == 0) {/* Sunday */
+			if (((i + firstDayDiff) % 7) == 0) {/* Sunday */
 				$td.addClass('wday_sun');
-			} else if ((i + firstDayOfWeek) % 7 == 6) {/* Saturday */
+			} else if (((i + firstDayDiff) % 7) == 6) {/* Saturday */
 				$td.addClass('wday_sat');
 			}
 
