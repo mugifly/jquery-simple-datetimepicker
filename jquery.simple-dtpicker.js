@@ -11,7 +11,7 @@
  	var DAYS_OF_WEEK_BR = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
  	var DAYS_OF_WEEK_CN = ['日', '一', '二', '三', '四', '五', '六'];
  	var DAYS_OF_WEEK_DE = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
- 	var DAYS_OF_WEEK_ID = ['Sen','Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
+ 	var DAYS_OF_WEEK_ID = ['Min','Sen','Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
  	var MONTHS_EN = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
  	var MONTHS_RU = [ "Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек" ];
  	var MONTHS_BR = [ "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" ];
@@ -183,6 +183,8 @@
 			daysOfWeek = DAYS_OF_WEEK_CN;
 		} else if (locale == "de"){
 			daysOfWeek = DAYS_OF_WEEK_DE;
+		} else if (locale == "id"){
+			daysOfWeek = DAYS_OF_WEEK_ID;
 		}
 
 		/* Calculate dates */
@@ -251,6 +253,8 @@
 			$now_month.text(date.getFullYear() + " - " + MONTHS_CN[date.getMonth()]);
 		} else if(locale == "de"){
 			$now_month.text(date.getFullYear() + " - " + MONTHS_DE[date.getMonth()]);
+		} else if(locale == "id"){
+			$now_month.text(date.getFullYear() + " - " + MONTHS_ID[date.getMonth()]);
 		} else {
 			$now_month.text(date.getFullYear() + " - " + MONTHS_EN[date.getMonth()]);
 		}
