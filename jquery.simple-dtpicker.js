@@ -75,6 +75,9 @@
  	var getDate = function (str) {
  		var re = /^(\d{2,4})[-/](\d{1,2})[-/](\d{1,2}) (\d{1,2}):(\d{1,2})$/;
  		var m = re.exec(str);
+		if (m === null) {
+			return NaN;
+		}
 		// change year for 4 digits
         if( m ){
             if (m[1] < 99) {
