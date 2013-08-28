@@ -11,6 +11,7 @@
  	var DAYS_OF_WEEK_BR = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
  	var DAYS_OF_WEEK_CN = ['日', '一', '二', '三', '四', '五', '六'];
  	var DAYS_OF_WEEK_DE = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
+	var DAYS_OF_WEEK_SV = ['Sö', 'Må', 'Ti', 'On', 'To', 'Fr', 'Lö'];
  	var DAYS_OF_WEEK_ID = ['Min','Sen','Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
  	var DAYS_OF_WEEK_TR = ['Pz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cu', 'Cts'];
  	var DAYS_OF_WEEK_ES = ['dom', 'lun', 'mar', 'miér', 'jue', 'vié', 'sáb'];
@@ -19,6 +20,7 @@
  	var MONTHS_BR = [ "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" ];
  	var MONTHS_CN = [ "一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
  	var MONTHS_DE = [ "Jan", "Feb", "März", "Apr", "Mai", "Juni", "Juli", "Aug", "Sept", "Okt", "Nov", "Dez" ];
+ 	var MONTHS_SV = [ "Jan", "Feb", "Mar", "Apr", "Maj", "Juni", "Juli", "Aug", "Sept", "Okt", "Nov", "Dec" ];
  	var MONTHS_ID = [ "Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des" ];
  	var MONTHS_TR = [ "Ock", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Agu", "Eyl", "Ekm", "Kas", "Arlk" ];
 	var MONTHS_ES = [ "ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic" ];
@@ -192,6 +194,8 @@
 			daysOfWeek = DAYS_OF_WEEK_CN;
 		} else if (locale == "de"){
 			daysOfWeek = DAYS_OF_WEEK_DE;
+		} else if (locale == "sv"){
+			daysOfWeek = DAYS_OF_WEEK_SV;
 		} else if (locale == "id"){
 			daysOfWeek = DAYS_OF_WEEK_ID;
 		} else if (locale == "tr"){
@@ -266,6 +270,8 @@
 			$now_month.text(date.getFullYear() + " - " + MONTHS_CN[date.getMonth()]);
 		} else if(locale == "de"){
 			$now_month.text(date.getFullYear() + " - " + MONTHS_DE[date.getMonth()]);
+		} else if(locale == "sv"){
+			$now_month.text(date.getFullYear() + " - " + MONTHS_SV[date.getMonth()]);
 		} else if(locale == "id"){
 			$now_month.text(date.getFullYear() + " - " + MONTHS_ID[date.getMonth()]);
 		} else if(locale == "tr"){
