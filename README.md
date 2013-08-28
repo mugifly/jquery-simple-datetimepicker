@@ -32,6 +32,7 @@ Thank you to:
 * [robzlabz](https://github.com/robzlabz)
 * [Orlac](https://github.com/Orlac)
 * [myfell](https://github.com/myfell)
+* [maw](https://github.com/maw)
 
 ## License and author
 

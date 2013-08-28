@@ -12,14 +12,16 @@
  	var DAYS_OF_WEEK_CN = ['日', '一', '二', '三', '四', '五', '六'];
  	var DAYS_OF_WEEK_DE = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
  	var DAYS_OF_WEEK_ID = ['Min','Sen','Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
- 	 var DAYS_OF_WEEK_TR = ['Pz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cu', 'Cts'];
+ 	var DAYS_OF_WEEK_TR = ['Pz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cu', 'Cts'];
+ 	var DAYS_OF_WEEK_ES = ['dom', 'lun', 'mar', 'miér', 'jue', 'vié', 'sáb'];
  	var MONTHS_EN = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
  	var MONTHS_RU = [ "Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек" ];
  	var MONTHS_BR = [ "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" ];
  	var MONTHS_CN = [ "一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
  	var MONTHS_DE = [ "Jan", "Feb", "März", "Apr", "Mai", "Juni", "Juli", "Aug", "Sept", "Okt", "Nov", "Dez" ];
  	var MONTHS_ID = [ "Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des" ];
-	var MONTHS_TR = [ "Ock", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Agu", "Eyl", "Ekm", "Kas", "Arlk" ];
+ 	var MONTHS_TR = [ "Ock", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Agu", "Eyl", "Ekm", "Kas", "Arlk" ];
+	var MONTHS_ES = [ "ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic" ];
 
  	var PickerObjects = [];
  	var InputObjects = [];
@@ -77,6 +79,9 @@
  	var getDate = function (str) {
  		var re = /^(\d{2,4})[-/](\d{1,2})[-/](\d{1,2}) (\d{1,2}):(\d{1,2})$/;
  		var m = re.exec(str);
+		if (m === null) {
+			return NaN;
+		}
 		// change year for 4 digits
         if( m ){
             if (m[1] < 99) {
@@ -109,6 +114,8 @@
 				dateFormat = "DD/MM/YYYY hh:mm";
 			}else if (locale == "de"){
 				dateFormat = "DD.MM.YYYY hh:mm";
+			}else if (locale === "es"){
+				dateFormat = "DD/MM/YYYY hh:mm";
 			}else{
 				dateFormat = "YYYY-MM-DD hh:mm";
 			}
@@ -189,6 +196,8 @@
 			daysOfWeek = DAYS_OF_WEEK_ID;
 		} else if (locale == "tr"){
 			daysOfWeek = DAYS_OF_WEEK_TR;
+		} else if (locale === "es"){
+			daysOfWeek = DAYS_OF_WEEK_ES;
 		}
 
 		/* Calculate dates */
@@ -261,6 +270,8 @@
 			$now_month.text(date.getFullYear() + " - " + MONTHS_ID[date.getMonth()]);
 		} else if(locale == "tr"){
 			$now_month.text(date.getFullYear() + " - " + MONTHS_TR[date.getMonth()]);
+		} else if(locale == "es"){
+			$now_month.text(date.getFullYear() + " - " + MONTHS_ES[date.getMonth()]);
 		} else {
 			$now_month.text(date.getFullYear() + " - " + MONTHS_EN[date.getMonth()]);
 		}
