@@ -4,6 +4,8 @@ https://github.com/mugifly/jquery-simple-datetimepicker/
 1.6.0  2013-09-xx
   - [Add] "closeOnSelected" option for close the picker when selected date & time.
   - [Add] "timelistScroll" option for disable automatic scroll of timelist.
+  - [Add] Change the months by scroll of mouse-wheel on the calendar
+  - [Add] "calendarMouseScroll" option for scroll calendar with mouse wheel (default: true).
   - [Change] Improve design (header, container).
   - [Fix] Malfunction of "animation" option (Can't disable animation).
 

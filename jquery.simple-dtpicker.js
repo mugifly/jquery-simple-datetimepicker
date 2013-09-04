@@ -482,6 +482,7 @@
 		$picker.data("animation", opt.animation);
 		$picker.data("closeOnSelected", opt.closeOnSelected);
 		$picker.data("timelistScroll", opt.timelistScroll);
+		$picker.data("calendarMouseScroll", opt.calendarMouseScroll);
 
 		$picker.data("state", 0);
 
@@ -519,7 +520,20 @@
 			function(){
 				ActivePickerId = -1;
 			}
-			);
+		);
+
+		/* Set event-handler to calendar */
+		if (opt.calendarMouseScroll) {
+			$calendar.bind('mousewheel', function(e){ // Change a month with mouse wheel scroll
+				var $picker = getParentPickerObject($(this));
+				if(e.originalEvent.wheelDelta /120 > 0) {
+					beforeMonth($picker);
+				} else {
+					nextMonth($picker);
+				}
+				return false;
+			});
+		}
 
 		PickerObjects.push($picker);
 
@@ -543,7 +557,8 @@
 	 		"minuteInterval":  	30,
 	 		"firstDayOfWeek":		0,
 	 		"closeOnSelected": false,
-	 		"timelistScroll": true
+	 		"timelistScroll": true,
+	 		"calendarMouseScroll": true
 	 	};
 
 	 	var options = $.extend(defaults, config);
@@ -567,7 +582,8 @@
 	 		"minuteInterval":  	30,
 	 		"firstDayOfWeek":		0,
 	 		"closeOnSelected": false,
-	 		"timelistScroll": true
+	 		"timelistScroll": true,
+	 		"calendarMouseScroll": true
 	 	}
 	 	var options = $.extend(defaults, config);
 	 	return this.each(function(i) {
