@@ -20,7 +20,7 @@
 		<h2>Demo - jquery-simple-datetimepicker</h2>
 	</header>
 	
-	<h4>Inline</h4>
+	<h3>Inline</h3>
 	<div id="date_picker"> </div>
 	<script type="text/javascript">
 		$(function(){
@@ -28,7 +28,7 @@
 		});
 	</script>
 	
-	<h4>Append to Input-field</h4>
+	<h3>Append to Input-field</h3>
 	<input type="text" name="date" value="">
 	<script type="text/javascript">
 		$(function(){
@@ -36,7 +36,7 @@
 		});
 	</script>
 	
-	<h4>Append to Input-field (Inline)</h4>
+	<h3>Append to Input-field (Inline)</h3>
 	<input type="text" name="date2" value="2012/01/01 10:00">
 	<script type="text/javascript">
 		$(function(){
@@ -45,10 +45,12 @@
 	</script>
 	<small>In addition, this default date has specified by the input's value ("2012-01-01 10:00").</small>
 	
-	<h4>Set options</h4>
+	<hr />
+
+	<h3>Avaiable options</h3>
 		About details for these options, please see: <a href="https://github.com/mugifly/jquery-simple-datetimepicker/wiki/Options">Wiki</a>.
 	
-		<h5>Current date ("current": "2012-3-4 12:30")</h5>
+		<h4>Current date ("current": "2012-3-4 12:30")</h4>
 		<input type="text" name="date3" value="">
 		<script type="text/javascript">
 			$(function(){
@@ -59,7 +61,7 @@
 			});
 		</script>
 
-		<h5>dateFormat ("dateFormat": "YY/MM/DD h:m")</h5>
+		<h4>dateFormat ("dateFormat": "YY/MM/DD h:m")</h4>
 		<input type="text" name="date4" value="">
 		<script type="text/javascript">
 			$(function(){
@@ -71,7 +73,7 @@
 		</script>
 		
 
-		<h5>locale ("locale": "ja")</h5>
+		<h4>locale ("locale": "ja")</h4>
 		<input type="text" name="date5" value="">
 		<script type="text/javascript">
 			$(function(){
@@ -81,7 +83,7 @@
 				});
 			});
 		</script>
-		<h6>Available locales:</h6>
+		<h5>Available locales:</h5>
 		<ul style="font-size: 0.8em;">
 			<li>"en" : English (default)</li>
 			<li>"ja" : Japanese</li>
@@ -92,7 +94,7 @@
 			<li>"id" : Bahasa Indonesia - Thanks to: <a href="https://github.com/robzlabz">robzlabz</a></li>
 		</ul>
 
-		<h5>Change the interval of minute ("minuteInterval": 15)</h5>
+		<h4>Change the interval of minute ("minuteInterval": 15)</h4>
 		<input type="text" name="date6" value="">
 		<script type="text/javascript">
 			$(function(){
@@ -102,10 +104,10 @@
 				});
 			});
 		</script>
-		<h6>Avaiable value:</h6>
+		<h5>Avaiable value:</h5>
 		<small>min: 5, max: 30. (default: 30 minute. it means interval of each 30 minute.)</small><br />
 
-		<h5>Change the first day of the week ("firstDayOfWeek": 1)</h5>
+		<h4>Change the first day of the week ("firstDayOfWeek": 1)</h4>
 		<input type="text" name="date8" value="">
 		<script type="text/javascript">
 			$(function(){
@@ -115,21 +117,42 @@
 				});
 			});
 		</script>
-		<h6>Avaiable value:</h6>
+		<h5>Avaiable value:</h5>
 		<small>min: 0 (sunday), max: 6 (satday), default: 0 (sunday). </small><br />
 		<small>Thanks to: <a href="https://github.com/concept1hundred">concept1hundred</a>.</small>
 
-		<h5>Close when selected date &amp; time ("closeOnSelected": true) with append to Input-field mode</h5>
-		<input type="text" name="date9" value="">
-		<script type="text/javascript">
-			$(function(){
-				$('*[name=date9]').appendDtpicker({
-					"closeOnSelected": true
+		<h4>Close when selected date &amp; time ("closeOnSelected": true) with append to Input-field mode</h4>
+		<p>
+			<input type="text" name="date9" value="">
+			<script type="text/javascript">
+				$(function(){
+					$('*[name=date9]').appendDtpicker({
+						"closeOnSelected": true
+					});
 				});
-			});
-		</script>
+			</script>
+		</p>
 
-		<h5>Disable the fade animation ("animation": false)</h5>
+		<p>
+			It's will also useful for use with two input-fields.<br />
+			<input type="text" name="date10" value=""> 
+			- 
+			<input type="text" name="date11" value="">
+			<script type="text/javascript">
+				$(function(){
+					$('*[name=date10]').appendDtpicker({
+						"closeOnSelected": true
+					});
+				});
+				$(function(){
+					$('*[name=date11]').appendDtpicker({
+						"closeOnSelected": true
+					});
+				});
+			</script>
+		</p>
+
+		<h4>Disable the fade animation ("animation": false)</h4>
 		<input type="text" name="date7" value="">
 		<script type="text/javascript">
 			$(function(){
