@@ -1,6 +1,12 @@
 Version history for query-simple-datetimepicker
 https://github.com/mugifly/jquery-simple-datetimepicker/
 
+1.6.0  2013-09-xx
+  - [Add] "closeOnSelected" option for close the picker when selected date & time.
+  - [Add] "timelistScroll" option for disable automatic scroll of timelist.
+  - [Change] Improve design (header, container).
+  - [Fix] Malfunction of "animation" option (Can't disable animation).
+
 1.5.0  2013-08-28
   - [Add] Turkish locale (Thanks to: myfell).
   - [Add] Spanish locale (Thanks to: maw).
