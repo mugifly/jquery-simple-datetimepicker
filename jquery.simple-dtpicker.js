@@ -11,7 +11,7 @@
  	var DAYS_OF_WEEK_BR = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
  	var DAYS_OF_WEEK_CN = ['日', '一', '二', '三', '四', '五', '六'];
  	var DAYS_OF_WEEK_DE = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
-	var DAYS_OF_WEEK_SV = ['Sö', 'Må', 'Ti', 'On', 'To', 'Fr', 'Lö'];
+ 	var DAYS_OF_WEEK_SV = ['Sö', 'Må', 'Ti', 'On', 'To', 'Fr', 'Lö'];
  	var DAYS_OF_WEEK_ID = ['Min','Sen','Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
  	var DAYS_OF_WEEK_TR = ['Pz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cu', 'Cts'];
  	var DAYS_OF_WEEK_ES = ['dom', 'lun', 'mar', 'miér', 'jue', 'vié', 'sáb'];
@@ -23,7 +23,7 @@
  	var MONTHS_SV = [ "Jan", "Feb", "Mar", "Apr", "Maj", "Juni", "Juli", "Aug", "Sept", "Okt", "Nov", "Dec" ];
  	var MONTHS_ID = [ "Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des" ];
  	var MONTHS_TR = [ "Ock", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Agu", "Eyl", "Ekm", "Kas", "Arlk" ];
-	var MONTHS_ES = [ "ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic" ];
+ 	var MONTHS_ES = [ "ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic" ];
 
  	var PickerObjects = [];
  	var InputObjects = [];
@@ -81,20 +81,20 @@
  	var getDate = function (str) {
  		var re = /^(\d{2,4})[-/](\d{1,2})[-/](\d{1,2}) (\d{1,2}):(\d{1,2})$/;
  		var m = re.exec(str);
-		if (m === null) {
-			return NaN;
-		}
+ 		if (m === null) {
+ 			return NaN;
+ 		}
 		// change year for 4 digits
-        if( m ){
-            if (m[1] < 99) {
-                var date = new Date();
-                m[1] = parseInt(m[1]) + parseInt(date.getFullYear().toString().substr(0, 2) + "00");
-            }
-            // return
-            return new Date(m[1], m[2] - 1, m[3], m[4], m[5]);
-        }else{
-            return new Date(str);
-        }
+		if( m ){
+			if (m[1] < 99) {
+				var date = new Date();
+				m[1] = parseInt(m[1]) + parseInt(date.getFullYear().toString().substr(0, 2) + "00");
+			}
+			// return
+			return new Date(m[1], m[2] - 1, m[3], m[4], m[5]);
+		}else{
+			return new Date(str);
+		}
 	}
 
 	var outputToInputObject = function($picker) {
@@ -543,7 +543,7 @@
 	 		"minuteInterval":  	30,
 	 		"firstDayOfWeek":		0,
 	 		"closeOnSelected": false,
-	 		"timelistScroll": true,
+	 		"timelistScroll": true
 	 	};
 
 	 	var options = $.extend(defaults, config);
@@ -567,7 +567,7 @@
 	 		"minuteInterval":  	30,
 	 		"firstDayOfWeek":		0,
 	 		"closeOnSelected": false,
-	 		"timelistScroll": true,
+	 		"timelistScroll": true
 	 	}
 	 	var options = $.extend(defaults, config);
 	 	return this.each(function(i) {
