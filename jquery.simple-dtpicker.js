@@ -558,15 +558,40 @@
 
 		/* Set event-handler to calendar */
 		if (opt.calendarMouseScroll) {
-			$calendar.bind('mousewheel', function(e){ // Change a month with mouse wheel scroll
-				var $picker = getParentPickerObject($(this));
-				if(e.originalEvent.wheelDelta /120 > 0) {
-					beforeMonth($picker);
-				} else {
-					nextMonth($picker);
-				}
-				return false;
-			});
+			if (window.sidebar) { // Mozilla Firefox
+				$calendar.bind('DOMMouseScroll', function(e){ // Change a month with mouse wheel scroll for Fx
+					var $picker = getParentPickerObject($(this));
+					
+					var delta = e.originalEvent.detail;
+					if(e.originalEvent.axis !== undefined && e.originalEvent.asix == e.originalEvent.HORIZONTAL_AXIS){
+						e.deltaX = delta;
+						e.deltaY = 0;
+					} else {
+						e.deltaX = 0;
+						e.deltaY = delta;
+					}
+					e.deltaX /= 3;
+					e.deltaY /= 3;
+
+					if(e.deltaY > 0) {
+						nextMonth($picker);
+					} else {
+						beforeMonth($picker);
+					}
+
+					return false;
+				});
+			} else { // Other browsers
+				$calendar.bind('mousewheel', function(e){ // Change a month with mouse wheel scroll
+					var $picker = getParentPickerObject($(this));
+					if(e.originalEvent.wheelDelta /120 > 0) {
+						beforeMonth($picker);
+					} else {
+						nextMonth($picker);
+					}
+					return false;
+				});
+			}
 		}
 
 		PickerObjects.push($picker);
