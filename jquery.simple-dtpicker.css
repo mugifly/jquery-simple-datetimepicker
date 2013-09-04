@@ -4,10 +4,10 @@
  */
 
 .datepicker {
-    display: inline-block;
-	
+	display: inline-block;
+	font: 15px/1.5 "Helvetica Neue", mplus-2c, Helvetica, Arial, "Hiragino Kaku Gothic Pro", Meiryo, sans-serif;
+	font-weight: 300;
 	border: 1px solid #dfdfdf;
-	
 	border-radius: 3px;
 		-webkit-border-radius: 3px;  
 		-moz-border-radius: 3px;
