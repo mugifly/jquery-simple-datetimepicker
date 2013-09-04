@@ -406,6 +406,12 @@
 						"isAnim": false,
 						"isOutputToInputObject": true
 					}, date.getFullYear(), date.getMonth(), date.getDate(), hour, min);
+
+					if ($picker.data("isInline") == false && $picker.data("closeOnSelected")){
+						// Close a picker
+						ActivePickerId = -1;
+						$picker.hide();
+					}
 				});
 
 				$o.hover(function() {
@@ -459,6 +465,9 @@
 		$picker.data("locale", opt.locale);
 		$picker.data("firstDayOfWeek", opt.firstDayOfWeek);
 		$picker.data("animation", opt.animation);
+		$picker.data("closeOnSelected", opt.closeOnSelected);
+
+		$picker.data("state", 0);
 
 		if( 5 <= opt.minuteInterval && opt.minuteInterval <= 30 ){
 			$picker.data("minuteInterval", opt.minuteInterval);
@@ -516,7 +525,8 @@
 	 		"locale": 			"en",
 	 		"animation":           true,
 	 		"minuteInterval":  	30,
-	 		"firstDayOfWeek":		0
+	 		"firstDayOfWeek":		0,
+	 		"closeOnSelected": false
 	 	};
 
 	 	var options = $.extend(defaults, config);
@@ -538,7 +548,8 @@
 	 		"locale": 			"en",
 	 		"animation": true,
 	 		"minuteInterval":  	30,
-	 		"firstDayOfWeek":		0
+	 		"firstDayOfWeek":		0,
+	 		"closeOnSelected": false
 	 	}
 	 	var options = $.extend(defaults, config);
 	 	return this.each(function(i) {

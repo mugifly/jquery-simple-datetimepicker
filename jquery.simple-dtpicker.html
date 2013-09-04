@@ -119,6 +119,16 @@
 		<small>min: 0 (sunday), max: 6 (satday), default: 0 (sunday). </small><br />
 		<small>Thanks to: <a href="https://github.com/concept1hundred">concept1hundred</a>.</small>
 
+		<h5>Close when selected date &amp; time ("closeOnSelected": true) with append to Input-field mode</h5>
+		<input type="text" name="date9" value="">
+		<script type="text/javascript">
+			$(function(){
+				$('*[name=date9]').appendDtpicker({
+					"closeOnSelected": true
+				});
+			});
+		</script>
+
 		<h5>Disable the fade animation ("animation": false)</h5>
 		<input type="text" name="date7" value="">
 		<script type="text/javascript">
