@@ -34,6 +34,8 @@ Thank you to:
 * [myfell](https://github.com/myfell)
 * [maw](https://github.com/maw)
 * [MacDknife](https://github.com/MacDknife)
+* [deviso](https://github.com/deviso)
+* [Tanver186](https://github.com/Tanver186)
 
 ## License and author
 
