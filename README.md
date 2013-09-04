@@ -3,7 +3,7 @@ jquery-simple-datetimepicker (jquery.simple-dtpicker.js)
 
 Date and time picker, simply. (jquery plugin)
 
-![screenshot](https://raw.github.com/mugifly/jquery-simple-datetimepicker/master/design/dtpicker_mock.png)
+![screenshot](https://raw.github.com/mugifly/jquery-simple-datetimepicker/master/design/dtpicker_screenshot.png)
 
 Details and samples: http://mugifly.github.com/jquery-simple-datetimepicker
 
