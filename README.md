@@ -31,6 +31,9 @@ Thank you to:
 * [thisispiers](https://github.com/thisispiers)
 * [robzlabz](https://github.com/robzlabz)
 * [Orlac](https://github.com/Orlac)
+* [myfell](https://github.com/myfell)
+* [maw](https://github.com/maw)
+* [MacDknife](https://github.com/MacDknife)
 
 ## License and author
 
