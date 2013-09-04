@@ -12,6 +12,7 @@
 	<!---->
 	
 	<style type="text/css">
+		body { background-color: #ffffff; padding-left: 1%; padding-bottom: 100px; }
 		footer{font-size:small;position:fixed;right:5px;bottom:5px;}
 	</style>
 </head>
@@ -187,7 +188,17 @@
 				});
 			});
 		</script>
-		
+
+		<h4>Disable the Today button ("todayButton": false)</h4>
+		<input type="text" name="date14" value="">
+		<script type="text/javascript">
+			$(function(){
+				$('*[name=date14]').appendDtpicker({
+					"inline": true,
+					"todayButton": false
+				});
+			});
+		</script>
 		
 	<footer>
 		<a href="https://github.com/mugifly/jquery-simple-datetimepicker">jquery.simple-dtpicker.js (jquery-simple-datetimepicker)</a><br>
