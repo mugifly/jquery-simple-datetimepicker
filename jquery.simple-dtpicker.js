@@ -458,6 +458,7 @@
 		$picker.data("dateFormat", opt.dateFormat);
 		$picker.data("locale", opt.locale);
 		$picker.data("firstDayOfWeek", opt.firstDayOfWeek);
+		$picker.data("animation", opt.animation);
 
 		if( 5 <= opt.minuteInterval && opt.minuteInterval <= 30 ){
 			$picker.data("minuteInterval", opt.minuteInterval);
