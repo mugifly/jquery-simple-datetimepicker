@@ -11,7 +11,7 @@
  	var DAYS_OF_WEEK_BR = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
  	var DAYS_OF_WEEK_CN = ['日', '一', '二', '三', '四', '五', '六'];
  	var DAYS_OF_WEEK_DE = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
-	var DAYS_OF_WEEK_SV = ['Sö', 'Må', 'Ti', 'On', 'To', 'Fr', 'Lö'];
+ 	var DAYS_OF_WEEK_SV = ['Sö', 'Må', 'Ti', 'On', 'To', 'Fr', 'Lö'];
  	var DAYS_OF_WEEK_ID = ['Min','Sen','Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
  	var DAYS_OF_WEEK_TR = ['Pz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cu', 'Cts'];
  	var DAYS_OF_WEEK_ES = ['dom', 'lun', 'mar', 'miér', 'jue', 'vié', 'sáb'];
@@ -23,7 +23,7 @@
  	var MONTHS_SV = [ "Jan", "Feb", "Mar", "Apr", "Maj", "Juni", "Juli", "Aug", "Sept", "Okt", "Nov", "Dec" ];
  	var MONTHS_ID = [ "Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des" ];
  	var MONTHS_TR = [ "Ock", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Agu", "Eyl", "Ekm", "Kas", "Arlk" ];
-	var MONTHS_ES = [ "ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic" ];
+ 	var MONTHS_ES = [ "ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic" ];
 
  	var PickerObjects = [];
  	var InputObjects = [];
@@ -52,6 +52,16 @@
  		}
  		return null;
  	}
+
+ 	var setToNow = function($obj) {
+ 		var $picker = getParentPickerObject($obj);
+ 		var date = new Date();
+ 		draw($picker, {
+ 			"isAnim": true,
+ 			"isOutputToInputObject": true
+ 		}, date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes());
+ 	};
+
  	var beforeMonth = function($obj) {
  		var $picker = getParentPickerObject($obj);
  		var date = getPickedDate($picker);
@@ -81,20 +91,20 @@
  	var getDate = function (str) {
  		var re = /^(\d{2,4})[-/](\d{1,2})[-/](\d{1,2}) (\d{1,2}):(\d{1,2})$/;
  		var m = re.exec(str);
-		if (m === null) {
-			return NaN;
-		}
+ 		if (m === null) {
+ 			return NaN;
+ 		}
 		// change year for 4 digits
-        if( m ){
-            if (m[1] < 99) {
-                var date = new Date();
-                m[1] = parseInt(m[1]) + parseInt(date.getFullYear().toString().substr(0, 2) + "00");
-            }
-            // return
-            return new Date(m[1], m[2] - 1, m[3], m[4], m[5]);
-        }else{
-            return new Date(str);
-        }
+		if( m ){
+			if (m[1] < 99) {
+				var date = new Date();
+				m[1] = parseInt(m[1]) + parseInt(date.getFullYear().toString().substr(0, 2) + "00");
+			}
+			// return
+			return new Date(m[1], m[2] - 1, m[3], m[4], m[5]);
+		}else{
+			return new Date(str);
+		}
 	}
 
 	var outputToInputObject = function($picker) {
@@ -170,7 +180,12 @@
 		//console.log("dtpicker - draw()..." + year + "," + month + "," + day + " " + hour + ":" + min + " -> " + date);
 
 		/* Read options */
+		var isTodayButton = $picker.data("todayButton");
 		var isScroll = option.isAnim; /* It same with isAnim */
+		if($picker.data("timelistScroll") == false) {// If disabled by user option.
+			isScroll = false;
+		}
+
 		var isAnim = option.isAnim;
 		if($picker.data("animation") == false){ // If disabled by user option.
 			isAnim = false;
@@ -253,8 +268,11 @@
 
 		/* Header ----- */
 		$header.children().remove();
+
 		var $link_before_month = $('<a>');
 		$link_before_month.text('<');
+		$link_before_month.prop('alt', 'Previous month');
+		$link_before_month.prop('title', 'Previous month');
 		$link_before_month.click(function() {
 			beforeMonth($picker);
 		});
@@ -284,9 +302,28 @@
 
 		var $link_next_month = $('<a>');
 		$link_next_month.text('>');
+		$link_next_month.prop('alt', 'Next month');
+		$link_next_month.prop('title', 'Next month');
 		$link_next_month.click(function() {
 			nextMonth($picker);
 		});
+
+		if (isTodayButton) {
+			var $link_today = $('<a/>');
+			/*
+				This icon resource from a part of "FontAwesome" by Dave Gandy - http://fontawesome.io".
+				http://fortawesome.github.io/Font-Awesome/license/
+				Thankyou.
+			*/
+			$link_today.html( decodeURIComponent('%3c%3fxml%20version%3d%221%2e0%22%20encoding%3d%22UTF%2d8%22%20standalone%3d%22no%22%3f%3e%3csvg%20%20xmlns%3adc%3d%22http%3a%2f%2fpurl%2eorg%2fdc%2felements%2f1%2e1%2f%22%20%20xmlns%3acc%3d%22http%3a%2f%2fcreativecommons%2eorg%2fns%23%22%20xmlns%3ardf%3d%22http%3a%2f%2fwww%2ew3%2eorg%2f1999%2f02%2f22%2drdf%2dsyntax%2dns%23%22%20%20xmlns%3asvg%3d%22http%3a%2f%2fwww%2ew3%2eorg%2f2000%2fsvg%22%20xmlns%3d%22http%3a%2f%2fwww%2ew3%2eorg%2f2000%2fsvg%22%20%20version%3d%221%2e1%22%20%20width%3d%22100%25%22%20%20height%3d%22100%25%22%20viewBox%3d%220%200%2010%2010%22%3e%3cg%20transform%3d%22translate%28%2d5%2e5772299%2c%2d26%2e54581%29%22%3e%3cpath%20d%3d%22m%2014%2e149807%2c31%2e130932%20c%200%2c%2d0%2e01241%200%2c%2d0%2e02481%20%2d0%2e0062%2c%2d0%2e03721%20L%2010%2e57723%2c28%2e153784%207%2e0108528%2c31%2e093719%20c%200%2c0%2e01241%20%2d0%2e0062%2c0%2e02481%20%2d0%2e0062%2c0%2e03721%20l%200%2c2%2e97715%20c%200%2c0%2e217084%200%2e1798696%2c0%2e396953%200%2e3969534%2c0%2e396953%20l%202%2e3817196%2c0%200%2c%2d2%2e38172%201%2e5878132%2c0%200%2c2%2e38172%202%2e381719%2c0%20c%200%2e217084%2c0%200%2e396953%2c%2d0%2e179869%200%2e396953%2c%2d0%2e396953%20l%200%2c%2d2%2e97715%20m%201%2e383134%2c%2d0%2e427964%20c%200%2e06823%2c%2d0%2e08063%200%2e05582%2c%2d0%2e210882%20%2d0%2e02481%2c%2d0%2e279108%20l%20%2d1%2e358324%2c%2d1%2e128837%200%2c%2d2%2e530576%20c%200%2c%2d0%2e111643%20%2d0%2e08683%2c%2d0%2e198477%20%2d0%2e198477%2c%2d0%2e198477%20l%20%2d1%2e190859%2c0%20c%20%2d0%2e111643%2c0%20%2d0%2e198477%2c0%2e08683%20%2d0%2e198477%2c0%2e198477%20l%200%2c1%2e209467%20%2d1%2e513384%2c%2d1%2e265289%20c%20%2d0%2e2605%2c%2d0%2e217083%20%2d0%2e682264%2c%2d0%2e217083%20%2d0%2e942764%2c0%20L%205%2e6463253%2c30%2e42386%20c%20%2d0%2e080631%2c0%2e06823%20%2d0%2e093036%2c0%2e198476%20%2d0%2e024809%2c0%2e279108%20l%200%2e3845485%2c0%2e458976%20c%200%2e031012%2c0%2e03721%200%2e080631%2c0%2e06203%200%2e1302503%2c0%2e06823%200%2e055821%2c0%2e0062%200%2e1054407%2c%2d0%2e01241%200%2e1488574%2c%2d0%2e04342%20l%204%2e2920565%2c%2d3%2e578782%204%2e292058%2c3%2e578782%20c%200%2e03721%2c0%2e03101%200%2e08063%2c0%2e04342%200%2e13025%2c0%2e04342%200%2e0062%2c0%200%2e01241%2c0%200%2e01861%2c0%200%2e04962%2c%2d0%2e0062%200%2e09924%2c%2d0%2e03101%200%2e130251%2c%2d0%2e06823%20l%200%2e384549%2c%2d0%2e458976%22%20%2f%3e%3c%2fg%3e%3c%2fsvg%3e') );
+			$link_today.addClass('icon-home');
+			$link_today.prop('alt', 'Today');
+			$link_today.prop('title', 'Today');
+			$link_today.click(function() {
+				setToNow($picker);
+			});
+			$header.append($link_today);
+		}
 
 		$header.append($link_before_month);
 		$header.append($now_month);
@@ -417,6 +454,12 @@
 						"isAnim": false,
 						"isOutputToInputObject": true
 					}, date.getFullYear(), date.getMonth(), date.getDate(), hour, min);
+
+					if ($picker.data("isInline") == false && $picker.data("closeOnSelected")){
+						// Close a picker
+						ActivePickerId = -1;
+						$picker.hide();
+					}
 				});
 
 				$o.hover(function() {
@@ -469,6 +512,13 @@
 		$picker.data("dateFormat", opt.dateFormat);
 		$picker.data("locale", opt.locale);
 		$picker.data("firstDayOfWeek", opt.firstDayOfWeek);
+		$picker.data("animation", opt.animation);
+		$picker.data("closeOnSelected", opt.closeOnSelected);
+		$picker.data("timelistScroll", opt.timelistScroll);
+		$picker.data("calendarMouseScroll", opt.calendarMouseScroll);
+		$picker.data("todayButton", opt.todayButton);
+
+		$picker.data("state", 0);
 
 		if( 5 <= opt.minuteInterval && opt.minuteInterval <= 30 ){
 			$picker.data("minuteInterval", opt.minuteInterval);
@@ -504,7 +554,45 @@
 			function(){
 				ActivePickerId = -1;
 			}
-			);
+		);
+
+		/* Set event-handler to calendar */
+		if (opt.calendarMouseScroll) {
+			if (window.sidebar) { // Mozilla Firefox
+				$calendar.bind('DOMMouseScroll', function(e){ // Change a month with mouse wheel scroll for Fx
+					var $picker = getParentPickerObject($(this));
+					
+					var delta = e.originalEvent.detail;
+					if(e.originalEvent.axis !== undefined && e.originalEvent.asix == e.originalEvent.HORIZONTAL_AXIS){
+						e.deltaX = delta;
+						e.deltaY = 0;
+					} else {
+						e.deltaX = 0;
+						e.deltaY = delta;
+					}
+					e.deltaX /= 3;
+					e.deltaY /= 3;
+
+					if(e.deltaY > 0) {
+						nextMonth($picker);
+					} else {
+						beforeMonth($picker);
+					}
+
+					return false;
+				});
+			} else { // Other browsers
+				$calendar.bind('mousewheel', function(e){ // Change a month with mouse wheel scroll
+					var $picker = getParentPickerObject($(this));
+					if(e.originalEvent.wheelDelta /120 > 0) {
+						beforeMonth($picker);
+					} else {
+						nextMonth($picker);
+					}
+					return false;
+				});
+			}
+		}
 
 		PickerObjects.push($picker);
 
@@ -526,7 +614,11 @@
 	 		"locale": 			"en",
 	 		"animation":           true,
 	 		"minuteInterval":  	30,
-	 		"firstDayOfWeek":		0
+	 		"firstDayOfWeek":		0,
+	 		"closeOnSelected": false,
+	 		"timelistScroll": true,
+	 		"calendarMouseScroll": true,
+	 		"todayButton": true
 	 	};
 
 	 	var options = $.extend(defaults, config);
@@ -548,7 +640,11 @@
 	 		"locale": 			"en",
 	 		"animation": true,
 	 		"minuteInterval":  	30,
-	 		"firstDayOfWeek":		0
+	 		"firstDayOfWeek":		0,
+	 		"closeOnSelected": false,
+	 		"timelistScroll": true,
+	 		"calendarMouseScroll": true,
+	 		"todayButton": true
 	 	}
 	 	var options = $.extend(defaults, config);
 	 	return this.each(function(i) {
