@@ -171,6 +171,10 @@
 
 		/* Read options */
 		var isScroll = option.isAnim; /* It same with isAnim */
+		if($picker.data("timelistScroll") == false) {// If disabled by user option.
+			isScroll = false;
+		}
+
 		var isAnim = option.isAnim;
 		if($picker.data("animation") == false){ // If disabled by user option.
 			isAnim = false;
@@ -477,6 +481,7 @@
 		$picker.data("firstDayOfWeek", opt.firstDayOfWeek);
 		$picker.data("animation", opt.animation);
 		$picker.data("closeOnSelected", opt.closeOnSelected);
+		$picker.data("timelistScroll", opt.timelistScroll);
 
 		$picker.data("state", 0);
 
@@ -537,7 +542,8 @@
 	 		"animation":           true,
 	 		"minuteInterval":  	30,
 	 		"firstDayOfWeek":		0,
-	 		"closeOnSelected": false
+	 		"closeOnSelected": false,
+	 		"timelistScroll": true,
 	 	};
 
 	 	var options = $.extend(defaults, config);
@@ -560,7 +566,8 @@
 	 		"animation": true,
 	 		"minuteInterval":  	30,
 	 		"firstDayOfWeek":		0,
-	 		"closeOnSelected": false
+	 		"closeOnSelected": false,
+	 		"timelistScroll": true,
 	 	}
 	 	var options = $.extend(defaults, config);
 	 	return this.each(function(i) {

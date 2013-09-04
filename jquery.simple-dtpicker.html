@@ -155,6 +155,17 @@
 			</script>
 		</p>
 
+		<h4>Disable the automatic scroll of time-list ("timelistScroll": false)</h4>
+		<input type="text" name="date12" value="">
+		<script type="text/javascript">
+			$(function(){
+				$('*[name=date12]').appendDtpicker({
+					"inline": true,
+					"timelistScroll": false
+				});
+			});
+		</script>
+
 		<h4>Disable the fade animation ("animation": false)</h4>
 		<input type="text" name="date7" value="">
 		<script type="text/javascript">
