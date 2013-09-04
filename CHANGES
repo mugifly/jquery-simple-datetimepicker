@@ -1,12 +1,12 @@
 Version history for query-simple-datetimepicker
 https://github.com/mugifly/jquery-simple-datetimepicker/
 
-1.6.0  2013-09-xx
-  - [Add] "closeOnSelected" option for close the picker when selected date & time (Thanks to: MacDknife).
-  - [Add] "timelistScroll" option for disable automatic scroll of timelist (Thanks to: deviso).
-  - [Add] Change the months by scroll of mouse-wheel on the calendar (Thanks to: deviso).
+1.6.0  2013-09-04
+  - [Add] "closeOnSelected" option for close the picker when selected date & time (Idea by: MacDknife).
+  - [Add] "timelistScroll" option for disable automatic scroll of timelist (Idea by: deviso).
+  - [Add] Change the months by scroll of mouse-wheel on the calendar (Idea by: deviso).
   - [Add] "calendarMouseScroll" option for scroll calendar with mouse wheel (default: true).
-  - [Add] Today button for calendar (Thanks to: Tanver186).
+  - [Add] Today button for calendar (Idea by: Tanver186).
   - [Add] "todayButton" option (default: true).
   - [Change] Improve design (header, container).
   - [Fix] Malfunction of "animation" option (Can't disable animation).
@@ -55,3 +55,7 @@ https://github.com/mugifly/jquery-simple-datetimepicker/
 
 1.0.0  2012-11-02
    - Initial release.
+
+----
+
+Thanks to contributors!
