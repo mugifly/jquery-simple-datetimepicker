@@ -35,7 +35,7 @@
 		-moz-user-select: none;
 }
 
-.datepicker > .datepicker_header > a{
+.datepicker > .datepicker_header > a {
 	user-select: none;
 		-webkit-user-select: none;
 		-moz-user-select: none;
@@ -44,7 +44,7 @@
 }
 
 .datepicker > .datepicker_header > a:hover {
-	color: #000000;
+	color: #303030;
 	background-color:	#c8c8c8;
 }
 
@@ -61,12 +61,32 @@
 		-moz-user-select: none;
 }
 
+.datepicker > .datepicker_header > .icon-home {
+	position:	absolute;
+	display:		block;
+	float:		left;
+	margin-top:	2px;
+	margin-left:	5px;
+	width:		11pt;
+	height:		11pt;
+	vertical-align: middle;
+}
+
+.datepicker > .datepicker_header > .icon-home > svg > g > path {
+	fill: #3b7796;
+}
+
+.datepicker > .datepicker_header > a:hover > svg > g > path {
+	fill: #303030; /* Icon button hover color */
+}
+
+
 /*
  * datepicker_inner_container 
 */
 
 .datepicker > .datepicker_inner_container {
-	margin: -2px -1px -2px -1px;
+	margin: -2px 0px -2px 0px;
 	background-color: #d2d2d2;
 	border: 1px solid #c8c8c8;
 	border-radius: 3px;

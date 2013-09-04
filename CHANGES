@@ -6,6 +6,7 @@ https://github.com/mugifly/jquery-simple-datetimepicker/
   - [Add] "timelistScroll" option for disable automatic scroll of timelist.
   - [Add] Change the months by scroll of mouse-wheel on the calendar
   - [Add] "calendarMouseScroll" option for scroll calendar with mouse wheel (default: true).
+  - [Add] Today button.
   - [Change] Improve design (header, container).
   - [Fix] Malfunction of "animation" option (Can't disable animation).
 
