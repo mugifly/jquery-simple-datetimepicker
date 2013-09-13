@@ -191,6 +191,8 @@
 			isAnim = false;
 		}
 
+		var isFutureOnly = $picker.data("futureOnly");
+
 		var isOutputToInputObject = option.isOutputToInputObject;
 
 		var minuteInterval = $picker.data("minuteInterval");
@@ -226,6 +228,9 @@
 		var beforeMonthLastDay = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
 		var dateBeforeMonth = new Date(date.getFullYear(), date.getMonth(), 0);
 		var dateNextMonth = new Date(date.getFullYear(), date.getMonth() + 2, 0);
+		var isCurrentYear = todayDate.getFullYear() == date.getFullYear()
+		var isCurrentMonth = isCurrentYear && todayDate.getMonth() == date.getMonth();
+		var isCurrentDay = isCurrentMonth && todayDate.getDate() == date.getDate()
 
 		/* Collect each part */
 		var $header = $picker.children('.datepicker_header');
@@ -269,13 +274,15 @@
 		/* Header ----- */
 		$header.children().remove();
 
-		var $link_before_month = $('<a>');
-		$link_before_month.text('<');
-		$link_before_month.prop('alt', 'Previous month');
-		$link_before_month.prop('title', 'Previous month');
-		$link_before_month.click(function() {
-			beforeMonth($picker);
-		});
+		if (!isFutureOnly || !isCurrentMonth) {
+			var $link_before_month = $('<a>');
+			$link_before_month.text('<');
+			$link_before_month.prop('alt', 'Previous month');
+			$link_before_month.prop('title', 'Previous month');
+			$link_before_month.click(function() {
+				beforeMonth($picker);
+			});
+		}
 
 		var $now_month = $('<span>');
 		if(locale == "ja"){
@@ -350,6 +357,8 @@
 		}
 		for (var zz = 0; i < cellNum; i++) {
 			var realDay = i + 1 - firstWday;
+			var isPast = isCurrentMonth && realDay < todayDate.getDate();
+
 			if (i % 7 == 0) {
 				$tr = $('<tr>');
 				$table.append($tr);
@@ -383,36 +392,42 @@
 				$td.addClass('active');
 			}
 
-			if (date.getMonth() == todayDate.getMonth() && realDay == todayDate.getDate()) {/* today */
+			if (isCurrentMonth && realDay == todayDate.getDate()) {/* today */
 				$td.addClass('today');
 			}
 
 			/* Set event-handler to day cell */
 
-			$td.click(function() {
-				if ($(this).hasClass('hover')) {
-					$(this).removeClass('hover');
-				}
-				$(this).addClass('active');
+			if (isFutureOnly && isPast) {
+				$td.addClass('day_in_past');
+			} else {
+				$td.click(function() {
+					if ($(this).hasClass('hover')) {
+						$(this).removeClass('hover');
+					}
+					$(this).addClass('active');
 
-				var $picker = getParentPickerObject($(this));
-				var targetDate = new Date($(this).data("dateStr"));
-				var selectedDate = getPickedDate($picker);
-				draw($picker, {
-					"isAnim": false,
-					"isOutputToInputObject": true
-				}, targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate(), selectedDate.getHours(), selectedDate.getMinutes());
-			});
+					var $picker = getParentPickerObject($(this));
+					var targetDate = new Date($(this).data("dateStr"));
+					var selectedDate = getPickedDate($picker);
+					draw($picker, {
+						"isAnim": false,
+						"isOutputToInputObject": true
+					}, targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate(), selectedDate.getHours(), selectedDate.getMinutes());
+				});
 
-			$td.hover(function() {
-				if (! $(this).hasClass('active')) {
-					$(this).addClass('hover');
-				}
-			}, function() {
-				if ($(this).hasClass('hover')) {
-					$(this).removeClass('hover');
-				}
-			});
+				$td.hover(function() {
+					if (! $(this).hasClass('active')) {
+						$(this).addClass('hover');
+					}
+				}, function() {
+					if ($(this).hasClass('hover')) {
+						$(this).removeClass('hover');
+					}
+				});
+			}
+
+			
 		}
 
 		/* Timelist ----- */
@@ -425,6 +440,9 @@
 		for (var hour = 0; hour < 24; hour++) {
 			for (var min = 0; min < 60; min += minuteInterval) {
 				var $o = $('<div>');
+				var isPastTime = hour < todayDate.getHours() || (hour == todayDate.getHours() && min < todayDate.getMinutes());
+				var isPast = isCurrentDay && isPastTime;
+				
 				$o.addClass('timelist_item');
 				$o.text(zpadding(hour) + ":" + zpadding(min));
 
@@ -440,37 +458,43 @@
 
 				/* Set event handler to time cell */
 
-				$o.click(function() {
-					if ($(this).hasClass('hover')) {
-						$(this).removeClass('hover');
-					}
-					$(this).addClass('active');
 
-					var $picker = getParentPickerObject($(this));
-					var date = getPickedDate($picker);
-					var hour = $(this).data("hour");
-					var min = $(this).data("min");
-					draw($picker, {
-						"isAnim": false,
-						"isOutputToInputObject": true
-					}, date.getFullYear(), date.getMonth(), date.getDate(), hour, min);
+				if (isFutureOnly && isPast) {
+					$o.addClass('time_in_past');
+				} else {
+					$o.click(function() {
+						if ($(this).hasClass('hover')) {
+							$(this).removeClass('hover');
+						}
+						$(this).addClass('active');
 
-					if ($picker.data("isInline") == false && $picker.data("closeOnSelected")){
-						// Close a picker
-						ActivePickerId = -1;
-						$picker.hide();
-					}
-				});
+						var $picker = getParentPickerObject($(this));
+						var date = getPickedDate($picker);
+						var hour = $(this).data("hour");
+						var min = $(this).data("min");
+						draw($picker, {
+							"isAnim": false,
+							"isOutputToInputObject": true
+						}, date.getFullYear(), date.getMonth(), date.getDate(), hour, min);
 
-				$o.hover(function() {
-					if (! $(this).hasClass('active')) {
-						$(this).addClass('hover');
-					}
-				}, function() {
-					if ($(this).hasClass('hover')) {
-						$(this).removeClass('hover');
-					}
-				});
+						if ($picker.data("isInline") == false && $picker.data("closeOnSelected")){
+							// Close a picker
+							ActivePickerId = -1;
+							$picker.hide();
+						}
+					});
+
+					$o.hover(function() {
+						if (! $(this).hasClass('active')) {
+							$(this).addClass('hover');
+						}
+					}, function() {
+						if ($(this).hasClass('hover')) {
+							$(this).removeClass('hover');
+						}
+					});
+				}
+				
 			}
 		}
 
@@ -517,6 +541,7 @@
 		$picker.data("timelistScroll", opt.timelistScroll);
 		$picker.data("calendarMouseScroll", opt.calendarMouseScroll);
 		$picker.data("todayButton", opt.todayButton);
+		$picker.data('futureOnly', opt.futureOnly);
 
 		$picker.data("state", 0);
 
@@ -618,7 +643,8 @@
 	 		"closeOnSelected": false,
 	 		"timelistScroll": true,
 	 		"calendarMouseScroll": true,
-	 		"todayButton": true
+	 		"todayButton": true,
+	 		"futureOnly": false
 	 	};
 
 	 	var options = $.extend(defaults, config);
@@ -644,7 +670,8 @@
 	 		"closeOnSelected": false,
 	 		"timelistScroll": true,
 	 		"calendarMouseScroll": true,
-	 		"todayButton": true
+	 		"todayButton": true,
+	 		"futureOnly": false
 	 	}
 	 	var options = $.extend(defaults, config);
 	 	return this.each(function(i) {
