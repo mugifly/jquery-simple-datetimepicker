@@ -170,6 +170,7 @@
 
 				// Convert a string (with convert-table) to a date object
 				var date = new Date();
+				var is_successful = false;
 				for(var i = 0; i < formats.length; i++){
 					if(m.length < i){
 						break;
@@ -184,20 +185,26 @@
 							d = parseInt(d) + parseInt(date.getFullYear().toString().substr(0, 2) + "00");
 						}
 						date.setFullYear(d);
+						is_successful = true;
 					} else if(f == 'YY'){
 						date.setYear(d);
+						is_successful = true;
 					} else if(f == 'MM' || f == 'M'){
 						date.setMonth(parseInt(d) - 1);
+						is_successful = true;
 					} else if(f == 'DD' || f == 'D'){
 						date.setDate(d);
+						is_successful = true;
 					} else if(f == 'hh' || f == 'h'){
 						date.setHours(d);
+						is_successful = true;
 					} else if(f == 'mm' || f == 'm'){
 						date.setMinutes(d);
+						is_successful = true;
 					} 
 				}
 
-				if(isNaN(date) == false && isNaN(date.getDate()) == false){ // Parse successful
+				if(is_successful == true && isNaN(date) == false && isNaN(date.getDate()) == false){ // Parse successful
 					return date;
 				}
 			}
