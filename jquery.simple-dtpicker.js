@@ -104,8 +104,108 @@
 		}, date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours(), date.getMinutes());
 	};
 
-	var parseDate = function (str) {
-		// Parse date & time
+	var getDateFormat = function(format, locale, is_date_only) {
+		if (format == "default"){
+			if(locale == "ja"){
+				format = "YYYY/MM/DD hh:mm";
+			}else if(locale == "ru"){
+				format = "DD.MM.YYYY hh:mm";
+			}else if (locale == "br"){
+				format = "DD/MM/YYYY hh:mm";
+			}else if (locale == "de"){
+				format = "DD.MM.YYYY hh:mm";
+			}else if (locale === "es"){
+				format = "DD/MM/YYYY hh:mm";
+			}else{
+				format = "YYYY-MM-DD hh:mm";
+			}
+
+			if (is_date_only) {
+				// Convert the format to date-only (ex: YYYY/MM/DD)
+				format = format.substring(0, format.search(' '));
+			}
+		}
+		return format; // Return date-format
+	};
+
+	var parseDate = function (str, opt_date_format) {
+		// Parse date & time with date-format
+		if(opt_date_format != null){
+			// Match a string with date format
+			var df = opt_date_format.replace(/(-|\/)/g, '[-\/]')
+				.replace(/YYYY/gi, '(\\d{2,4})')
+				.replace(/(YY|MM|DD|hh|mm)/g, '(\\d{1,2})')
+				.replace(/(M|D|h|m)/g, '(\\d{1,2})');
+			var re = new RegExp(df);
+			var m = re.exec(str);
+			if( m != null){
+
+				// Generate the formats array (convert-table)
+				var formats = new Array();
+				var format_buf = '';
+				var format_before_c = '';
+				var df = opt_date_format;
+				while (df != null && 0 < df.length) {
+					var format_c = df.substring(0, 1); df = df.substring(1, df.length);
+					if (format_before_c != format_c) {
+						console.log("\""+format_buf+"\"");
+						if(/(YYYY|YY|MM|DD|mm|dd|M|D|h|m)/.test(format_buf)){
+							formats.push( format_buf );
+							format_buf = '';
+						} else {
+							format_buf = '';
+						}
+					}
+					format_buf += format_c;
+					format_before_c = format_c;
+				}
+				if (format_buf != '') {
+					if(/(YYYY|YY|MM|DD|mm|dd|M|D|h|m)/.test(format_buf)){
+						formats.push( format_buf );
+						format_buf = '';
+					} else {
+						format_buf = '';
+						date_buf = '';
+					}
+				}
+
+				// Convert a string (with convert-table) to a date object
+				var date = new Date();
+				for(var i = 0; i < formats.length; i++){
+					if(m.length < i){
+						break;
+					}
+
+					var f = formats[i];
+					var d = m[i+1]; // Matched part of date
+
+					if(f == 'YYYY'){
+						if (d < 99) { // change year for 4 digits
+							var date = new Date();
+							d = parseInt(d) + parseInt(date.getFullYear().toString().substr(0, 2) + "00");
+						}
+						date.setFullYear(d);
+					} else if(f == 'YY'){
+						date.setYear(d);
+					} else if(f == 'MM' || f == 'M'){
+						date.setMonth(parseInt(d) - 1);
+					} else if(f == 'DD' || f == 'D'){
+						date.setDate(d);
+					} else if(f == 'hh' || f == 'h'){
+						date.setHours(d);
+					} else if(f == 'mm' || f == 'm'){
+						date.setMinutes(d);
+					} 
+				}
+
+				if(isNaN(date) == false && isNaN(date.getDate()) == false){ // Parse successful
+					return date;
+				}
+			}
+		}
+
+		// Parse date & time with common format
+		console.log('parseDate - ' + str);
 		var re = /^(\d{2,4})[-/](\d{1,2})[-/](\d{1,2}) (\d{1,2}):(\d{1,2})$/;
 		var m = re.exec(str);
 		if (m === null) {
@@ -116,7 +216,7 @@
 				return NaN;
 			}
 		}
-		// change year for 4 digits
+
 		if( m ){
 			if (m[1] < 99) {
 				var date = new Date();
@@ -133,45 +233,18 @@
 		}
 	};
 
-	var outputToInputObject = function($picker) {
-		var date = getPickedDate($picker);
-		var $inp = getPickersInputObject($picker);
-		var dateFormat = $picker.data("dateFormat");
-		var locale = $picker.data("locale");
-		var str = "";
-		if ($inp == null) {
-			return;
+	var getFormattedDate = function(date, date_format) {
+		if(date == null){
+			date = new Date();
 		}
 
-		if (dateFormat == "default"){
-			if(locale == "ja"){
-				dateFormat = "YYYY/MM/DD hh:mm";
-			}else if(locale == "ru"){
-				dateFormat = "DD.MM.YYYY hh:mm";
-			}else if (locale == "br"){
-				dateFormat = "DD/MM/YYYY hh:mm";
-			}else if (locale == "de"){
-				dateFormat = "DD.MM.YYYY hh:mm";
-			}else if (locale === "es"){
-				dateFormat = "DD/MM/YYYY hh:mm";
-			}else{
-				dateFormat = "YYYY-MM-DD hh:mm";
-			}
-
-			if ($picker.data("dateOnly") == true) {
-				// Convert the format to date-only (ex: YYYY/MM/DD)
-				dateFormat = dateFormat.substring(0, dateFormat.search(' '));
-			}
-		}
-
-		str = dateFormat;
 		var y = date.getFullYear();
 		var m = date.getMonth() + 1;
 		var d = date.getDate();
 		var hou = date.getHours();
 		var min = date.getMinutes();
 
-		str = str.replace(/YYYY/gi, y)
+		var date_format = date_format.replace(/YYYY/gi, y)
 		.replace(/YY/g, y - 2000)/* century */
 		.replace(/MM/g, zpadding(m))
 		.replace(/M/g, m)
@@ -181,7 +254,20 @@
 		.replace(/h/g, hou)
 		.replace(/mm/g, zpadding(min))
 		.replace(/m/g, min);
-		$inp.val(str);
+		return date_format;
+	};
+
+	var outputToInputObject = function($picker) {
+		var date = getPickedDate($picker);
+		var $inp = getPickersInputObject($picker);
+		var locale = $picker.data("locale");
+		var format = getDateFormat($picker.data("dateFormat"), locale, $picker.data('dateOnly'));
+		var str = "";
+		if ($inp == null) {
+			return;
+		}
+		
+		$inp.val( getFormattedDate(date, format) );
 	};
 
 	var getPickedDate = function($obj) {
@@ -564,6 +650,14 @@
 		$picker.addClass('datepicker')
 		$obj.append($picker);
 
+		/* Set current date */
+		if(opt.current == null) {
+			opt.current = new Date();
+		} else {
+			var format = getDateFormat(opt.dateFormat, opt.locale, opt.dateOnly);
+			opt.current = parseDate(opt.current, format);
+		}
+
 		/* Set options data to container object  */
 		if (opt.inputObjectId != null) {
 			$picker.data("inputObjectId", opt.inputObjectId);
@@ -671,7 +765,7 @@
 		var date = new Date();
 		var defaults = {
 			"inputObjectId": 	undefined,
-			"current": 		date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes(),
+			"current": 		null,
 			"dateFormat": 	"default",
 			"locale": 			"en",
 			"animation":           true,
@@ -686,7 +780,7 @@
 		};
 
 		var options = $.extend(defaults, config);
-		options.current = parseDate(options.current);
+
 		return this.each(function(i) {
 			init($(this), options);
 		});
@@ -699,7 +793,7 @@
 		var date = new Date();
 		var defaults = {
 			"inline": false,
-			"current": date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes(),
+			"current": null,
 			"dateFormat": "default",
 			"locale": 			"en",
 			"animation": true,
@@ -713,6 +807,7 @@
 			"futureOnly": false
 		}
 		var options = $.extend(defaults, config);
+
 		return this.each(function(i) {
 
 			/* Add input-field with inputsObjects array */
@@ -756,7 +851,8 @@
 					$input.data('beforeVal') == null ||
 					( $input.data('beforeVal') != null && $input.data('beforeVal') != $input.val())	)
 					) { /* beforeValue == null || beforeValue != nowValue  */
-					var date = parseDate($input.val());
+					var format = getDateFormat($picker.data('dateFormat'), $picker.data('locale'), $picker.data('dateOnly'));
+					var date = parseDate($input.val(), format);
 				if (isNaN(date) == false && isNaN(date.getDate()) == false) {/* Valid format... */
 					draw_date($picker, {
 						"isAnim":true,
