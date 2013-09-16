@@ -106,6 +106,7 @@
 
 	var getDateFormat = function(format, locale, is_date_only) {
 		if (format == "default"){
+			// Default format
 			if(locale == "ja"){
 				format = "YYYY/MM/DD hh:mm";
 			}else if(locale == "ru"){
@@ -125,12 +126,14 @@
 				format = format.substring(0, format.search(' '));
 			}
 		}
+		
 		return format; // Return date-format
 	};
 
 	var parseDate = function (str, opt_date_format) {
-		// Parse date & time with date-format
 		if(opt_date_format != null){
+			// Parse date & time with date-format
+
 			// Match a string with date format
 			var df = opt_date_format.replace(/(-|\/)/g, '[-\/]')
 				.replace(/YYYY/gi, '(\\d{2,4})')
@@ -158,14 +161,8 @@
 					format_buf += format_c;
 					format_before_c = format_c;
 				}
-				if (format_buf != '') {
-					if(/(YYYY|YY|MM|DD|mm|dd|M|D|h|m)/.test(format_buf)){
-						formats.push( format_buf );
-						format_buf = '';
-					} else {
-						format_buf = '';
-						date_buf = '';
-					}
+				if (format_buf != '' && /(YYYY|YY|MM|DD|mm|dd|M|D|h|m)/.test(format_buf)){
+					formats.push( format_buf );
 				}
 
 				// Convert a string (with convert-table) to a date object
