@@ -66,13 +66,20 @@
  		var $picker = getParentPickerObject($obj);
  		var date = getPickedDate($picker);
  		var targetMonth_lastDay = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
- 		if (targetMonth_lastDay < date.getDate()) {
- 			date.setDate(targetMonth_lastDay);
- 		}
- 		draw($picker, {
- 			"isAnim": true,
- 			"isOutputToInputObject": true
- 		}, date.getFullYear(), date.getMonth() - 1, date.getDate(), date.getHours(), date.getMinutes());
+
+		var todayDate = new Date();
+		var isCurrentYear = todayDate.getFullYear() == date.getFullYear();
+		var isCurrentMonth = isCurrentYear && todayDate.getMonth() == date.getMonth();
+		
+		if (!isCurrentMonth || !$picker.data("futureOnly")) {
+	 		if (targetMonth_lastDay < date.getDate()) {
+	 			date.setDate(targetMonth_lastDay);
+	 		}
+	 		draw($picker, {
+	 			"isAnim": true,
+	 			"isOutputToInputObject": true
+	 		}, date.getFullYear(), date.getMonth() - 1, date.getDate(), date.getHours(), date.getMinutes());
+		}
  	};
 
  	var nextMonth = function($obj) {
@@ -228,9 +235,9 @@
 		var beforeMonthLastDay = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
 		var dateBeforeMonth = new Date(date.getFullYear(), date.getMonth(), 0);
 		var dateNextMonth = new Date(date.getFullYear(), date.getMonth() + 2, 0);
-		var isCurrentYear = todayDate.getFullYear() == date.getFullYear()
+		var isCurrentYear = todayDate.getFullYear() == date.getFullYear();
 		var isCurrentMonth = isCurrentYear && todayDate.getMonth() == date.getMonth();
-		var isCurrentDay = isCurrentMonth && todayDate.getDate() == date.getDate()
+		var isCurrentDay = isCurrentMonth && todayDate.getDate() == date.getDate();
 
 		/* Collect each part */
 		var $header = $picker.children('.datepicker_header');
