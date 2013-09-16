@@ -894,7 +894,7 @@
 					$picker.parent().css("top", $input.outerHeight() + 2 + "px");
 				}
 				else{
-					$picker.parent().css("top", $input.offset().top + $input.outerHeight() + 2 + "px");
+					$picker.parent().css("top", $input.position().top + $input.outerHeight() + 2 + "px");
 					$picker.parent().css("left", $input.position().left + "px");
 				}
 			});
