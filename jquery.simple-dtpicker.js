@@ -148,7 +148,6 @@
 				while (df != null && 0 < df.length) {
 					var format_c = df.substring(0, 1); df = df.substring(1, df.length);
 					if (format_before_c != format_c) {
-						console.log("\""+format_buf+"\"");
 						if(/(YYYY|YY|MM|DD|mm|dd|M|D|h|m)/.test(format_buf)){
 							formats.push( format_buf );
 							format_buf = '';
@@ -205,7 +204,6 @@
 		}
 
 		// Parse date & time with common format
-		console.log('parseDate - ' + str);
 		var re = /^(\d{2,4})[-/](\d{1,2})[-/](\d{1,2}) (\d{1,2}):(\d{1,2})$/;
 		var m = re.exec(str);
 		if (m === null) {
