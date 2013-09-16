@@ -207,7 +207,18 @@
 				$('*[name=date15]').appendDtpicker({
 					"inline": true,
 					"dateOnly": true,
-                                        "dateFormat": "DD-MM-YYYY"
+					"dateFormat": "DD-MM-YYYY"
+				});
+			});
+		</script>
+		
+		<h4>Only allow future datetimes ("futureOnly": true)</h4>
+		<input type="text" name="date16" value="">
+		<script type="text/javascript">
+			$(function(){
+				$('*[name=date16]').appendDtpicker({
+					"inline": true,
+					"futureOnly": true
 				});
 			});
 		</script>

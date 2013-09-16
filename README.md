@@ -36,6 +36,7 @@ Thank you to:
 * [MacDknife](https://github.com/MacDknife)
 * [deviso](https://github.com/deviso)
 * [Tanver186](https://github.com/Tanver186)
+* [camiel](https://github.com/camiel)
 
 ## License and author
 
