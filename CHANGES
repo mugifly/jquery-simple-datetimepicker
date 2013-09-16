@@ -3,6 +3,8 @@ https://github.com/mugifly/jquery-simple-datetimepicker/
 
 1.7.0  2013-09-xx
   - [Add] Korean locale (Thanks to: perhapsspy).
+  - [Add] "futureOnly" option and bugfix (Thanks to: camiel).
+  - [Add] "dateOnly" option (Thanks to: logitick).
 
 1.6.0  2013-09-04
   - [Add] "closeOnSelected" option for close the picker when selected date & time (Idea by: MacDknife).

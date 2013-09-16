@@ -37,6 +37,7 @@ Thank you to:
 * [deviso](https://github.com/deviso)
 * [Tanver186](https://github.com/Tanver186)
 * [perhapsspy](https://github.com/perhapsspy)
+* [camiel](https://github.com/camiel)
 
 ## License and author
 
