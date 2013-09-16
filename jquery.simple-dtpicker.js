@@ -104,7 +104,7 @@
 		}, date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours(), date.getMinutes());
 	};
 
-	var getDate = function (str) {
+	var parseDate = function (str) {
 		// Parse date & time
 		var re = /^(\d{2,4})[-/](\d{1,2})[-/](\d{1,2}) (\d{1,2}):(\d{1,2})$/;
 		var m = re.exec(str);
@@ -686,7 +686,7 @@
 		};
 
 		var options = $.extend(defaults, config);
-		options.current = getDate(options.current);
+		options.current = parseDate(options.current);
 		return this.each(function(i) {
 			init($(this), options);
 		});
@@ -756,7 +756,7 @@
 					$input.data('beforeVal') == null ||
 					( $input.data('beforeVal') != null && $input.data('beforeVal') != $input.val())	)
 					) { /* beforeValue == null || beforeValue != nowValue  */
-					var date = getDate($input.val());
+					var date = parseDate($input.val());
 				if (isNaN(date) == false && isNaN(date.getDate()) == false) {/* Valid format... */
 					draw_date($picker, {
 						"isAnim":true,
