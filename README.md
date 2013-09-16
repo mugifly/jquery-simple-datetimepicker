@@ -38,7 +38,7 @@ Thank you to:
 * [Tanver186](https://github.com/Tanver186)
 * [perhapsspy](https://github.com/perhapsspy)
 * [camiel](https://github.com/camiel)
-* [camiel](https://github.com/logitick)
+* [logitick](https://github.com/logitick)
 
 ## License and author
 
