@@ -9,6 +9,7 @@
 	var DAYS_OF_WEEK_JA = ['日', '月', '火', '水', '木', '金', '土'];
 	var DAYS_OF_WEEK_RU = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
 	var DAYS_OF_WEEK_BR = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+	var DAYS_OF_WEEK_PT = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'];
 	var DAYS_OF_WEEK_CN = ['日', '一', '二', '三', '四', '五', '六'];
 	var DAYS_OF_WEEK_DE = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
 	var DAYS_OF_WEEK_SV = ['Sö', 'Må', 'Ti', 'On', 'To', 'Fr', 'Lö'];
@@ -19,6 +20,7 @@
 	var MONTHS_EN = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
 	var MONTHS_RU = [ "Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек" ];
 	var MONTHS_BR = [ "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" ];
+	var MONTHS_PT = [ "janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro" ];
 	var MONTHS_CN = [ "一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
 	var MONTHS_DE = [ "Jan", "Feb", "März", "Apr", "Mai", "Juni", "Juli", "Aug", "Sept", "Okt", "Nov", "Dez" ];
 	var MONTHS_SV = [ "Jan", "Feb", "Mar", "Apr", "Maj", "Juni", "Juli", "Aug", "Sept", "Okt", "Nov", "Dec" ];
@@ -326,6 +328,8 @@
 			daysOfWeek = DAYS_OF_WEEK_RU;
 		} else if(locale == "br"){
 			daysOfWeek = DAYS_OF_WEEK_BR;
+		} else if(locale == "pt"){
+			daysOfWeek = DAYS_OF_WEEK_PT;
 		} else if(locale == "cn"){
 			daysOfWeek = DAYS_OF_WEEK_CN;
 		} else if (locale == "de"){
@@ -412,6 +416,8 @@
 			$now_month.text(date.getFullYear() + " - " + MONTHS_RU[date.getMonth()]);
 		} else if(locale == "br"){
 			$now_month.text(date.getFullYear() + " - " + MONTHS_BR[date.getMonth()]);
+		} else if(locale == "pt"){
+			$now_month.text(date.getFullYear() + " - " + MONTHS_PT[date.getMonth()]);
 		} else if(locale == "cn"){
 			$now_month.text(date.getFullYear() + " - " + MONTHS_CN[date.getMonth()]);
 		} else if(locale == "de"){
