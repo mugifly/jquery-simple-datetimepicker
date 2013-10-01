@@ -39,6 +39,8 @@ Thank you to:
 * [perhapsspy](https://github.com/perhapsspy)
 * [camiel](https://github.com/camiel)
 * [logitick](https://github.com/logitick)
+* [adc-tcarvalho](https://github.com/adc-tcarvalho)
+* [Mondane](https://github.com/Mondane)
 
 ## License and author
 
