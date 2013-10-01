@@ -41,6 +41,7 @@ Thank you to:
 * [logitick](https://github.com/logitick)
 * [adc-tcarvalho](https://github.com/adc-tcarvalho)
 * [Mondane](https://github.com/Mondane)
+* [AddoSolutions](https://github.com/AddoSolutions)
 
 ## License and author
 

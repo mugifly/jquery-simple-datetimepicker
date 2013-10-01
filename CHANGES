@@ -4,6 +4,7 @@ https://github.com/mugifly/jquery-simple-datetimepicker/
 1.8.0  2013-10-xx (JST)
   - [Add] Portuguese locale (Thanks to: adc-tcarvalho).
   - [Add] Dutch locale (Thanks to: Mondane).
+  - [Fix] Fixing positioning when element is inside of nested relative parent (Thanks to: AddoSolutions).
 
 1.7.0  2013-09-16
   - [Add] Korean locale (Thanks to: perhapsspy).
