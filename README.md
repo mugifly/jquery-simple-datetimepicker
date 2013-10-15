@@ -43,6 +43,7 @@ Thank you to:
 * [Mondane](https://github.com/Mondane)
 * [AddoSolutions](https://github.com/AddoSolutions)
 * [Jan Zatloukal](http://rotten77.cz/)
+* [matll42](https://github.com/matll42)
 
 ## License and author
 

@@ -19,6 +19,8 @@
 	var DAYS_OF_WEEK_KO = ['일', '월', '화', '수', '목', '금', '토'];
 	var DAYS_OF_WEEK_NL = ['zo', 'ma', 'di', 'wo', 'do', 'vr', 'za'];
 	var DAYS_OF_WEEK_CZ = ['Ne', 'Po', 'Út', 'St', 'Čt', 'Pá', 'So'];
+	var DAYS_OF_WEEK_FR = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
+	
 	var MONTHS_EN = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
 	var MONTHS_RU = [ "Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек" ];
 	var MONTHS_BR = [ "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" ];
@@ -32,6 +34,7 @@
 	var MONTHS_KO = [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ];
 	var MONTHS_NL = [ "jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec" ];
 	var MONTHS_CZ = [ "Led", "Úno", "Bře", "Dub", "Kvě", "Čer", "Čvc", "Srp", "Zář", "Říj", "Lis", "Pro" ];
+	var MONTHS_FR = [ "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre" ];
 
 	var PickerObjects = [];
 	var InputObjects = [];
@@ -127,6 +130,8 @@
 				format = "DD-MM-YYYY hh:mm";
 			}else if (locale === "cz"){
 				format = "DD.MM.YYYY hh:mm";
+			}else if (locale === "fr"){
+				format = "DD-MM-YYYY hh:mm";
 			}else{
 				format = "YYYY-MM-DD hh:mm";
 			}
@@ -354,6 +359,8 @@
 			daysOfWeek = DAYS_OF_WEEK_KO;
 		} else if (locale === "nl"){
 			daysOfWeek = DAYS_OF_WEEK_NL;
+		} else if (locale === "fr"){
+			daysOfWeek = DAYS_OF_WEEK_FR;
 		}
 
 		/* Calculate dates */
@@ -444,6 +451,8 @@
 			$now_month.text(date.getFullYear() + " - " + MONTHS_KO[date.getMonth()]);
 		} else if(locale == "nl"){
 			$now_month.text(date.getFullYear() + " - " + MONTHS_NL[date.getMonth()]);
+		} else if(locale == "fr"){
+			$now_month.text(date.getFullYear() + " - " + MONTHS_FR[date.getMonth()]);
 		} else {
 			$now_month.text(date.getFullYear() + " - " + MONTHS_EN[date.getMonth()]);
 		}
