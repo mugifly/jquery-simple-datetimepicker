@@ -42,6 +42,7 @@ Thank you to:
 * [adc-tcarvalho](https://github.com/adc-tcarvalho)
 * [Mondane](https://github.com/Mondane)
 * [AddoSolutions](https://github.com/AddoSolutions)
+* [Jan Zatloukal](http://rotten77.cz/)
 
 ## License and author
 
