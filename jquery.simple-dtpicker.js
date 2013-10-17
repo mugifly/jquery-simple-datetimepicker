@@ -14,11 +14,14 @@
 	var DAYS_OF_WEEK_DE = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
 	var DAYS_OF_WEEK_SV = ['Sö', 'Må', 'Ti', 'On', 'To', 'Fr', 'Lö'];
 	var DAYS_OF_WEEK_ID = ['Min','Sen','Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
+	var DAYS_OF_WEEK_IT = ['Dom','Lun','Mar', 'Mer', 'Gio', 'Ven', 'Sab'];
 	var DAYS_OF_WEEK_TR = ['Pz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cu', 'Cts'];
 	var DAYS_OF_WEEK_ES = ['dom', 'lun', 'mar', 'miér', 'jue', 'vié', 'sáb'];
 	var DAYS_OF_WEEK_KO = ['일', '월', '화', '수', '목', '금', '토'];
 	var DAYS_OF_WEEK_NL = ['zo', 'ma', 'di', 'wo', 'do', 'vr', 'za'];
+	var DAYS_OF_WEEK_CZ = ['Ne', 'Po', 'Út', 'St', 'Čt', 'Pá', 'So'];
 	var DAYS_OF_WEEK_FR = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
+	
 	var MONTHS_EN = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
 	var MONTHS_RU = [ "Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек" ];
 	var MONTHS_BR = [ "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" ];
@@ -27,10 +30,12 @@
 	var MONTHS_DE = [ "Jan", "Feb", "März", "Apr", "Mai", "Juni", "Juli", "Aug", "Sept", "Okt", "Nov", "Dez" ];
 	var MONTHS_SV = [ "Jan", "Feb", "Mar", "Apr", "Maj", "Juni", "Juli", "Aug", "Sept", "Okt", "Nov", "Dec" ];
 	var MONTHS_ID = [ "Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des" ];
+	var MONTHS_IT = [ "Gen", "Feb", "Mar", "Apr", "Mag", "Giu", "Lug", "Ago", "Set", "Ott", "Nov", "Dic" ];
 	var MONTHS_TR = [ "Ock", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Agu", "Eyl", "Ekm", "Kas", "Arlk" ];
 	var MONTHS_ES = [ "ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic" ];
 	var MONTHS_KO = [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ];
 	var MONTHS_NL = [ "jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec" ];
+	var MONTHS_CZ = [ "Led", "Úno", "Bře", "Dub", "Kvě", "Čer", "Čvc", "Srp", "Zář", "Říj", "Lis", "Pro" ];
 	var MONTHS_FR = [ "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre" ];
 
 	var PickerObjects = [];
@@ -117,6 +122,8 @@
 				format = "YYYY/MM/DD hh:mm";
 			}else if(locale == "ru"){
 				format = "DD.MM.YYYY hh:mm";
+			}else if(locale == "it"){
+				format = "DD/MM/YYYY hh:mm";
 			}else if (locale == "br"){
 				format = "DD/MM/YYYY hh:mm";
 			}else if (locale == "de"){
@@ -125,6 +132,8 @@
 				format = "DD/MM/YYYY hh:mm";
 			}else if (locale === "nl"){
 				format = "DD-MM-YYYY hh:mm";
+			}else if (locale === "cz"){
+				format = "DD.MM.YYYY hh:mm";
 			}else if (locale === "fr"){
 				format = "DD-MM-YYYY hh:mm";
 			}else{
@@ -346,6 +355,8 @@
 			daysOfWeek = DAYS_OF_WEEK_SV;
 		} else if (locale == "id"){
 			daysOfWeek = DAYS_OF_WEEK_ID;
+		} else if (locale == "it"){
+			daysOfWeek = DAYS_OF_WEEK_IT;
 		} else if (locale == "tr"){
 			daysOfWeek = DAYS_OF_WEEK_TR;
 		} else if (locale === "es"){
@@ -438,6 +449,8 @@
 			$now_month.text(date.getFullYear() + " - " + MONTHS_SV[date.getMonth()]);
 		} else if(locale == "id"){
 			$now_month.text(date.getFullYear() + " - " + MONTHS_ID[date.getMonth()]);
+		} else if(locale == "it"){
+			$now_month.text(date.getFullYear() + " - " + MONTHS_IT[date.getMonth()]);
 		} else if(locale == "tr"){
 			$now_month.text(date.getFullYear() + " - " + MONTHS_TR[date.getMonth()]);
 		} else if(locale == "es"){
