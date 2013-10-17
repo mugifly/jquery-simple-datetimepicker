@@ -44,6 +44,7 @@ Thank you to:
 * [AddoSolutions](https://github.com/AddoSolutions)
 * [Jan Zatloukal](http://rotten77.cz/)
 * [matll42](https://github.com/matll42)
+* Mauro Zuccato
 
 ## License and author
 
