@@ -1,7 +1,15 @@
 Version history for query-simple-datetimepicker
 https://github.com/mugifly/jquery-simple-datetimepicker/
 
-1.7.0  2013-09-xx
+1.8.0  2013-10-17 (JST)
+  - [Add] Portuguese locale (Thanks to: adc-tcarvalho).
+  - [Add] Dutch locale (Thanks to: Mondane).
+  - [Add] Czech locale (Thanks to: Jan Zatloukal).
+  - [Add] French locale (Thanks to: Jan matll42).
+  - [Add] Italian locale (Thanks to: Mauro Zuccato).
+  - [Fix] Fixing positioning when element is inside of nested relative parent (Thanks to: AddoSolutions).
+
+1.7.0  2013-09-16
   - [Add] Korean locale (Thanks to: perhapsspy).
   - [Add] "futureOnly" option and bugfix (Thanks to: camiel).
   - [Add] "dateOnly" option (Thanks to: logitick).

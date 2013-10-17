@@ -39,6 +39,12 @@ Thank you to:
 * [perhapsspy](https://github.com/perhapsspy)
 * [camiel](https://github.com/camiel)
 * [logitick](https://github.com/logitick)
+* [adc-tcarvalho](https://github.com/adc-tcarvalho)
+* [Mondane](https://github.com/Mondane)
+* [AddoSolutions](https://github.com/AddoSolutions)
+* [Jan Zatloukal](http://rotten77.cz/)
+* [matll42](https://github.com/matll42)
+* Mauro Zuccato
 
 ## License and author
 
