@@ -439,7 +439,7 @@
 		}
 
 		var $now_month = $('<span>');
-		$now_month.text(date.getFullYear() + " " + lang[locale].sep + " " + lang[locale].months[date.getMonth()]);
+		$now_month.text(date.getFullYear() + " " + translate(locale, 'sep') + " " + translate(locale, 'months')[date.getMonth()]);
 
 		var $link_next_month = $('<a>');
 		$link_next_month.text('>');
@@ -477,9 +477,10 @@
 
 		/* Output wday cells */
 		var firstDayDiff = 7 + firstDayOfWeek;
+		var daysOfWeek = translate(locale,'days');
 		for (var i = 0; i < 7; i++) {
 			var $td = $('<th>');
-			$td.text(translate(locale,'days')[((i + firstDayDiff) % 7)]);
+			$td.text(daysOfWeek[((i + firstDayDiff) % 7)]);
 			$tr.append($td);
 		}
 
