@@ -93,19 +93,7 @@
 	var ActivePickerId = -1;
 
 	var getParentPickerObject = function(obj) {
-		var $obj = $(obj);
-		var $picker;
-		if ($obj.hasClass('datepicker')) {
-			$picker = $obj;
-		} else {
-			var parents = $obj.parents();
-			for (var i = 0; i < parents.length; i++) {
-				if ($(parents[i]).hasClass('datepicker')) {
-					$picker = $(parents[i]);
-				}
-			}
-		}
-		return $picker;
+		return $(obj).closest('.datepicker');
 	};
 
 	var getPickersInputObject = function($obj) {
