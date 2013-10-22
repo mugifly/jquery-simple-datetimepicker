@@ -573,6 +573,12 @@
 						"isOutputToInputObject": true
 					}, targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate(), selectedDate.getHours(), selectedDate.getMinutes());
 				});
+				
+                                if ($picker.data("dateOnly") == true && $picker.data("isInline") == false && $picker.data("closeOnSelected")){
+                                        // Close a picker
+                                        ActivePickerId = -1;
+                                        $picker.hide();
+                                }				
 
 				$td.hover(function() {
 					if (! $(this).hasClass('active')) {
