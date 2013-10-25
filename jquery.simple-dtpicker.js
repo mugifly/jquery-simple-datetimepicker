@@ -295,14 +295,13 @@
 	};
 
 	var outputToInputObject = function($picker) {
-		var date = getPickedDate($picker);
 		var $inp = getPickersInputObject($picker);
-		var locale = $picker.data("locale");
-		var format = getDateFormat($picker.data("dateFormat"), locale, $picker.data('dateOnly'));
-		var str = "";
 		if ($inp == null) {
 			return;
 		}
+		var date = getPickedDate($picker);
+		var locale = $picker.data("locale");
+		var format = getDateFormat($picker.data("dateFormat"), locale, $picker.data('dateOnly'));
 		
 		$inp.val( getFormattedDate(date, format) );
 	};
@@ -759,20 +758,15 @@
 			"isOutputToInputObject": true
 		}, opt.current);
 	};
-
-	/**
-	 * Initialize dtpicker
-	 */
-	 $.fn.dtpicker = function(config) {
-		var date = new Date();
-		var defaults = {
-			"inputObjectId": 	undefined,
-			"current": 		null,
-			"dateFormat": 	"default",
-			"locale": 			"en",
-			"animation":           true,
-			"minuteInterval":  	30,
-			"firstDayOfWeek":		0,
+	
+	var getDefaults = function() {
+		return {
+			"current": null,
+			"dateFormat": "default",
+			"locale": "en",
+			"animation": true,
+			"minuteInterval": 30,
+			"firstDayOfWeek": 0,
 			"closeOnSelected": false,
 			"timelistScroll": true,
 			"calendarMouseScroll": true,
@@ -780,7 +774,16 @@
 			"dateOnly": false,
 			"futureOnly": false
 		};
-
+	};
+	
+	/**
+	 * Initialize dtpicker
+	 */
+	 $.fn.dtpicker = function(config) {
+		var date = new Date();
+		var defaults = getDefaults();
+		
+		defaults.inputObjectId = undefined;
 		var options = $.extend(defaults, config);
 
 		return this.each(function(i) {
@@ -793,21 +796,9 @@
 	 * */
 	 $.fn.appendDtpicker = function(config) {
 		var date = new Date();
-		var defaults = {
-			"inline": false,
-			"current": null,
-			"dateFormat": "default",
-			"locale": 			"en",
-			"animation": true,
-			"minuteInterval":  	30,
-			"firstDayOfWeek":		0,
-			"closeOnSelected": false,
-			"timelistScroll": true,
-			"calendarMouseScroll": true,
-			"todayButton": true,
-			"dateOnly" : false,
-			"futureOnly": false
-		}
+		var defaults = getDefaults();
+		
+		defaults.inline = false;
 		var options = $.extend(defaults, config);
 
 		return this.each(function(i) {
