@@ -1,0 +1,8 @@
+{
+  "name": "jquery-simple-datetimepicker",
+  "version": "1.8.0",
+  "main": ["jquery.simple-dtpicker.js","jquery.simple-dtpicker.css"],
+  "dependencies": {
+    "jquery" : ">=1.7.2"
+  }
+}
