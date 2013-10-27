@@ -662,7 +662,12 @@
 			opt.current = new Date();
 		} else {
 			var format = getDateFormat(opt.dateFormat, opt.locale, opt.dateOnly);
-			opt.current = parseDate(opt.current, format);
+			var date = parseDate(opt.current, format);
+			if (!isNaN(date) && !isNaN(date.getDate())) {
+				opt.current = date;
+			} else {
+				opt.current = new Date();
+			}
 		}
 
 		/* Set options data to container object  */
