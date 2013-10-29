@@ -164,7 +164,15 @@
 		}
 		return format; // Return date-format
 	};
-
+	
+	var normalizeYear = function (year) {
+		if (year < 99) { // change year for 4 digits
+			var date = new Date();
+			return parseInt(year) + parseInt(date.getFullYear().toString().substr(0, 2) + "00");
+		}
+		return year;
+	};
+	
 	var parseDate = function (str, opt_date_format) {
 		if(opt_date_format != null){
 			// Parse date & time with date-format
@@ -212,11 +220,7 @@
 					var d = m[i+1]; // Matched part of date
 
 					if(f == 'YYYY'){
-						if (d < 99) { // change year for 4 digits
-							var date = new Date();
-							d = parseInt(d) + parseInt(date.getFullYear().toString().substr(0, 2) + "00");
-						}
-						date.setFullYear(d);
+						date.setFullYear(normalizeYear(d));
 						is_successful = true;
 					} else if(f == 'YY'){
 						date.setYear(d);
@@ -241,33 +245,27 @@
 				}
 			}
 		}
-
+		
 		// Parse date & time with common format
-		var re = /^(\d{2,4})[-/](\d{1,2})[-/](\d{1,2}) (\d{1,2}):(\d{1,2})$/;
+		var re = /^(\d{2,4})[-\/](\d{1,2})[-\/](\d{1,2}) (\d{1,2}):(\d{1,2})$/;
 		var m = re.exec(str);
-		if (m === null) {
+		if (m !== null) {
+			m[1] = normalizeYear(m[1]);
+			date = new Date(m[1], m[2] - 1, m[3], m[4], m[5]);
+		} else {
 			// Parse for date-only
-			re = /^(\d{2,4})[-/](\d{1,2})[-/](\d{1,2})$/;
+			re = /^(\d{2,4})[-\/](\d{1,2})[-\/](\d{1,2})$/;
 			m = re.exec(str);
-			if(m === null) {
-				return NaN;
+			if(m !== null) {
+				m[1] = normalizeYear(m[1]);
+				date = new Date(m[1], m[2] - 1, m[3]);
 			}
 		}
-
-		if( m ){
-			if (m[1] < 99) {
-				var date = new Date();
-				m[1] = parseInt(m[1]) + parseInt(date.getFullYear().toString().substr(0, 2) + "00");
-			}
-			// return
-			if ( m[4] === undefined ){ // Date-only
-				return new Date(m[1], m[2] - 1, m[3]);
-			} else { // Date and time
-				return new Date(m[1], m[2] - 1, m[3], m[4], m[5]);
-			}
-		}else{
-			return new Date(str);
+		
+		if(isNaN(date) == false && isNaN(date.getDate()) == false){ // Parse successful
+			return date;
 		}
+		return false;
 	};
 
 	var getFormattedDate = function(date, date_format) {
@@ -652,12 +650,12 @@
 		$obj.append($picker);
 
 		/* Set current date */
-		if(opt.current == null) {
+		if(!opt.current) {
 			opt.current = new Date();
 		} else {
 			var format = getDateFormat(opt.dateFormat, opt.locale, opt.dateOnly);
 			var date = parseDate(opt.current, format);
-			if (!isNaN(date) && !isNaN(date.getDate())) {
+			if (date) {
 				opt.current = date;
 			} else {
 				opt.current = new Date();
@@ -760,7 +758,7 @@
 
 		draw_date($picker, {
 			"isAnim": true,
-			"isOutputToInputObject": true
+			"isOutputToInputObject": opt.autodateOnStart
 		}, opt.current);
 	};
 	
@@ -777,7 +775,8 @@
 			"calendarMouseScroll": true,
 			"todayButton": true,
 			"dateOnly": false,
-			"futureOnly": false
+			"futureOnly": false,
+			"autodateOnStart": true
 		};
 	};
 	
@@ -851,52 +850,52 @@
 					) { /* beforeValue == null || beforeValue != nowValue  */
 					var format = getDateFormat($picker.data('dateFormat'), $picker.data('locale'), $picker.data('dateOnly'));
 					var date = parseDate($input.val(), format);
-				if (isNaN(date) == false && isNaN(date.getDate()) == false) {/* Valid format... */
-					draw_date($picker, {
-						"isAnim":true,
-						"isOutputToInputObject":false
-					}, date);
+					if (date) {
+						draw_date($picker, {
+							"isAnim":true,
+							"isOutputToInputObject":false
+						}, date);
+					}
 				}
+				$input.data('beforeVal',$input.val())
+			});
+
+			$(input).change(function(){
+				$(this).trigger('keyup');
+			});
+	
+			if(options.inline == true){
+				/* inline mode */
+				$picker.data('isInline',true);
+			}else{
+				/* float mode */
+				$picker.data('isInline',false);
+				$picker_parent.css({
+					"zIndex": 100
+				});
+				$picker.css("width","auto");
+	
+				/* Hide this picker */
+				$picker.hide();
+	
+				/* Set onClick event handler for input-field */
+				$(input).click(function(){
+					var $input = $(this);
+					var $picker = $(PickerObjects[$input.data('pickerId')]);
+					ActivePickerId = $input.data('pickerId');
+					$picker.show();
+					var _position = $(input).parent().css('position');
+					if(_position === 'relative' || _position === 'absolute'){
+						$picker.parent().css("top", $input.outerHeight() + 2 + "px");
+					}
+					else{
+						$picker.parent().css("top", $input.position().top + $input.outerHeight() + 2 + "px");
+						$picker.parent().css("left", $input.position().left + "px");
+					}
+				});
 			}
-			$input.data('beforeVal',$input.val())
 		});
-
-		$(input).change(function(){
-			$(this).trigger('keyup');
-		});
-
-		if(options.inline == true){
-			/* inline mode */
-			$picker.data('isInline',true);
-		}else{
-			/* float mode */
-			$picker.data('isInline',false);
-			$picker_parent.css({
-				"zIndex": 100
-			});
-			$picker.css("width","auto");
-
-			/* Hide this picker */
-			$picker.hide();
-
-			/* Set onClick event handler for input-field */
-			$(input).click(function(){
-				var $input = $(this);
-				var $picker = $(PickerObjects[$input.data('pickerId')]);
-				ActivePickerId = $input.data('pickerId');
-				$picker.show();
-				var _position = $(input).parent().css('position');
-				if(_position === 'relative' || _position === 'absolute'){
-					$picker.parent().css("top", $input.outerHeight() + 2 + "px");
-				}
-				else{
-					$picker.parent().css("top", $input.position().top + $input.outerHeight() + 2 + "px");
-					$picker.parent().css("left", $input.position().left + "px");
-				}
-			});
-		}
-	});
-};
+	};
 
 	/* Set event handler to Body element, for hide a floated-picker */
 	$(function(){
