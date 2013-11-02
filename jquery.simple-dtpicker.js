@@ -728,8 +728,12 @@
 				$calendar.bind('DOMMouseScroll', function(e){ // Change a month with mouse wheel scroll for Fx
 					var $picker = getParentPickerObject($(this));
 					
+					// up,left [delta < 0] down,right [delta > 0]
 					var delta = e.originalEvent.detail;
-					if(e.originalEvent.axis !== undefined && e.originalEvent.asix == e.originalEvent.HORIZONTAL_AXIS){
+					/*
+					// this code need to be commented - it's seems to be unnecessary
+					// normalization (/3) is not needed as we move one month back or forth
+					if(e.originalEvent.axis !== undefined && e.originalEvent.axis == e.originalEvent.HORIZONTAL_AXIS){
 						e.deltaX = delta;
 						e.deltaY = 0;
 					} else {
@@ -738,18 +742,18 @@
 					}
 					e.deltaX /= 3;
 					e.deltaY /= 3;
-
-					if(e.deltaY > 0) {
+					*/
+					if(delta > 0) {
 						nextMonth($picker);
 					} else {
 						beforeMonth($picker);
 					}
-
 					return false;
 				});
 			} else { // Other browsers
 				$calendar.bind('mousewheel', function(e){ // Change a month with mouse wheel scroll
 					var $picker = getParentPickerObject($(this));
+					// up [delta > 0] down [delta < 0]
 					if(e.originalEvent.wheelDelta /120 > 0) {
 						beforeMonth($picker);
 					} else {
