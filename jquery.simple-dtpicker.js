@@ -559,62 +559,67 @@
 			$timelist.css("height", $calendar.innerHeight() - 10 + 'px');
 
 			/* Output time cells */
-			for (var hour = 0; hour < 24; hour++) {
-				for (var min = 0; min < 60; min += minuteInterval) {
-					var $o = $('<div>');
-					var isPastTime = hour < todayDate.getHours() || (hour == todayDate.getHours() && min < todayDate.getMinutes());
-					var isPast = isCurrentDay && isPastTime;
-					
-					$o.addClass('timelist_item');
-					$o.text(zpadding(hour) + ":" + zpadding(min));
+			var startTime = $picker.data('startTime');
+			var endTime = $picker.data('endTime');
+			var start = parseInt(startTime.hours)*60 + parseInt(startTime.minutes);
+			var end = parseInt(endTime.hours)*60 + parseInt(endTime.minutes);
 
-					$o.data("hour", hour);
-					$o.data("min", min);
+			for (var iMin = start; iMin <= end; iMin += minuteInterval) {
+				var hour = Math.floor(iMin/60);
+				var min = iMin % 60;
+				var $o = $('<div>');
+				var isPastTime = hour < todayDate.getHours() || (hour == todayDate.getHours() && min < todayDate.getMinutes());
+				var isPast = isCurrentDay && isPastTime;
+				
+				$o.addClass('timelist_item');
+				$o.text(zpadding(hour) + ":" + zpadding(min));
 
-					$timelist.append($o);
+				$o.data("hour", hour);
+				$o.data("min", min);
 
-					if (hour == date.getHours() && min == date.getMinutes()) {/* selected time */
-						$o.addClass('active');
-						timelist_activeTimeCell_offsetTop = $o.offset().top;
-					}
+				$timelist.append($o);
 
-					/* Set event handler to time cell */
+				if (hour == date.getHours() && min == date.getMinutes()) {/* selected time */
+					$o.addClass('active');
+					timelist_activeTimeCell_offsetTop = $o.offset().top;
+				}
 
-					if (isFutureOnly && isPast) {
-						$o.addClass('time_in_past');
-					} else {
-						$o.click(function() {
-							if ($(this).hasClass('hover')) {
-								$(this).removeClass('hover');
-							}
-							$(this).addClass('active');
+				/* Set event handler to time cell */
 
-							var $picker = getParentPickerObject($(this));
-							var date = getPickedDate($picker);
-							var hour = $(this).data("hour");
-							var min = $(this).data("min");
-							draw($picker, {
-								"isAnim": false,
-								"isOutputToInputObject": true
-							}, date.getFullYear(), date.getMonth(), date.getDate(), hour, min);
+				if (isFutureOnly && isPast) {
+					$o.addClass('time_in_past');
+				} else {
+					$o.click(function() {
+						if ($(this).hasClass('hover')) {
+							$(this).removeClass('hover');
+						}
+						$(this).addClass('active');
 
-							if ($picker.data("isInline") == false && $picker.data("closeOnSelected")){
-								// Close a picker
-								ActivePickerId = -1;
-								$picker.hide();
-							}
-						});
+						var $picker = getParentPickerObject($(this));
+						var date = getPickedDate($picker);
+						var hour = $(this).data("hour");
+						var min = $(this).data("min");
+						draw($picker, {
+							"isAnim": false,
+							"isOutputToInputObject": true
+						}, date.getFullYear(), date.getMonth(), date.getDate(), hour, min);
 
-						$o.hover(function() {
-							if (! $(this).hasClass('active')) {
-								$(this).addClass('hover');
-							}
-						}, function() {
-							if ($(this).hasClass('hover')) {
-								$(this).removeClass('hover');
-							}
-						});
-					}
+						if ($picker.data("isInline") == false && $picker.data("closeOnSelected")){
+							// Close a picker
+							ActivePickerId = -1;
+							$picker.hide();
+						}
+					});
+
+					$o.hover(function() {
+						if (! $(this).hasClass('active')) {
+							$(this).addClass('hover');
+						}
+					}, function() {
+						if ($(this).hasClass('hover')) {
+							$(this).removeClass('hover');
+						}
+					});
 				}
 			}
 
@@ -642,7 +647,23 @@
 			outputToInputObject($picker);
 		}
 	};
-
+	
+    var parseTime = function (s, def) {
+        var re = new RegExp(/^([0]?\d|[1][0-9]|[2][0-3])(:([0-5]?\d))?$/);
+        var m = re.exec(s);
+        if( m != null){
+            if (!m[3]){
+            	m[3] = "00";
+            	m[0] = m[0]+':'+m[3];
+            }
+            return {time: m[0], hours: m[1], minutes: m[3]};
+        }
+        if (def != null){
+            return parseTime(def);
+        }
+        return false;
+    };
+    
 	var init = function($obj, opt) {
 		/* Container */
 		var $picker = $('<div>');
@@ -677,15 +698,17 @@
 		$picker.data("calendarMouseScroll", opt.calendarMouseScroll);
 		$picker.data("todayButton", opt.todayButton);
 		$picker.data('futureOnly', opt.futureOnly);
+		$picker.data("startTime", parseTime(opt.startTime, '00:00'));
+		$picker.data('endTime', parseTime(opt.endTime, '23:59'));
 
 		$picker.data("state", 0);
 
-		if( 5 <= opt.minuteInterval && opt.minuteInterval <= 30 ){
+		if( 5 <= opt.minuteInterval && opt.minuteInterval <= 720 ){
 			$picker.data("minuteInterval", opt.minuteInterval);
 		} else {
 			$picker.data("minuteInterval", 30);
 		}
-
+		
 		/* Header */
 		var $header = $('<div>');
 		$header.addClass('datepicker_header');
@@ -780,7 +803,9 @@
 			"todayButton": true,
 			"dateOnly": false,
 			"futureOnly": false,
-			"autodateOnStart": true
+			"autodateOnStart": true,
+			"startTime": '00:00',
+			"endTime": '23:59'
 		};
 	};
 	
