@@ -3,6 +3,8 @@ https://github.com/mugifly/jquery-simple-datetimepicker/
 
 1.9.0  2013-xx-xx (JST)
   - [Add] Support for Bower (Thanks to: kmulvey).
+  - [Change] Improved localization mechanism (Thanks to: LucasTheCure).
+  - [Change] Refactor - Simplified some codes (Thanks to: LucasTheCure).
   - [Fix] Close a picker when date is selected on dateOnly mode (Thanks to: Kwozzie).
 
 1.8.0  2013-10-17 (JST)

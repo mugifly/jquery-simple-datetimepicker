@@ -47,6 +47,7 @@ Thank you to:
 * Mauro Zuccato
 * [kmulvey](https://github.com/kmulvey)
 * [Kwozzie](https://github.com/Kwozzie)
+* [LucasTheCure](https://github.com/LucasTheCure)
 
 ## License and author
 
