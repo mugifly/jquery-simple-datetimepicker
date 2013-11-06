@@ -1,7 +1,7 @@
 Version history for query-simple-datetimepicker
 https://github.com/mugifly/jquery-simple-datetimepicker/
 
-1.9.0  2013-xx-xx (JST)
+1.9.0  2013-11-06 (JST)
   - [Add] Support for Bower (Thanks to: kmulvey).
   - [Change] Improved localization mechanism (Thanks to: LucasTheCure).
   - [Change] Refactor - Simplified some codes (Thanks to: LucasTheCure).
