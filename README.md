@@ -45,6 +45,8 @@ Thank you to:
 * [Jan Zatloukal](http://rotten77.cz/)
 * [matll42](https://github.com/matll42)
 * Mauro Zuccato
+* [kmulvey](https://github.com/kmulvey)
+* [Kwozzie](https://github.com/Kwozzie)
 
 ## License and author
 

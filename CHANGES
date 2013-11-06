@@ -1,6 +1,10 @@
 Version history for query-simple-datetimepicker
 https://github.com/mugifly/jquery-simple-datetimepicker/
 
+1.9.0  2013-xx-xx (JST)
+  - [Add] Support for Bower (Thanks to: kmulvey).
+  - [Fix] Close a picker when date is selected on dateOnly mode (Thanks to: Kwozzie).
+
 1.8.0  2013-10-17 (JST)
   - [Add] Portuguese locale (Thanks to: adc-tcarvalho).
   - [Add] Dutch locale (Thanks to: Mondane).
