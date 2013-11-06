@@ -21,7 +21,7 @@
 	var DAYS_OF_WEEK_NL = ['zo', 'ma', 'di', 'wo', 'do', 'vr', 'za'];
 	var DAYS_OF_WEEK_CZ = ['Ne', 'Po', 'Út', 'St', 'Čt', 'Pá', 'So'];
 	var DAYS_OF_WEEK_FR = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
-	
+
 	var MONTHS_EN = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
 	var MONTHS_RU = [ "Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек" ];
 	var MONTHS_BR = [ "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" ];
@@ -90,7 +90,7 @@
 		var todayDate = new Date();
 		var isCurrentYear = todayDate.getFullYear() == date.getFullYear();
 		var isCurrentMonth = isCurrentYear && todayDate.getMonth() == date.getMonth();
-		
+
 		if (!isCurrentMonth || !$picker.data("futureOnly")) {
 			if (targetMonth_lastDay < date.getDate()) {
 				date.setDate(targetMonth_lastDay);
@@ -145,7 +145,7 @@
 				format = format.substring(0, format.search(' '));
 			}
 		}
-		
+
 		return format; // Return date-format
 	};
 
@@ -217,7 +217,7 @@
 					} else if(f == 'mm' || f == 'm'){
 						date.setMinutes(d);
 						is_successful = true;
-					} 
+					}
 				}
 
 				if(is_successful == true && isNaN(date) == false && isNaN(date.getDate()) == false){ // Parse successful
@@ -287,7 +287,7 @@
 		if ($inp == null) {
 			return;
 		}
-		
+
 		$inp.val( getFormattedDate(date, format) );
 	};
 
@@ -591,7 +591,7 @@
 				});
 			}
 		}
-		
+
 		if ($picker.data("dateOnly") == true) {
 			/* dateOnly mode */
 			$timelist.css("display", "none");
@@ -603,12 +603,12 @@
 			$timelist.css("height", $calendar.innerHeight() - 10 + 'px');
 
 			/* Output time cells */
-			for (var hour = 0; hour < 24; hour++) {
+			for (var hour = (($picker.data('startHour')>0 && $picker.data('startHour') < 23) ? $picker.data('startHour') : 0); hour < (($picker.data('endHour')>0 && $picker.data('endHour') < 23) ? $picker.data('endHour')+1 : 24); hour++) {
 				for (var min = 0; min < 60; min += minuteInterval) {
 					var $o = $('<div>');
 					var isPastTime = hour < todayDate.getHours() || (hour == todayDate.getHours() && min < todayDate.getMinutes());
 					var isPast = isCurrentDay && isPastTime;
-					
+
 					$o.addClass('timelist_item');
 					$o.text(zpadding(hour) + ":" + zpadding(min));
 
@@ -671,7 +671,7 @@
 				$timelist.scrollTop(drawBefore_timeList_scrollTop);
 			}
 		}
-		
+
 		/* Fade-in animation */
 		if (isAnim == true) {
 			if(changePoint == "calendar"){
@@ -716,6 +716,8 @@
 		$picker.data("calendarMouseScroll", opt.calendarMouseScroll);
 		$picker.data("todayButton", opt.todayButton);
 		$picker.data('futureOnly', opt.futureOnly);
+		$picker.data('startHour', opt.startHour);
+		$picker.data('endHour', opt.endHour);
 
 		$picker.data("state", 0);
 
@@ -760,7 +762,7 @@
 			if (window.sidebar) { // Mozilla Firefox
 				$calendar.bind('DOMMouseScroll', function(e){ // Change a month with mouse wheel scroll for Fx
 					var $picker = getParentPickerObject($(this));
-					
+
 					var delta = e.originalEvent.detail;
 					if(e.originalEvent.axis !== undefined && e.originalEvent.asix == e.originalEvent.HORIZONTAL_AXIS){
 						e.deltaX = delta;
@@ -819,7 +821,9 @@
 			"calendarMouseScroll": true,
 			"todayButton": true,
 			"dateOnly": false,
-			"futureOnly": false
+			"futureOnly": false,
+			"startHour": 0,
+			"endHour": 23
 		};
 
 		var options = $.extend(defaults, config);
@@ -847,7 +851,9 @@
 			"calendarMouseScroll": true,
 			"todayButton": true,
 			"dateOnly" : false,
-			"futureOnly": false
+			"futureOnly": false,
+			"startHour": 0,
+			"endHour": 23
 		}
 		var options = $.extend(defaults, config);
 
