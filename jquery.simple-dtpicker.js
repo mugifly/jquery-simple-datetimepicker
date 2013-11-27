@@ -418,7 +418,7 @@
 		/* Header ----- */
 		$header.children().remove();
 
-		var cDate = date.clone();
+		var cDate =  new Date(date.getTime());
 		cDate.setMinutes(59);
 		cDate.setHours(23);
 		cDate.setSeconds(59);
@@ -496,7 +496,7 @@
 		if(firstWday < 0){
 			i = -7;
 		}
-		var realDayObj = date.clone();
+		var realDayObj =  new Date(date.getTime());
 		realDayObj.setHours(0);
 		realDayObj.setMinutes(0);
 		realDayObj.setSeconds(0);
@@ -552,7 +552,7 @@
 
 			/* Set event-handler to day cell */
 
-			var realDayObjMN = realDayObj.clone();
+			var realDayObjMN =  new Date(realDayObj.getTime());
 			realDayObjMN.setHours(23);
 			realDayObjMN.setMinutes(59);
 			realDayObjMN.setSeconds(59);
@@ -608,7 +608,7 @@
 			/* Set height to Timelist (Calendar innerHeight - Calendar padding) */
 			$timelist.css("height", $calendar.innerHeight() - 10 + 'px');
 
-			realDayObj = date.clone();
+			realDayObj =  new Date(date.getTime());
 			/* Output time cells */
 			for (var hour = 0; hour < 24; hour++) {
 				for (var min = 0; min < 60; min += minuteInterval) {
