@@ -606,7 +606,9 @@
 			$timelist.children().remove();
 
 			/* Set height to Timelist (Calendar innerHeight - Calendar padding) */
-			$timelist.css("height", $calendar.innerHeight() - 10 + 'px');
+			if ($calendar.innerHeight() > 0) {
+				$timelist.css("height", $calendar.innerHeight() - 10 + 'px');
+			}
 
 			realDayObj =  new Date(date.getTime());
 			/* Output time cells */
