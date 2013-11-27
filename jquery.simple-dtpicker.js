@@ -300,7 +300,11 @@
 		var locale = $picker.data("locale");
 		var format = getDateFormat($picker.data("dateFormat"), locale, $picker.data('dateOnly'));
 		
-		$inp.val( getFormattedDate(date, format) );
+		var old = $inp.val();                        
+		$inp.val(getFormattedDate(date, format));
+		if (old != $inp.val()) { // only trigger if it actually changed to avoid a nasty loop condition
+			$inp.trigger("change");
+		}
 	};
 
 	var getPickedDate = function($obj) {
