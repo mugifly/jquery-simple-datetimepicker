@@ -435,8 +435,9 @@
 		cDate.setMinutes(0);
 		cDate.setHours(0);
 		cDate.setSeconds(0);
-		cDate.setMonth(date.getMonth() + 1);
 		cDate.setDate(1); // First day of next month
+		cDate.setMonth(date.getMonth() + 1);
+
 		var $now_month = $('<span>');
 		$now_month.text(date.getFullYear() + " " + translate(locale, 'sep') + " " + translate(locale, 'months')[date.getMonth()]);
 
