@@ -182,6 +182,10 @@
 	cursor: default;
 	color: #cccccc;
 }
+.datepicker > .datepicker_inner_container > .datepicker_calendar > .datepicker_table > tbody > tr > td.out_of_range {
+	cursor: default;
+	color: #cccccc;
+}
 
 .datepicker > .datepicker_inner_container > .datepicker_calendar > .datepicker_table > tbody > tr > td.active {
 	color: #ffffff;
@@ -290,6 +294,10 @@
 	color: #cccccc;
 }
 
+.datepicker > .datepicker_inner_container > .datepicker_timelist > div.timelist_item.out_of_range {
+	cursor: default;
+	color: #cccccc;
+}
 .datepicker > .datepicker_inner_container > .datepicker_timelist > div.timelist_item.active {
 	color: #ffffff;
 	background-color:	#808080;
