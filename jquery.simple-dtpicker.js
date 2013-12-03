@@ -352,6 +352,9 @@
 
 		var minuteInterval = $picker.data("minuteInterval");
 		var firstDayOfWeek = $picker.data("firstDayOfWeek");
+		
+		var minTime = $picker.data("minTime");
+		var maxTime = $picker.data("maxTime");
 
 		/* Read locale option */
 		var locale = $picker.data("locale");
@@ -562,64 +565,70 @@
 
 			/* Set height to Timelist (Calendar innerHeight - Calendar padding) */
 			$timelist.css("height", $calendar.innerHeight() - 10 + 'px');
-
 			/* Output time cells */
-			for (var hour = 0; hour < 24; hour++) {
-				for (var min = 0; min < 60; min += minuteInterval) {
-					var $o = $('<div>');
-					var isPastTime = hour < todayDate.getHours() || (hour == todayDate.getHours() && min < todayDate.getMinutes());
-					var isPast = isCurrentDay && isPastTime;
-					
-					$o.addClass('timelist_item');
-					$o.text(zpadding(hour) + ":" + zpadding(min));
+			var hour = minTime[0];
+			var min = minTime[1];
 
-					$o.data("hour", hour);
-					$o.data("min", min);
+			while( hour*100+min < maxTime[0]*100+maxTime[1] ){
 
-					$timelist.append($o);
+				var $o = $('<div>');
+				var isPastTime = hour < todayDate.getHours() || (hour == todayDate.getHours() && min < todayDate.getMinutes());
+				var isPast = isCurrentDay && isPastTime;
+				
+				$o.addClass('timelist_item');
+				$o.text(zpadding(hour) + ":" + zpadding(min));
 
-					if (hour == date.getHours() && min == date.getMinutes()) {/* selected time */
-						$o.addClass('active');
-						timelist_activeTimeCell_offsetTop = $o.offset().top;
-					}
+				$o.data("hour", hour);
+				$o.data("min", min);
 
-					/* Set event handler to time cell */
+				$timelist.append($o);
 
-					if (isFutureOnly && isPast) {
-						$o.addClass('time_in_past');
-					} else {
-						$o.click(function() {
-							if ($(this).hasClass('hover')) {
-								$(this).removeClass('hover');
-							}
-							$(this).addClass('active');
+				if (hour == date.getHours() && min == date.getMinutes()) {/* selected time */
+					$o.addClass('active');
+					timelist_activeTimeCell_offsetTop = $o.offset().top;
+				}
 
-							var $picker = getParentPickerObject($(this));
-							var date = getPickedDate($picker);
-							var hour = $(this).data("hour");
-							var min = $(this).data("min");
-							draw($picker, {
-								"isAnim": false,
-								"isOutputToInputObject": true
-							}, date.getFullYear(), date.getMonth(), date.getDate(), hour, min);
+				/* Set event handler to time cell */
 
-							if ($picker.data("isInline") == false && $picker.data("closeOnSelected")){
-								// Close a picker
-								ActivePickerId = -1;
-								$picker.hide();
-							}
-						});
+				if (isFutureOnly && isPast) {
+					$o.addClass('time_in_past');
+				} else {
+					$o.click(function() {
+						if ($(this).hasClass('hover')) {
+							$(this).removeClass('hover');
+						}
+						$(this).addClass('active');
 
-						$o.hover(function() {
-							if (! $(this).hasClass('active')) {
-								$(this).addClass('hover');
-							}
-						}, function() {
-							if ($(this).hasClass('hover')) {
-								$(this).removeClass('hover');
-							}
-						});
-					}
+						var $picker = getParentPickerObject($(this));
+						var date = getPickedDate($picker);
+						var hour = $(this).data("hour");
+						var min = $(this).data("min");
+						draw($picker, {
+							"isAnim": false,
+							"isOutputToInputObject": true
+						}, date.getFullYear(), date.getMonth(), date.getDate(), hour, min);
+
+						if ($picker.data("isInline") == false && $picker.data("closeOnSelected")){
+							// Close a picker
+							ActivePickerId = -1;
+							$picker.hide();
+						}
+					});
+
+					$o.hover(function() {
+						if (! $(this).hasClass('active')) {
+							$(this).addClass('hover');
+						}
+					}, function() {
+						if ($(this).hasClass('hover')) {
+							$(this).removeClass('hover');
+						}
+					});
+				}
+				min += minuteInterval;
+				if(min >= 60){
+					min=min-60;
+					hour++;
 				}
 			}
 
@@ -690,6 +699,28 @@
 		} else {
 			$picker.data("minuteInterval", 30);
 		}
+	        opt.minTime = opt.minTime.split(':');	
+	        opt.maxTime = opt.maxTime.split(':');
+
+		if(! ((opt.minTime[0] >= 0 ) && (opt.minTime[0] <24 ))){
+			opt.minTime[0]="00";
+		}	
+		if(! ((opt.maxTime[0] >= 0 ) && (opt.maxTime[0] <24 ))){
+			opt.maxTime[0]="23";
+		}
+		if(! ((opt.minTime[1] >= 0 ) && (opt.minTime[1] <60 ))){
+			opt.minTime[1]="00";
+		}	
+		if(! ((opt.maxTime[1] >= 0 ) && (opt.maxTime[1] <24 ))){
+			opt.maxTime[1]="59";
+		}
+		opt.minTime[0]=parseInt(opt.minTime[0]);
+		opt.minTime[1]=parseInt(opt.minTime[1]);
+		opt.maxTime[0]=parseInt(opt.maxTime[0]);
+		opt.maxTime[1]=parseInt(opt.maxTime[1]);
+		$picker.data('minTime', opt.minTime);
+		$picker.data('maxTime', opt.maxTime);
+	
 
 		/* Header */
 		var $header = $('<div>');
@@ -785,7 +816,9 @@
 			"todayButton": true,
 			"dateOnly": false,
 			"futureOnly": false,
-			"autodateOnStart": true
+			"autodateOnStart": true,
+			"minTime":"00:00",
+			"maxTime":"23:59"
 		};
 	};
 	
