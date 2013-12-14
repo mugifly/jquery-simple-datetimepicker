@@ -84,7 +84,16 @@
     		days: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
     		months: [ "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre" ],
     		format: 'DD-MM-YYYY hh:mm'
-    		}
+    		},
+    	pl: {
+    		days: ['N', 'Pn', 'Wt', 'Śr', 'Cz', 'Pt', 'So'],
+    		months: [ "Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień" ],
+    		sep: '-',
+    		format: 'YYYY-MM-DD hh:mm',
+    		prevMonth: 'Poprzedni miesiąc',
+    		nextMonth: 'Następny miesiąc',
+    		today: 'Dzisiaj'
+    		},
     };
 
 	var PickerObjects = [];
