@@ -51,6 +51,7 @@ Thank you to:
 * [viszman](https://github.com/viszman)
 * [droidmunkey](https://github.com/droidmunkey)
 * [vbatoufflet](https://github.com/vbatoufflet)
+* [CedricLevasseur](https://github.com/CedricLevasseur)
 
 ## License and author
 

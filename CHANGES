@@ -4,6 +4,7 @@ https://github.com/mugifly/jquery-simple-datetimepicker/
 1.10.0  xxxx-xx-xx (JST)
   - [Add] Polish locale (Thanks to: viszman).
   - [Add] Support for minDate and maxDate options (Thanks to: droidmunkey).
+  - [Add] Support for minTime and maxTime options (Thanks to: CedricLevasseur).
   - [Fix] Use isNaN instead of Number.isNaN (Thanks to: vbatoufflet).
 
 1.9.0  2013-11-06 (JST)
