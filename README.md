@@ -48,6 +48,9 @@ Thank you to:
 * [kmulvey](https://github.com/kmulvey)
 * [Kwozzie](https://github.com/Kwozzie)
 * [LucasTheCure](https://github.com/LucasTheCure)
+* [viszman](https://github.com/viszman)
+* [droidmunkey](https://github.com/droidmunkey)
+* [vbatoufflet](https://github.com/vbatoufflet)
 
 ## License and author
 
