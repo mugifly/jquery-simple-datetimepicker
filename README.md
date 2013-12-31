@@ -53,6 +53,7 @@ Thank you to:
 * [vbatoufflet](https://github.com/vbatoufflet)
 * [CedricLevasseur](https://github.com/CedricLevasseur)
 * [fredrik-w](https://github.com/fredrik-w)
+* [Kupid Wang](http://www.kupid.me/)
 
 ## License and author
 

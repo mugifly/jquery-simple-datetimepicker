@@ -808,6 +808,8 @@
 		$picker.data("calendarMouseScroll", opt.calendarMouseScroll);
 		$picker.data("todayButton", opt.todayButton);
 		$picker.data('futureOnly', opt.futureOnly);
+		$picker.data('onShow', opt.onShow);
+		$picker.data('onHide', opt.onHide);
 
 		var minDate = Date.parse(opt.minDate);
 		if (isNaN(minDate)) { // invalid date?
@@ -950,7 +952,9 @@
 			"maxDate" : null,
 			"autodateOnStart": true,
 			"minTime":"00:00",
-			"maxTime":"23:59"
+			"maxTime":"23:59",
+			"onShow": null,
+			"onHide": null
 		};
 	};
 	
@@ -1066,6 +1070,12 @@
 						$picker.parent().css("top", $input.position().top + $input.outerHeight() + 2 + "px");
 						$picker.parent().css("left", $input.position().left + "px");
 					}
+
+					// Call a user event-handler
+					if ($picker.data('onShow') != null) {
+						var func = $picker.data('onShow');
+						func($picker, $input);
+					}
 				});
 			}
 		});
@@ -1077,9 +1087,17 @@
 			for(var i=0;i<PickerObjects.length;i++){
 				var $picker = $(PickerObjects[i]);
 				if(ActivePickerId != i){	/* if not-active picker */
-					if($picker.data("inputObjectId") != null && $picker.data("isInline") == false){
+					if($picker.data("inputObjectId") != null && $picker.data("isInline") == false && $picker.css('display') != 'none'){
 						/* if append input-field && float picker */
 						$picker.hide();
+
+						var $input = InputObjects[$picker.data("inputObjectId")];
+
+						// Call a user event-handler
+						if ($picker.data('onHide') != null) {
+							var func = $picker.data('onHide');
+							func($picker, $input);
+						}
 					}
 				}
 			}

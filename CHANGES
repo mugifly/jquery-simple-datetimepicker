@@ -5,6 +5,7 @@ https://github.com/mugifly/jquery-simple-datetimepicker/
   - [Add] Polish locale (Thanks to: viszman).
   - [Add] Support for minDate and maxDate options (Thanks to: droidmunkey).
   - [Add] Support for minTime and maxTime options (Thanks to: CedricLevasseur).
+  - [Add] Support for user event-handlers: "onShow", "onHide" (Idea by: Kupid Wang).
   - [Fix] Use isNaN instead of Number.isNaN (Thanks to: vbatoufflet).
   - [Fix] Don't allow scroll to past-month when limiting to future dates (Report by: fredrik-w).
 
