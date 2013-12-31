@@ -123,6 +123,11 @@
 
 	var beforeMonth = function($obj) {
 		var $picker = getParentPickerObject($obj);
+
+		if ($picker.data('stateAllowBeforeMonth') == false) { // Not allowed
+			return;
+		}
+
 		var date = getPickedDate($picker);
 		var targetMonth_lastDay = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
 		if (targetMonth_lastDay < date.getDate()) {
@@ -450,6 +455,9 @@
 			$link_before_month.click(function() {
 				beforeMonth($picker);
 			});
+			$picker.data('stateAllowBeforeMonth', true);
+		} else {
+			$picker.data('stateAllowBeforeMonth', false);
 		}
 
 		cDate.setMinutes(0);
