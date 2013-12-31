@@ -52,6 +52,7 @@ Thank you to:
 * [droidmunkey](https://github.com/droidmunkey)
 * [vbatoufflet](https://github.com/vbatoufflet)
 * [CedricLevasseur](https://github.com/CedricLevasseur)
+* [fredrik-w](https://github.com/fredrik-w)
 
 ## License and author
 
