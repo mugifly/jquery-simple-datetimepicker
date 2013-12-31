@@ -387,6 +387,10 @@
 		var isCurrentYear = todayDate.getFullYear() == date.getFullYear();
 		var isCurrentMonth = isCurrentYear && todayDate.getMonth() == date.getMonth();
 		var isCurrentDay = isCurrentMonth && todayDate.getDate() == date.getDate();
+		var isPastMonth = false;
+		if (date.getFullYear() < todayDate.getFullYear() || (isCurrentYear && date.getMonth() < todayDate.getMonth())) {
+			isPastMonth = true;
+		}
 
 		/* Collect each part */
 		var $header = $picker.children('.datepicker_header');
@@ -514,7 +518,8 @@
 		realDayObj.setSeconds(0);
 		for (var zz = 0; i < cellNum; i++) {
 			var realDay = i + 1 - firstWday;
-			var isPast = isCurrentMonth && realDay < todayDate.getDate();
+
+			var isPast = isPastMonth || (isCurrentMonth && realDay < todayDate.getDate());
 
 			if (i % 7 == 0) {
 				$tr = $('<tr>');
