@@ -95,6 +95,59 @@
     		today: 'Dzisiaj'
     		},
     };
+	/* ----- */
+
+	var PickerHandler = function($picker, $input){
+		this.$pickerObject = $picker;
+		this.$inputObject = $input;
+	};
+	
+	/* Get a picker */
+	PickerHandler.prototype.getPicker = function(){
+		return this.$pickerObject;
+	};
+
+	/* Get a input-field */
+	PickerHandler.prototype.getInput = function(){
+		return this.$inputObject;
+	};
+
+	/* Show a picker */
+	PickerHandler.prototype.show = function(){
+		var $picker = this.$pickerObject;
+		var $input = this.$inputObject;
+
+		$picker.show();
+
+		if ($picker.data('isInline') == false) { // Float mode
+			// Move position of a picker
+			var _position = $input.parent().css('position');
+			if(_position === 'relative' || _position === 'absolute'){
+				$picker.parent().css("top", $input.outerHeight() + 2 + "px");
+			}
+			else{
+				$picker.parent().css("top", $input.position().top + $input.outerHeight() + 2 + "px");
+				$picker.parent().css("left", $input.position().left + "px");
+			}
+		}
+	};
+
+	/* Hide a picker */
+	PickerHandler.prototype.hide = function(){
+		var $picker = this.$pickerObject;
+		var $input = this.$inputObject;
+		$picker.hide();
+	};
+
+	/* Destroy a picker */
+	PickerHandler.prototype.destroy = function(){
+		var $picker = this.$pickerObject;
+		var picker_id = $picker.data('pickerId');
+		PickerObjects[picker_id] = null;
+		$picker.remove();
+	};
+
+	/* ----- */
 
 	var PickerObjects = [];
 	var InputObjects = [];
@@ -777,6 +830,11 @@
 	var init = function($obj, opt) {
 		/* Container */
 		var $picker = $('<div>');
+
+		$picker.destroy = function() {
+			window.alert('destroy!');
+		};
+
 		$picker.addClass('datepicker');
 		$obj.append($picker);
 
@@ -1061,20 +1119,15 @@
 					var $input = $(this);
 					var $picker = $(PickerObjects[$input.data('pickerId')]);
 					ActivePickerId = $input.data('pickerId');
-					$picker.show();
-					var _position = $(input).parent().css('position');
-					if(_position === 'relative' || _position === 'absolute'){
-						$picker.parent().css("top", $input.outerHeight() + 2 + "px");
-					}
-					else{
-						$picker.parent().css("top", $input.position().top + $input.outerHeight() + 2 + "px");
-						$picker.parent().css("left", $input.position().left + "px");
-					}
 
-					// Call a user event-handler
-					if ($picker.data('onShow') != null) {
-						var func = $picker.data('onShow');
-						func($picker, $input);
+					// Show a picker
+					var handler = new PickerHandler($picker, $input);
+					handler.show();
+
+					// Call a event-hanlder
+					var func = $picker.data('onShow');
+					if (func != null) {
+						func(handler);
 					}
 				});
 			}
@@ -1089,15 +1142,11 @@
 				if(ActivePickerId != i){	/* if not-active picker */
 					if($picker.data("inputObjectId") != null && $picker.data("isInline") == false && $picker.css('display') != 'none'){
 						/* if append input-field && float picker */
-						$picker.hide();
 
+						// Hide a picker
 						var $input = InputObjects[$picker.data("inputObjectId")];
-
-						// Call a user event-handler
-						if ($picker.data('onHide') != null) {
-							var func = $picker.data('onHide');
-							func($picker, $input);
-						}
+						var handler = new PickerHandler($picker, $input);
+						handler.hide();
 					}
 				}
 			}

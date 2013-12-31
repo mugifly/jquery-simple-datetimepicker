@@ -14,6 +14,9 @@
 	<style type="text/css">
 		body { background-color: #ffffff; padding-left: 1%; padding-bottom: 100px; }
 		footer{ font-size:small;position:fixed;right:5px;bottom:5px; }
+		pre{ background-color: #eeeeee; margin-left: 1%; margin-right: 2%; padding: 2%; }
+		p {font-size: 0.9rem;}
+		ul {font-size: 0.9rem;}
 	</style>
 </head>
 <body>
@@ -267,21 +270,48 @@
 			});
 		</script>
 
-		<h4>Set event handler ("onShow", "onHide" methods)</h4>
+		<h4>Set the user event-handler ("onShow", "onHide" methods)</h4>
+
 		<h5>e.g. Show a dialog, when picker has been shown or hidden.</h5>
 		<input type="text" name="date18" value="">
 		<script type="text/javascript">
 			$(function(){
 				$('*[name=date18]').appendDtpicker({
-					"onShow": function($picker, $input){
+					"onShow": function(handler){
 						window.alert('Picker is shown!');
 					},
-					"onHide": function($picker, $input){
+					"onHide": function(handler){
 						window.alert('Picker is hidden!');
+						handler.destroy();
 					}
 				});
 			});
 		</script>
+		<h5>How to use:</h5>
+		<div>
+			<pre>
+	$('#foo-input').appendDtpicker({
+		"onShow": function(handler){
+			window.alert('Picker is shown!');
+		},
+		"onHide": function(handler){
+			window.alert('Picker is hidden!');
+			handler.destroy();
+		}
+	});</pre>
+			<p>
+				In normally, a picker has been shown/hidden by automatically when necessary.<br/>
+				But you can also handle it by yourself with using methods of "<a href="#event-handler_methods">handler</a>" object.
+			</p>
+		<h5><a name="event-handler_methods">Available methods in <u>handler</u> object</a></h5>
+			<ul>
+				<li>"destroy()" - Destroy a picker</li>
+				<li>"getInput()" - Get a input-field object (jQuery element)</li>
+				<li>"getPicker()" - Get a picker object (jQuery element)</li>
+				<li>"hide()" - Hide a picker</li>
+				<li>"show()" - Show a picker</li>
+			</ul>
+		</div>
 		
 		<h4>set min and max times ("minTime":"hh:mm" and "maxTime":"hh:mm")</h4>
 		<h5>e.g. 08:30 - 19:15, and future-only</h5>
