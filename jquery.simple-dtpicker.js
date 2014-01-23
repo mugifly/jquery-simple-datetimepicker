@@ -15,6 +15,16 @@
     		nextMonth: 'Next month',
     		today: 'Today'
     		},
+    	ro:{
+    		days: ['Dum', 'Lun', 'Mar', 'Mie', 'Joi', 'Vin', 'Sâm'],
+    		months: ['Ian', 'Feb', 'Mar', 'Apr', 'Mai', 'Iun', 'Iul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    		sep: '.',
+    		format: 'DD.MM.YYYY hh:mm',
+    		prevMonth: 'Luna precedentă',
+    		nextMonth: 'Luna următoare',
+    		today: 'Azi'		
+    		},
+
     	ja: {
     		days: ['日', '月', '火', '水', '木', '金', '土'],
     		months: [ "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" ],
