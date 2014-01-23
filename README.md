@@ -54,6 +54,8 @@ Thank you to:
 * [CedricLevasseur](https://github.com/CedricLevasseur)
 * [fredrik-w](https://github.com/fredrik-w)
 * [Kupid Wang](http://www.kupid.me/)
+* [IngerAlHaosului](https://github.com/IngerAlHaosului)
+* [jpetto](https://github.com/jpetto)
 
 ## License and author
 
