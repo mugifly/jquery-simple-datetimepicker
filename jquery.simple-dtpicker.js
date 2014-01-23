@@ -1115,7 +1115,7 @@
 				$picker.hide();
 	
 				/* Set onClick event handler for input-field */
-				$(input).click(function(){
+				$(input).on('click, focus',function(){
 					var $input = $(this);
 					var $picker = $(PickerObjects[$input.data('pickerId')]);
 					ActivePickerId = $input.data('pickerId');
