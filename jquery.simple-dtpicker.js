@@ -299,7 +299,7 @@
 						date.setFullYear(normalizeYear(d));
 						is_successful = true;
 					} else if(f == 'YY'){
-						date.setYear(d);
+						date.setYear(parseInt(d) + 2000);
 						is_successful = true;
 					} else if(f == 'MM' || f == 'M'){
 						date.setMonth(parseInt(d) - 1);
@@ -395,6 +395,7 @@
 	};
 
 	var draw_date = function($picker, option, date) {
+		//console.log("draw_date - " + date.toString());
 		draw($picker, option, date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes());
 	};
 	var translate = function(locale, s) {
@@ -1096,6 +1097,7 @@
 					) { /* beforeValue == null || beforeValue != nowValue  */
 					var format = getDateFormat($picker.data('dateFormat'), $picker.data('locale'), $picker.data('dateOnly'));
 					var date = parseDate($input.val(), format);
+					//console.log("dtpicker - inputKeyup - format: " + format + ", date: " + $input.val() + " -> " + date);
 					if (date) {
 						draw_date($picker, {
 							"isAnim":true,
