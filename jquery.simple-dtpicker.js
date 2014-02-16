@@ -1,6 +1,6 @@
 /**
  * jquery-simple-datetimepicker (jquery.simple-dtpicker.js)
- * v1.10.0
+ * v1.10.1
  * (c) Masanori Ohgita - 2014.
  * https://github.com/mugifly/jquery-simple-datetimepicker
  */
@@ -297,7 +297,7 @@
 				}
 
 				// Convert a string (with convert-table) to a date object
-				var date = new Date();
+				var year, month, day, hour, min;
 				var is_successful = false;
 				for(var i = 0; i < formats.length; i++){
 					if(m.length < i){
@@ -306,27 +306,28 @@
 
 					var f = formats[i];
 					var d = m[i+1]; // Matched part of date
-
 					if(f == 'YYYY'){
-						date.setFullYear(normalizeYear(d));
+						year = normalizeYear(d);
 						is_successful = true;
 					} else if(f == 'YY'){
-						date.setYear(parseInt(d) + 2000);
+						year = parseInt(d) + 2000;
 						is_successful = true;
 					} else if(f == 'MM' || f == 'M'){
-						date.setMonth(parseInt(d) - 1);
+						day = parseInt(d) - 1;
 						is_successful = true;
 					} else if(f == 'DD' || f == 'D'){
-						date.setDate(d);
+						day = d;
 						is_successful = true;
 					} else if(f == 'hh' || f == 'h'){
-						date.setHours(d);
+						hour = d;
 						is_successful = true;
 					} else if(f == 'mm' || f == 'm'){
-						date.setMinutes(d);
+						min = d;
 						is_successful = true;
 					} 
 				}
+
+				var date = new Date(year, month, day, hour, min);
 
 				if(is_successful == true && isNaN(date) == false && isNaN(date.getDate()) == false){ // Parse successful
 					return date;
@@ -1213,7 +1214,7 @@
 			}
 		}
 	};
-	
+
 	$.fn.handleDtpicker = function( method ) { 
 		if ( methods[method] ) {
 			return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
