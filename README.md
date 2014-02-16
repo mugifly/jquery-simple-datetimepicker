@@ -56,6 +56,9 @@ Thank you to:
 * [Kupid Wang](http://www.kupid.me/)
 * [IngerAlHaosului](https://github.com/IngerAlHaosului)
 * [jpetto](https://github.com/jpetto)
+* [jcutrell](https://github.com/jcutrell)
+* [LinTicket](https://github.com/LinTicket)
+* [cnorthwood](https://github.com/cnorthwood)
 
 ## License and author
 
