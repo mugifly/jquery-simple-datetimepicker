@@ -123,12 +123,23 @@
 		return this.$inputObject;
 	};
 
+	/* Get the display state of a picker */
+	PickerHandler.prototype.isShow = function(){
+		var is_show = true;
+		if (this.$pickerObject.css('display') == 'none') {
+			is_show = false;
+		}
+		return is_show;
+	};
+
 	/* Show a picker */
 	PickerHandler.prototype.show = function(){
 		var $picker = this.$pickerObject;
 		var $input = this.$inputObject;
 
 		$picker.show();
+
+		ActivePickerId = $input.data('pickerId');
 
 		if ($picker.data('isInline') == false) { // Float mode
 			// Move position of a picker
@@ -880,6 +891,7 @@
 		$picker.data('futureOnly', opt.futureOnly);
 		$picker.data('onShow', opt.onShow);
 		$picker.data('onHide', opt.onHide);
+		$picker.data('onInit', opt.onInit);
 
 		var minDate = Date.parse(opt.minDate);
 		if (isNaN(minDate)) { // invalid date?
@@ -1054,9 +1066,14 @@
 		var options = $.extend(defaults, config);
 
 		return this.each(function(i) {
+			/* Checking exist a picker */
+			var input = this;
+			if(0 < $(PickerObjects[$(input).data('pickerId')]).length) {
+				console.log("dtpicker - Already exist appended picker");
+				return;
+			}
 
 			/* Add input-field with inputsObjects array */
-			var input = this;
 			var inputObjectId = InputObjects.length;
 			InputObjects.push(input);
 
@@ -1112,39 +1129,99 @@
 			$(input).change(function(){
 				$(this).trigger('keyup');
 			});
-	
+
 			if(options.inline == true){
 				/* inline mode */
 				$picker.data('isInline',true);
-			}else{
+			} else {
 				/* float mode */
 				$picker.data('isInline',false);
 				$picker_parent.css({
 					"zIndex": 100
 				});
 				$picker.css("width","auto");
-	
+
 				/* Hide this picker */
 				$picker.hide();
-	
+				
 				/* Set onClick event handler for input-field */
 				$(input).on('click, focus',function(){
+					console.log("onClick");
 					var $input = $(this);
 					var $picker = $(PickerObjects[$input.data('pickerId')]);
-					ActivePickerId = $input.data('pickerId');
 
-					// Show a picker
+					// Generate the handler of a picker
 					var handler = new PickerHandler($picker, $input);
-					handler.show();
+					// Get the display state of a picker
+					var is_showed = handler.isShow();
+					if (!is_showed) {
+						// Show a picker
+						handler.show();
 
-					// Call a event-hanlder
-					var func = $picker.data('onShow');
-					if (func != null) {
-						func(handler);
+						// Call a event-hanlder
+						var func = $picker.data('onShow');
+						if (func != null) {
+							console.log("dtpicker- Call the onShow handler");
+							func(handler);
+						}
 					}
 				});
+
+			}
+
+			// Generate the handler of a picker
+			var handler = new PickerHandler($picker, $(input));
+
+			// Call a event-handler
+			var func = $picker.data('onInit');
+			if (func != null) {
+				console.log("dtpicker- Call the onInit handler");
+				func(handler);
 			}
 		});
+	};
+
+	/**
+	 * Handle a appended dtpicker
+	 * */
+	var methods = {
+		show : function( ) {
+			var $input = $(this);
+			var $picker = $(PickerObjects[$input.data('pickerId')]);
+			if ($picker != null) {
+				var handler = new PickerHandler($picker, $input);
+				// Show a picker
+				handler.show();
+			}
+		},
+		hide : function( ) {
+			var $input = $(this);
+			var $picker = $(PickerObjects[$input.data('pickerId')]);
+			if ($picker != null) {
+				var handler = new PickerHandler($picker, $input);
+				// Hide a picker
+				handler.hide();
+			}
+		},
+		destroy : function( ) {
+			var $input = $(this);
+			var $picker = $(PickerObjects[$input.data('pickerId')]);
+			if ($picker != null) {
+				var handler = new PickerHandler($picker, $input);
+				// Destroy a picker
+				handler.destroy();
+			}
+		}
+	};
+	
+	$.fn.handleDtpicker = function( method ) { 
+		if ( methods[method] ) {
+			return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+		} else if ( typeof method === 'object' || ! method ) {
+			return methods.init.apply( this, arguments );
+		} else {
+			$.error( 'Method ' +  method + ' does not exist on jQuery.handleDtpicker' );
+		}
 	};
 
 	/* Set event handler to Body element, for hide a floated-picker */
@@ -1160,6 +1237,13 @@
 						var $input = InputObjects[$picker.data("inputObjectId")];
 						var handler = new PickerHandler($picker, $input);
 						handler.hide();
+
+						// Call a event-hanlder
+						var func = $picker.data('onHide');
+						if (func != null) {
+							console.log("dtpicker- Call the onHide handler");
+							func(handler);
+						}
 					}
 				}
 			}
