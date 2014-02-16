@@ -12,14 +12,22 @@
 	<!---->
 	
 	<style type="text/css">
-		body { background-color: #ffffff; padding-left: 1%; padding-bottom: 100px; }
-		footer{font-size:small;position:fixed;right:5px;bottom:5px;}
+		body { background-color: #fefefe; padding-left: 2%; padding-bottom: 100px; color: #101010; }
+		footer{ font-size:small;position:fixed;right:5px;bottom:5px; }
+		a:link, a:visited  { color: #0000ee; }
+		pre{ background-color: #eeeeee; margin-left: 1%; margin-right: 2%; padding: 2% 2% 2% 5%; }
+		p { font-size: 0.9rem; }
+		ul { font-size: 0.9rem; }
+		hr { border: 2px solid #eeeeee; margin: 2% 0% 2% -3%; }
+		h3 { border-bottom: 2px solid #eeeeee; margin: 2rem 0 2rem -1%; padding-left: 1%; padding-bottom: 0.1em; }
+		h4 { border-bottom: 1px solid #eeeeee; margin-top: 2rem; margin-left: -1%; padding-left: 1%; padding-bottom: 0.1em; }
 	</style>
 </head>
 <body>
 	<header>
 		<h2>Demo - jquery-simple-datetimepicker</h2>
 	</header>
+	<small class="nav"><a href="#">Top</a> | <a href="#section_available_options">Avaiable options</a> | <a href="#section_more_methods">More methods</a></small>
 	
 	<h3>Inline</h3>
 	<div id="date_picker"> </div>
@@ -48,8 +56,8 @@
 	
 	<hr />
 
-	<h3>Avaiable options</h3>
-		About details for these options, please see: <a href="https://github.com/mugifly/jquery-simple-datetimepicker/wiki/Options">Wiki</a>.
+	<h3 id="section_available_options">Avaiable options</h3>
+		<p>About details for these options, please see: <a href="https://github.com/mugifly/jquery-simple-datetimepicker/wiki/Options">Wiki</a>.</p>
 	
 		<h4>Current date ("current": "2012-3-4 12:30")</h4>
 		<input type="text" name="date3" value="">
@@ -102,6 +110,8 @@
 			<li>"cz" : Czech - Thanks to: <a href="http://rotten77.cz/">Jan Zatloukal</a></li>
 			<li>"fr" : French - Thanks to: <a href="https://github.com/matll42">matll42</a></li>
 			<li>"it" : Italian - Thanks to: Mauro Zuccato</li>
+			<li>"pl" : Polish - Thanks to: <a href="https://github.com/viszman">viszman</a></li>
+			<li>"ro" : Romanian - Thanks to: <a href="https://github.com/IngerAlHaosului">IngerAlHaosului</a></li>
 		</ul>
 
 		<h4>Change the interval of minute ("minuteInterval": 15)</h4>
@@ -228,7 +238,222 @@
 				});
 			});
 		</script>
+
+		<h4>Date Ranges (not compatible with 'inline:true' at this time)</h4>
+		<label for='start_time'> Start Date: </label>
+			<input type="text" name="start_time" id="start_time" value="">
+
+		<label for='end_time'> End Date: </label>
+			<input type="text" name="end_time" id="end_time" value="">
+		<script type="text/javascript">
+			$(function(){
+			 	// -- Example Only - Set the date range --
+				var d = new Date();
+				d.setDate(10);
+				$('#start_time').val(d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate() + " 1:00 pm");
+				// Example Only - Set the end date to 7 days in the future so we have an actual 
+				d.setDate(d.getDate() + 7);
+				$('#end_time').val(d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate() + " 13:45 ");
+				// -- End Example Only Code --
+
+				// Attach a change event to end_time - 
+				// NOTE we are using '#ID' instead of '*[name=]' selectors in this example to ensure we have the correct field
+				$('#end_time').change(function() {
+				    $('#start_time').appendDtpicker({
+					    maxDate: $('#end_time').val() // when the end time changes, update the maxDate on the start field
+				    });
+				});
 		
+				$('#start_time').change(function() {
+				    $('#end_time').appendDtpicker({
+					    minDate: $('#start_time').val() // when the start time changes, update the minDate on the end field
+				    });
+				});
+		
+				// trigger change event so datapickers get attached
+				$('#end_time').trigger('change');
+				$('#start_time').trigger('change');
+			});
+		</script>
+		
+		<h4>Set min and max times ("minTime":"hh:mm" and "maxTime":"hh:mm")</h4>
+		<h5>e.g. 08:30 - 19:15, and future-only</h5>
+		<div>
+			<input type="text" name="date17" value="">
+			<script type="text/javascript">
+				$(function(){
+					$('*[name=date17]').appendDtpicker({
+						"inline": true,
+						"futureOnly": true,
+						"minTime":"08:30",
+						"maxTime":"19:15"
+					});
+				});
+			</script>
+		</div>
+
+				<h4>Set the user event-handler (on* methods)</h4>
+		<div>
+			<ul>
+				<li>"onInit" - Called when a picker has been initialized.</li>
+				<li>"onShow" - Called when a picker has shown.</li>
+				<li>"onHide" - Called when a picker has hidden.</li>
+			</ul>
+			<p>
+				In normally, a picker has been shown/hidden by automatically when necessary.<br/>
+				But you can also catch it, And handle a picker by yourself with using methods of "<a href="#event-handler_methods">handler</a>" object.
+			</p>
+
+			<h5><a name="event-handler_methods">Available methods in <u>handler</u> object</a></h5>
+			<div>
+				<ul>
+					<li>"destroy()" - Destroy a picker.</li>
+					<li>"getInput()" - Get a input-field object (jQuery element).</li>
+					<li>"getPicker()" - Get a picker object (jQuery element).</li>
+					<li>"hide()" - Hide a picker.</li>
+					<li>"show()" - Show a picker.</li>
+					<li>"isShow()" - Get the display state of a picker.</li>
+				</ul>
+			</div>
+
+			<h5>e.g. Show a dialog, when picker has been shown or hidden.</h5>
+			<div>
+				<input type="text" name="date18" value="">
+				<script type="text/javascript">
+					$(function(){
+						$('*[name=date18]').appendDtpicker({
+							"onShow": function(handler){
+								window.alert('Picker is shown!');
+							},
+							"onHide": function(handler){
+								window.alert('Picker is hidden!');
+							}
+						});
+					});
+				</script>
+				<pre>
+&lt;input type=&quot;text&quot; id=&quot;date_foo&quot; value=&quot;&quot;&gt;
+
+$('#date_foo').appendDtpicker({
+	"onShow": function(handler){
+		window.alert('Picker is shown!');
+	},
+	"onHide": function(handler){
+		window.alert('Picker is hidden!');
+	}
+});</pre>
+			</div>
+
+			<h5>e.g. Just-in-time generate.</h5>
+			<div>
+				<input type="text" id="date_jit" value="">
+				<input type="button" id="btn_generate" value="Generate a picker">
+				<script type="text/javascript">
+					$(function(){
+						$('#btn_generate').click(function(){
+							window.alert("Generate");
+							$('#date_jit').appendDtpicker({
+								"onInit": function(handler){
+									handler.show();
+								},
+								"onHide": function(handler){
+									window.alert("Picker is hidden, Then destroy a picker");
+									handler.destroy();
+								}
+							});
+						});
+					});
+				</script>
+				<pre>&lt;input type=&quot;text&quot; id=&quot;date_jit&quot; value=&quot;&quot;&gt;
+&lt;input type=&quot;button&quot; id=&quot;btn_generate&quot; value=&quot;Generate a picker&quot;&gt;
+
+$('#btn_generate').click(function(){
+	window.alert("Generate");
+	$('#date_jit').appendDtpicker({
+		"onInit": function(handler){
+			handler.show();
+		},
+		"onHide": function(handler){
+			window.alert("Picker is hidden, Then destroy a picker");
+			handler.destroy();
+		}
+	});
+});</pre>
+			</div>
+		</div>
+
+	<hr />
+
+	<h3 id="section_more_methods">More methods</h3></a>
+
+		<h4>Manual handling of the appended picker</h4>
+		<div>
+			<p>
+				You can handle the appended picker with using "handleDtpicker" method into the input-field.<br/>
+				To handle a picker using handleDtpicker method, call the handleDtpicker method with setting the your hope method-name (e.g. "show" and <a href="#manual-handling_method-names">more</a>) as a parameter.
+			</p>
+			
+			<h5><a name="manual-handling_method-names">Available method-names as parameter of <u>handleDtpicker</u> method</a></h5>
+			<div>
+				<ul>
+					<li>"destroy - Destroy a picker.</li>
+					<li>"hide" - Hide a picker.</li>
+					<li>"show" - Show a picker.</li>
+				</ul>
+			</div>
+
+			<h5>e.g. Generate a picker as inline and handle by manual.</h5>
+			<div>
+				<input type="text" id="date_manual" value="">
+				<input type="button" id="btn_manual_generate" value="Generate">
+				<input type="button" id="btn_manual_show" value="Show">
+				<input type="button" id="btn_manual_hide" value="Hide">
+				<input type="button" id="btn_manual_destroy" value="Destroy">
+				<script type="text/javascript">
+					$(function(){
+						$('#btn_manual_generate').click(function(){
+							$('#date_manual').appendDtpicker({
+								"inline": true
+							});
+						});
+						$('#btn_manual_show').click(function(){
+							$('#date_manual').handleDtpicker('show');
+						});
+						$('#btn_manual_hide').click(function(){
+							$('#date_manual').handleDtpicker('hide');
+						});
+						$('#btn_manual_destroy').click(function(){
+							$('#date_manual').handleDtpicker('destroy');
+						});
+					});
+				</script>
+				<pre>&lt;input type=&quot;text&quot; id=&quot;date_manual&quot; value=&quot;&quot;&gt;
+&lt;input type=&quot;button&quot; id=&quot;btn_manual_generate&quot; value=&quot;Generate&quot;&gt;
+&lt;input type=&quot;button&quot; id=&quot;btn_manual_show&quot; value=&quot;Show&quot;&gt;
+&lt;input type=&quot;button&quot; id=&quot;btn_manual_hide&quot; value=&quot;Hide&quot;&gt;
+&lt;input type=&quot;button&quot; id=&quot;btn_manual_destroy&quot; value=&quot;Destroy&quot;&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+	$(function(){
+		$(&#039;#btn_manual_generate&#039;).click(function(){
+			$(&#039;#date_manual&#039;).appendDtpicker({
+				&quot;inline&quot;: true
+			});
+		});
+		$(&#039;#btn_manual_show&#039;).click(function(){
+			$(&#039;#date_manual&#039;).handleDtpicker(&#039;show&#039;);
+		});
+		$(&#039;#btn_manual_hide&#039;).click(function(){
+			$(&#039;#date_manual&#039;).handleDtpicker(&#039;hide&#039;);
+		});
+		$(&#039;#btn_manual_destroy&#039;).click(function(){
+			$(&#039;#date_manual&#039;).handleDtpicker(&#039;destroy&#039;);
+		});
+	});
+&lt;/script&gt;</pre>
+			</div>
+		</div>
+
 	<footer>
 		<a href="https://github.com/mugifly/jquery-simple-datetimepicker">jquery.simple-dtpicker.js (jquery-simple-datetimepicker)</a><br>
 		 - Your feedback is highly appreciated :) 
