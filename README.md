@@ -59,6 +59,7 @@ Thank you to:
 * [jcutrell](https://github.com/jcutrell)
 * [LinTicket](https://github.com/LinTicket)
 * [cnorthwood](https://github.com/cnorthwood)
+* [michelts](https://github.com/michelts)
 
 ## License and author
 
