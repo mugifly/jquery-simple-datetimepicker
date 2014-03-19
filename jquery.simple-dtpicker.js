@@ -313,7 +313,7 @@
 						year = parseInt(d) + 2000;
 						is_successful = true;
 					} else if(f == 'MM' || f == 'M'){
-						day = parseInt(d) - 1;
+						month = parseInt(d) - 1;
 						is_successful = true;
 					} else if(f == 'DD' || f == 'D'){
 						day = d;
