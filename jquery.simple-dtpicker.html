@@ -240,6 +240,25 @@
 			});
 		</script>
 
+		<h4>Initialize with the input-field as blank ("autodateOnStart": false)</h4>
+		<div>
+			<input type="text" name="date_false_autodateonstart" value="">
+			<script type="text/javascript">
+				$(function(){
+					$('*[name=date_false_autodateonstart]').appendDtpicker({
+						"autodateOnStart": false
+					});
+				});
+			</script>
+			<pre>
+&lt;input type=&quot;text&quot; id=&quot;date_foo&quot; value=&quot;&quot;&gt;
+
+$('#date_foo').appendDtpicker({
+	"autodateOnStart": false
+});</pre>
+		</div>
+		</div>
+
 		<h4>Date Ranges (not compatible with 'inline:true' at this time)</h4>
 		<label for='start_time'> Start Date: </label>
 			<input type="text" name="start_time" id="start_time" value="">
