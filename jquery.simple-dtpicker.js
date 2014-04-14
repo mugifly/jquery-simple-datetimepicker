@@ -733,60 +733,18 @@
 
 				$timelist.append($o);
 
-					realDayObj.setHours(hour);
-					realDayObj.setMinutes(min);
+				realDayObj.setHours(hour);
+				realDayObj.setMinutes(min);
 
-					if (
-						((minDate != null) && (minDate > realDayObj.getTime())) 
-						|| ((maxDate != null) && (maxDate < realDayObj.getTime()))
-					) {
-						$o.addClass('out_of_range');
-					} else if (isFutureOnly && isPast) {
-						$o.addClass('time_in_past');
-					} else {
-						$o.click(function() {
-							if ($(this).hasClass('hover')) {
-								$(this).removeClass('hover');
-							}
-							$(this).addClass('active');
-
-							var $picker = getParentPickerObject($(this));
-							var date = getPickedDate($picker);
-							var hour = $(this).data("hour");
-							var min = $(this).data("min");
-							draw($picker, {
-								"isAnim": false,
-								"isOutputToInputObject": true
-							}, date.getFullYear(), date.getMonth(), date.getDate(), hour, min);
-
-							if ($picker.data("isInline") == false && $picker.data("closeOnSelected")){
-								// Close a picker
-								ActivePickerId = -1;
-								$picker.hide();
-							}
-						});
-
-						$o.hover(function() {
-							if (! $(this).hasClass('active')) {
-								$(this).addClass('hover');
-							}
-						}, function() {
-							if ($(this).hasClass('hover')) {
-								$(this).removeClass('hover');
-							}
-						});
-					}
-					
-				if (hour == date.getHours() && min == date.getMinutes()) {/* selected time */
-					$o.addClass('active');
-					timelist_activeTimeCell_offsetTop = $o.offset().top;
-				}
-
-				/* Set event handler to time cell */
-
-				if (isFutureOnly && isPast) {
+				if (
+					((minDate != null) && (minDate > realDayObj.getTime())) 
+					|| ((maxDate != null) && (maxDate < realDayObj.getTime()))
+				) { // Out of range cell
+					$o.addClass('out_of_range');
+				} else if (isFutureOnly && isPast) { // Past cell
 					$o.addClass('time_in_past');
-				} else {
+				} else { // Normal cell
+					/* Set event handler to time cell */
 					$o.click(function() {
 						if ($(this).hasClass('hover')) {
 							$(this).removeClass('hover');
@@ -819,11 +777,18 @@
 						}
 					});
 				}
+				
+				if (hour == date.getHours() && min == date.getMinutes()) { /* selected time */
+					$o.addClass('active');
+					timelist_activeTimeCell_offsetTop = $o.offset().top;
+				}
+
 				min += minuteInterval;
 				if(min >= 60){
 					min=min-60;
 					hour++;
 				}
+				
 			}
 
 			/* Scroll the timelist */
@@ -935,8 +900,7 @@
 		opt.maxTime[1]=parseInt(opt.maxTime[1]);
 		$picker.data('minTime', opt.minTime);
 		$picker.data('maxTime', opt.maxTime);
-	
-
+		
 		/* Header */
 		var $header = $('<div>');
 		$header.addClass('datepicker_header');
