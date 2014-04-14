@@ -292,7 +292,28 @@
 			</script>
 		</div>
 
-				<h4>Set the user event-handler (on* methods)</h4>
+		<h4>Only allow the specified days of the week ("allowWdays")</h4>
+		<h5>e.g., Weekdays only</h5>
+		<div>
+			<input type="text" name="date_allowddays" value="">
+			<script type="text/javascript">
+				$(function(){
+					$('*[name=date_allowddays]').appendDtpicker({
+						"inline": true,
+						"allowWdays": [1, 2, 3, 4, 5]
+					});
+				});
+			</script>
+			<pre>
+&lt;input type=&quot;text&quot; id=&quot;date_foo&quot; value=&quot;&quot;&gt;
+
+$('#date_foo').appendDtpicker({
+	"inline": true,
+	"allowWdays": [1, 2, 3, 4, 5] // 0: Sun, 1: Mon, 2: Tue, 3: Wed, 4: Thr, 5: Fri, 6: Sat
+});</pre>
+		</div>
+
+		<h4>Set the user event-handler (on* methods)</h4>
 		<div>
 			<ul>
 				<li>"onInit" - Called when a picker has been initialized.</li>

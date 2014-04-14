@@ -448,6 +448,11 @@
 
 		var minuteInterval = $picker.data("minuteInterval");
 		var firstDayOfWeek = $picker.data("firstDayOfWeek");
+
+		var allowWdays = $picker.data("allowWdays");
+		if (allowWdays == null || isObj('Array', allowWdays) == false || allowWdays.length <= 0) {
+			allowWdays = null;
+		}
 		
 		var minTime = $picker.data("minTime");
 		var maxTime = $picker.data("maxTime");
@@ -459,7 +464,17 @@
 				date.setTime(todayDate.getTime());
 			}
 		}
-
+		if(allowWdays != null && allowWdays.length <= 6) {
+			while (true) {
+				if ($.inArray(date.getDay(), allowWdays) == -1) { // Unallowed wday
+					// Slide a date
+					date.setDate(date.getDate() + 1);
+				} else {
+					break;
+				}
+			}
+		}
+		
 		/* Read locale option */
 		var locale = $picker.data("locale");
 		if (!lang.hasOwnProperty(locale)) {
@@ -644,35 +659,42 @@
 				realDayObj.setYear( dateNextMonth.getFullYear() );
 			}
 
-			if (((i + firstDayDiff) % 7) == 0) {/* Sunday */
+			/* Check a wday */
+			var wday = ((i + firstDayDiff) % 7);
+			if(allowWdays != null) {
+				if ($.inArray(wday, allowWdays) == -1) {
+					$td.addClass('day_in_unallowed');
+					continue; // Skip
+				}
+			} else if (wday == 0) {/* Sunday */
 				$td.addClass('wday_sun');
-			} else if (((i + firstDayDiff) % 7) == 6) {/* Saturday */
+			} else if (wday == 6) {/* Saturday */
 				$td.addClass('wday_sat');
 			}
 
-			if (realDay == date.getDate()) {/* selected day */
+			/* Set a special mark class */
+			if (realDay == date.getDate()) { /* selected day */
 				$td.addClass('active');
 			}
 
-			if (isCurrentMonth && realDay == todayDate.getDate()) {/* today */
+			if (isCurrentMonth && realDay == todayDate.getDate()) { /* today */
 				$td.addClass('today');
 			}
-
-			/* Set event-handler to day cell */
 
 			var realDayObjMN =  new Date(realDayObj.getTime());
 			realDayObjMN.setHours(23);
 			realDayObjMN.setMinutes(59);
 			realDayObjMN.setSeconds(59);
-            
+            	
 			if (
 				((minDate != null) && (minDate > realDayObjMN.getTime())) // compare to 23:59:59 on the current day (if MIN is 1pm, then we still need to show this day
 				|| ((maxDate != null) && (maxDate < realDayObj.getTime())) // compare to 00:00:00
-			) {
+			) { // Out of range day
 				$td.addClass('out_of_range');
-			} else if (isFutureOnly && isPast) {
+			} else if (isFutureOnly && isPast) { // Past day
 				$td.addClass('day_in_past');
 			} else {
+				/* Set event-handler to day cell */
 				$td.click(function() {
 					if ($(this).hasClass('hover')) {
 						$(this).removeClass('hover');
@@ -692,7 +714,6 @@
 	                                        $picker.hide();
 	                                }					
 				});
-				
 
 				$td.hover(function() {
 					if (! $(this).hasClass('active')) {
@@ -704,6 +725,8 @@
 					}
 				});
 			}
+
+			/* ---- */
 		}
 		
 		if ($picker.data("dateOnly") == true) {
@@ -822,6 +845,13 @@
 		}
 	};
 
+	/* Check for object type */
+	var isObj = function(type, obj) {
+		/* http://qiita.com/Layzie/items/465e715dae14e2f601de */
+		var clas = Object.prototype.toString.call(obj).slice(8, -1);
+		return obj !== undefined && obj !== null && clas === type;
+	};
+
 	var init = function($obj, opt) {
 		/* Container */
 		var $picker = $('<div>');
@@ -864,6 +894,7 @@
 		$picker.data('onShow', opt.onShow);
 		$picker.data('onHide', opt.onHide);
 		$picker.data('onInit', opt.onInit);
+		$picker.data('allowWdays', opt.allowWdays);
 
 		var minDate = Date.parse(opt.minDate);
 		if (isNaN(minDate)) { // invalid date?
@@ -1007,7 +1038,8 @@
 			"minTime":"00:00",
 			"maxTime":"23:59",
 			"onShow": null,
-			"onHide": null
+			"onHide": null,
+			"allowWdays": null
 		};
 	};
 	

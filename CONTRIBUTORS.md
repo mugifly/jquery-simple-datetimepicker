@@ -44,3 +44,6 @@ Thank you to:
 * [LinTicket](https://github.com/LinTicket)
 * [cnorthwood](https://github.com/cnorthwood)
 * [michelts](https://github.com/michelts)
+* [jhiver](https://github.com/jhiver)
+* [ignatiusreza](https://github.com/ignatiusreza)
+* [elvinlee](https://github.com/elvinlee)
