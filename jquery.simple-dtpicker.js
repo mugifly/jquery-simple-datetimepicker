@@ -427,7 +427,6 @@
 		} else {
 			date = new Date();
 		}
-		//console.log("dtpicker - draw()..." + year + "," + month + "," + day + " " + hour + ":" + min + " -> " + date);
 
 		/* Read options */
 		var isTodayButton = $picker.data("todayButton");
@@ -453,6 +452,14 @@
 		var minTime = $picker.data("minTime");
 		var maxTime = $picker.data("maxTime");
 
+		/* Check a specified date */
+		var todayDate = new Date();
+		if (isFutureOnly) {
+			if (date.getTime() < todayDate.getTime()) { // Already passed
+				date.setTime(todayDate.getTime());
+			}
+		}
+
 		/* Read locale option */
 		var locale = $picker.data("locale");
 		if (!lang.hasOwnProperty(locale)) {
@@ -460,7 +467,6 @@
 		}
 
 		/* Calculate dates */
-		var todayDate = new Date();
 		var firstWday = new Date(date.getFullYear(), date.getMonth(), 1).getDay() - firstDayOfWeek;
 		var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
 		var beforeMonthLastDay = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
