@@ -1,7 +1,7 @@
 Version history for query-simple-datetimepicker
 https://github.com/mugifly/jquery-simple-datetimepicker/
 
-1.11.0  2014-xx-xx
+1.11.0  2014-04-25 (JST)
   - [Add] Support for allowWdays option (Idea by: elvinlee).
   - [Add] Greek locale (Thanks to: sincetomorrow).
   - [Fix] Issue at option.current - Setting the custom date and time as default (Thanks to: michelts).
