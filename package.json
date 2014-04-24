@@ -15,8 +15,8 @@
     "url": "git://github.com/mugifly/jquery-simple-datetimepicker.git"
   },
   "author": {
-  	"name": "Masanori Ohgita",
-  	"url": "http://ohgita.info/"
+    "name": "Masanori Ohgita",
+    "url": "http://ohgita.info/"
   },
   "license": "MIT",
   "bugs": {
@@ -31,6 +31,7 @@
     "grunt-contrib-qunit": "^0.4.0",
     "grunt-jquerymanifest": "^0.1.4",
     "qunitjs": "^1.14.0",
-    "jquery": "^2.1.0"
+    "jquery": "^2.1.0",
+    "grunt-contrib-jshint": "^0.10.0"
   }
 }

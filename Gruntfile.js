@@ -5,6 +5,11 @@ module.exports = function(grunt) {
 		qunit: {
 			files: ['t/test.html']
 		},
+		jshint: {
+			main: {
+				src: ['jquery.simple-dtpicker.js']
+			}
+		},
 		jquerymanifest: {
 			options: {
 				source: grunt.file.readJSON('package.json'),
@@ -21,7 +26,8 @@ module.exports = function(grunt) {
 	// Load a module	
 	grunt.loadNpmTasks('grunt-contrib-qunit');
 	grunt.loadNpmTasks('grunt-jquerymanifest');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
 	// Register a tasks
-	grunt.registerTask('test', ['qunit']);
+	grunt.registerTask('test', ['qunit', 'jshint']);
 	grunt.registerTask('default', ['jquerymanifest', 'test']);
 }
