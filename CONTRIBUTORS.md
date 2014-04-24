@@ -49,3 +49,5 @@ Thank you to:
 * [elvinlee](https://github.com/elvinlee)
 * [sincetomorrow](https://github.com/sincetomorrow)
 * [ricardocanelas](https://github.com/ricardocanelas)
+* [Kupid](https://github.com/Kupid)
+* [fergardi](https://github.com/fergardi)
