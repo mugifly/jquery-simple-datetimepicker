@@ -48,3 +48,4 @@ Thank you to:
 * [ignatiusreza](https://github.com/ignatiusreza)
 * [elvinlee](https://github.com/elvinlee)
 * [sincetomorrow](https://github.com/sincetomorrow)
+* [ricardocanelas](https://github.com/ricardocanelas)

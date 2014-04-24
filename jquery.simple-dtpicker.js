@@ -154,10 +154,10 @@
 			// Move position of a picker
 			var _position = $input.parent().css('position');
 			if(_position === 'relative' || _position === 'absolute'){
-				$picker.parent().css("top", $input.outerHeight() + 2 + "px");
+				$picker.parent().css("top", $input.outerHeight({margin: true}) + 2 + "px");
 			}
 			else{
-				$picker.parent().css("top", $input.position().top + $input.outerHeight() + 2 + "px");
+				$picker.parent().css("top", $input.position().top + $input.outerHeight({margin: true}) + 2 + "px");
 				$picker.parent().css("left", $input.position().left + "px");
 			}
 		}
