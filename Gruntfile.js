@@ -6,8 +6,15 @@ module.exports = function(grunt) {
 			files: ['t/test.html']
 		},
 		jshint: {
-			main: {
-				src: ['jquery.simple-dtpicker.js']
+			default: {
+				src: ['jquery.simple-dtpicker.js'],
+				options: {
+					eqnull: true,
+					loopfunc: true,
+				},
+				predef: [
+					'eqnull', 'eqeqeq'
+				]
 			}
 		},
 		jquerymanifest: {
