@@ -1249,6 +1249,11 @@
 		}
 	};
 
+	if (!window.console) { // Not available a console on this environment.
+		window.console = {};
+		window.console.log = function(){};
+	}
+	
 	/* Set event handler to Body element, for hide a floated-picker */
 	$(function(){
 		$('body').click(function(){
