@@ -14,20 +14,26 @@ you can send requests and bug reports as [Issues on GitHub](https://github.com/m
 
 * jQuery 1.7.2 or later
 
-## Contributors
-[List of contributors](CONTRIBUTORS.md)
-
 ## Development
 
-### Testing
+The master branch is development version.
+Instead, You can get a stable version from [released tags](https://github.com/mugifly/jquery-simple-datetimepicker/releases).
+
+Automated testing status of master branch: [![Build Status](https://travis-ci.org/mugifly/jquery-simple-datetimepicker.svg?branch=master)](https://travis-ci.org/mugifly/jquery-simple-datetimepicker)
+
+### Testing on your environment
 
 I will not force you to testing work about yourself of commit, However that recommends.
 
-Requirement: [Node.js](http://nodejs.org/) (that includes npm).
+Requirements for develop: [Node.js](http://nodejs.org/) (that includes the npm).
 
-  $ npm install -g grunt-cli
-  $ npm install
-  $ grunt test
+    $ npm install -g grunt-cli
+    $ npm install
+    $ grunt test
+
+### Contributors
+
+[List of contributors](CONTRIBUTORS.md); Thanks.
 
 ## License and author
 
