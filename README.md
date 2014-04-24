@@ -17,6 +17,18 @@ you can send requests and bug reports as [Issues on GitHub](https://github.com/m
 ## Contributors
 [List of contributors](CONTRIBUTORS.md)
 
+## Development
+
+### Testing
+
+I will not force you to testing work about yourself of commit, However that recommends.
+
+Requirement: [Node.js](http://nodejs.org/) (that includes npm).
+
+  $ npm install -g grunt-cli
+  $ npm install
+  $ grunt test
+
 ## License and author
 
 Copyright (c) 2013 Masanori Ohgita (http://ohgita.info/). 
