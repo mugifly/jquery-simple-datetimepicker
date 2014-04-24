@@ -244,10 +244,24 @@
 		if (targetMonth_lastDay < date.getDate()) {
 			date.setDate(targetMonth_lastDay);
 		}
+
+		// Check a last date of a next month
+		if (getLastDate(date.getFullYear(), date.getMonth() + 1) < date.getDate()) {
+			date.setDate(getLastDate(date.getFullYear(), date.getMonth() + 1));
+		}
+
 		draw($picker, {
 			"isAnim": true,
 			"isOutputToInputObject": true
 		}, date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours(), date.getMinutes());
+	};
+
+	/**
+		Check a last date of a specified year and month
+	**/
+	var getLastDate = function(year, month) {
+		var date = new Date(year, month + 1, 0);
+		return date.getDate();
 	};
 
 	var getDateFormat = function(format, locale, is_date_only) {
@@ -1158,7 +1172,6 @@
 				
 				/* Set onClick event handler for input-field */
 				$(input).on('click, focus',function(){
-					console.log("onClick");
 					var $input = $(this);
 					var $picker = $(PickerObjects[$input.data('pickerId')]);
 

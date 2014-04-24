@@ -45,7 +45,7 @@ $(function() {
 	});
 
 	/* Switching a month - Next
-		2014-10-31 00:00 -> 2014-11-28 00:00
+		2014-10-31 00:00 -> 2014-11-30 00:00
 		Picker is inline mode, and append into an input-field. */
 	asyncTest('Switching a month - Next', function(){
 		expect(1);
@@ -61,7 +61,7 @@ $(function() {
 		// Switching a month to previous
 		$next_button.click();
 		setTimeout(function(){
-			equal($date_input.val(), '2014-11-28 00:00');
+			equal($date_input.val(), '2014-11-30 00:00');
 			start(); // Done.
 		}, 100);
 	});

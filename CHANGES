@@ -7,6 +7,7 @@ https://github.com/mugifly/jquery-simple-datetimepicker/
   - [Fix] Issue at option.current - Setting the custom date and time as default (Thanks to: michelts).
   - [Fix] Process for drawing the time cell (Reported by: jhiver).
   - [Fix] Past date is selected when clicking on previous (futureOnly) (Reported by: ignatiusreza).
+  - [Fix] Bug when switching to next month.
 
 1.10.1  2014-02-16 (JST)
   - [Fix] Issue with month jumping (Report by: jcutrell, LinTicket, cnorthwood).
