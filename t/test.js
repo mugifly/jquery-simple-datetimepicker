@@ -40,6 +40,8 @@ $(function() {
 		$prev_button.click();
 		setTimeout(function(){
 			equal($date_input.val(), '2014-09-30 00:00');
+			// Destroy a picker
+			$date_input.handleDtpicker('destroy');
 			start(); // Done.
 		}, 100);
 	});
@@ -62,6 +64,27 @@ $(function() {
 		$next_button.click();
 		setTimeout(function(){
 			equal($date_input.val(), '2014-11-30 00:00');
+			// Destroy a picker on the root element
+			$date_input.handleDtpicker('destroy');
+			start(); // Done.
+		}, 100);
+	});
+
+	/* Automatically destroy
+		Picker is float mode, and append into an input-field. */
+	asyncTest('Automatically destroy', function(){
+		expect(1);
+		var $date_input = $('#date_input');
+		$date_input.val('2014-10-31 00:00'); // Initial date
+		$date_input.appendDtpicker({
+			'inline': false
+		});
+		
+		// Delete an input-field
+		$date_input.remove();
+		setTimeout(function(){
+			var $picker = $('.datepicker');
+			equal($picker.length, 0); // There is not a single picker in it.
 			start(); // Done.
 		}, 100);
 	});
@@ -96,6 +119,9 @@ $(function() {
 			var $picker = $('.datepicker');
 			equal($picker.css('display'), "block");
 			$date_input.unbind('focus');
+			
+			// Destroy a picker on the root element
+			$date_input.handleDtpicker('destroy');
 		});
 		$date_input.triggerHandler('click');
 		$date_input.triggerHandler('focus');
