@@ -31,6 +31,8 @@ Requirements for develop: [Node.js](http://nodejs.org/) (that includes the npm).
     $ npm install
     $ grunt test
 
+And, the test scripts (it using [QUnit](https://qunitjs.com/) testing framework) has included into [t/](https://github.com/mugifly/jquery-simple-datetimepicker/tree/master/t) directory.
+
 ### Contributors
 
 [List of contributors](CONTRIBUTORS.md); Thanks.
