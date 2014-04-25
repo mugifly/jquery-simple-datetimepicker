@@ -351,6 +351,8 @@ $('#date_foo').appendDtpicker({
 					<li>"destroy()" - Destroy a picker.</li>
 					<li>"getInput()" - Get a input-field object (jQuery element).</li>
 					<li>"getPicker()" - Get a picker object (jQuery element).</li>
+					<li>"getDate()" - Get a selected date from a picker.</li>
+					<li>"setDate(date)" - Set a specific date to a picker.</li>
 					<li>"hide()" - Hide a picker.</li>
 					<li>"show()" - Show a picker.</li>
 					<li>"isShow()" - Get the display state of a picker.</li>
@@ -440,6 +442,8 @@ $('#btn_generate').click(function(){
 					<li>"destroy - Destroy a picker.</li>
 					<li>"hide" - Hide a picker.</li>
 					<li>"show" - Show a picker.</li>
+					<li>"getDate" -  Get a selected date from a picker.</li>
+					<li>"setDate" - Set a specific date to a picker.</li>
 				</ul>
 			</div>
 
@@ -449,6 +453,8 @@ $('#btn_generate').click(function(){
 				<input type="button" id="btn_manual_generate" value="Generate">
 				<input type="button" id="btn_manual_show" value="Show">
 				<input type="button" id="btn_manual_hide" value="Hide">
+				<input type="button" id="btn_manual_get_date" value="getDate">
+				<input type="button" id="btn_manual_set_date" value="setDate">
 				<input type="button" id="btn_manual_destroy" value="Destroy">
 				<script type="text/javascript">
 					$(function(){
@@ -462,6 +468,13 @@ $('#btn_generate').click(function(){
 						});
 						$('#btn_manual_hide').click(function(){
 							$('#date_manual').handleDtpicker('hide');
+						});
+						$('#btn_manual_get_date').click(function(){
+							var date = $('#date_manual').handleDtpicker('getDate');
+							window.alert(date.toString());
+						});
+						$('#btn_manual_set_date').click(function(){
+							$('#date_manual').handleDtpicker('setDate', new Date(2014, 04, 25, 0, 0, 0));
 						});
 						$('#btn_manual_destroy').click(function(){
 							$('#date_manual').handleDtpicker('destroy');
@@ -486,6 +499,13 @@ $('#btn_generate').click(function(){
 		});
 		$(&#039;#btn_manual_hide&#039;).click(function(){
 			$(&#039;#date_manual&#039;).handleDtpicker(&#039;hide&#039;);
+		});
+		$(&#039;#btn_manual_get_date&#039;).click(function(){
+			var date = $(&#039;#date_manual&#039;).handleDtpicker(&#039;getDate&#039;);
+			window.alert(date.toString());
+		});
+		$(&#039;#btn_manual_set_date&#039;).click(function(){
+			$(&#039;#date_manual&#039;).handleDtpicker(&#039;setDate&#039;, new Date(2014, 04, 25, 0, 0, 0));
 		});
 		$(&#039;#btn_manual_destroy&#039;).click(function(){
 			$(&#039;#date_manual&#039;).handleDtpicker(&#039;destroy&#039;);

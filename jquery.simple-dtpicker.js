@@ -1,6 +1,6 @@
 /**
  * jquery-simple-datetimepicker (jquery.simple-dtpicker.js)
- * v1.11.0
+ * v1.12.0
  * (c) Masanori Ohgita - 2014.
  * https://github.com/mugifly/jquery-simple-datetimepicker
  */
@@ -117,6 +117,9 @@
 	};
 	/* ----- */
 	
+	/**
+		PickerHandler Object
+	**/
 	var PickerHandler = function($picker, $input){
 		this.$pickerObject = $picker;
 		this.$inputObject = $input;
@@ -150,16 +153,9 @@
 
 		ActivePickerId = $input.data('pickerId');
 
-		if ($picker.data('isInline') === false) { // Float mode
-			// Move position of a picker
-			var _position = $input.parent().css('position');
-			if(_position === 'relative' || _position === 'absolute'){
-				$picker.parent().css("top", $input.outerHeight({margin: true}) + 2 + "px");
-			}
-			else{
-				$picker.parent().css("top", $input.position().top + $input.outerHeight({margin: true}) + 2 + "px");
-				$picker.parent().css("left", $input.position().left + "px");
-			}
+		if ($input != null && $picker.data('isInline') === false) { // Float mode
+			// Relocate a picker to position of the appended input-field
+			this._relocate();
 		}
 	};
 
@@ -170,12 +166,63 @@
 		$picker.hide();
 	};
 
+	/* Get a selected date from a picker */
+	PickerHandler.prototype.getDate = function(){
+		var $picker = this.$pickerObject;
+		var $input = this.$inputObject;
+		return getPickedDate($picker);
+	};
+
+	/* Set a specific date to a picker */
+	PickerHandler.prototype.setDate = function(date){
+		var $picker = this.$pickerObject;
+		var $input = this.$inputObject;
+		if (!isObj('Date', date)) {
+			date = new Date(date);
+		}
+
+		draw_date($picker, {
+			"isAnim": true,
+			"isOutputToInputObject": true
+		}, date);
+	};
+
 	/* Destroy a picker */
 	PickerHandler.prototype.destroy = function(){
 		var $picker = this.$pickerObject;
 		var picker_id = $picker.data('pickerId');
 		PickerObjects[picker_id] = null;
 		$picker.remove();
+	};
+
+	/* Relocate a picker to position of the appended input-field. */
+	PickerHandler.prototype._relocate = function(){
+		var $picker = this.$pickerObject;
+		var $input = this.$inputObject;
+		
+		if ($input != null && $picker.data('isInline') === false) { // Float mode
+			// Move position of a picker - vertical
+			var input_outer_height = $input.outerHeight({'margin': true});
+			if (!isObj('Number', input_outer_height)) {
+				input_outer_height = $input.outerHeight();
+			}
+			var picker_outer_height = $picker.outerHeight({'margin': true});
+			if (!isObj('Number', picker_outer_height)) {
+				picker_outer_height = $picker.outerHeight();
+			}
+			
+			if(parseInt($(window).height()) <=  ($input.offset().top - $(document).scrollTop() + input_outer_height + picker_outer_height) ){
+				// Display to top of an input-field
+				$picker.parent().css('top', ($input.offset().top - (input_outer_height / 2) - picker_outer_height) + 'px');
+			} else {
+				// Display to bottom of an input-field
+				$picker.parent().css('top', ($input.offset().top + input_outer_height) + 'px');
+			}
+			// Move position of a picker - horizontal
+			$picker.parent().css('left', $input.offset().left + 'px');
+			// Display on most top of the z-index
+			$picker.parent().css('z-index', 100000);
+		}
 	};
 
 	/* ----- */
@@ -1119,11 +1166,12 @@
 
 			/* Make parent-div for picker */
 			var $d = $('<div>');
-			if(options.inline === false){
-				/* float mode */
+			if(options.inline){ // Inline mode
+				$d.insertAfter(input);	
+			} else { // Float mode
 				$d.css("position","absolute");
+				$('body').append($d);
 			}
-			$d.insertAfter(input);
 
 			/* Initialize picker */
 
@@ -1162,6 +1210,8 @@
 				$(this).trigger('keyup');
 			});
 
+			var handler = new PickerHandler($picker, $(input));
+
 			if(options.inline === true){
 				/* inline mode */
 				$picker.data('isInline',true);
@@ -1198,10 +1248,26 @@
 					}
 				});
 
+				// Set an event handler for resizing of a window
+				(function(handler){
+					$(window).resize(function(){
+						handler._relocate();
+					});
+					$(window).scroll(function(){
+						handler._relocate();
+					});
+				})(handler);
 			}
 
-			// Generate the handler of a picker
-			var handler = new PickerHandler($picker, $(input));
+			// Set an event handler for removing of an input-field
+			$(input).bind('destroyed', function() {
+				var $input = $(this);
+				var $picker = $(PickerObjects[$input.data('pickerId')]);
+				// Generate the handler of a picker
+				var handler = new PickerHandler($picker, $input);
+				// Destroy a picker
+				handler.destroy();
+			});
 
 			// Call a event-handler
 			var func = $picker.data('onInit');
@@ -1234,6 +1300,24 @@
 				handler.hide();
 			}
 		},
+		setDate : function( date ) {
+			var $input = $(this);
+			var $picker = $(PickerObjects[$input.data('pickerId')]);
+			if ($picker != null) {
+				var handler = new PickerHandler($picker, $input);
+				// Set a date
+				handler.setDate(date);
+			}
+		},
+		getDate : function( ) {
+			var $input = $(this);
+			var $picker = $(PickerObjects[$input.data('pickerId')]);
+			if ($picker != null) {
+				var handler = new PickerHandler($picker, $input);
+				// Get a date
+				return handler.getDate();
+			}
+		},
 		destroy : function( ) {
 			var $input = $(this);
 			var $picker = $(PickerObjects[$input.data('pickerId')]);
@@ -1259,6 +1343,15 @@
 		window.console = {};
 		window.console.log = function(){};
 	}
+
+	/* Define a special event for catch when destroy of an input-field. */
+	$.event.special.destroyed = {
+		remove: function(o) {
+			if (o.handler) {
+				o.handler.apply(this, arguments);
+			}
+		}
+  	};
 	
 	/* Set event handler to Body element, for hide a floated-picker */
 	$(function(){
