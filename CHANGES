@@ -2,6 +2,7 @@ Version history for query-simple-datetimepicker
 https://github.com/mugifly/jquery-simple-datetimepicker/
 
 1.13.0  2014-xx-xx (JST)
+  - [Add] Ukrainian locale (Thanks to: goti2).
 
 1.12.0  2014-04-25 (JST)
   - [Add] Automatically relocate a position of a picker when picker is float-mode.
