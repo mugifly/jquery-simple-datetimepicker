@@ -69,6 +69,33 @@ $(function() {
 			start(); // Done.
 		}, 100);
 	});
+	
+	/* handleDtpicker method
+		Picker is inline mode, and append into an input-field. */
+	test('handleDtpicker method', function(){
+		var $date_input = $('#date_input');
+		$date_input.val('2014-10-31 00:00'); // Initial date
+		$date_input.appendDtpicker({
+			'inline': true
+		});
+		var $picker = $('.datepicker');
+		
+		$date_input.handleDtpicker('show');
+		equal($picker.css('display'), "block");
+
+		$date_input.handleDtpicker('hide');
+		equal($picker.css('display'), "none");
+		
+		$date_input.handleDtpicker('setDate', new Date(2014, 11, 01, 12, 10, 0));
+
+		// Check a date
+		var date = $date_input.handleDtpicker('getDate');
+		equal(date.getFullYear(), 2014);
+		equal(date.getMonth(), 11);
+		equal(date.getDate(), 1);
+		equal(date.getHours(), 12);
+		equal(date.getMinutes(), 10);
+	});
 
 	/* Automatically destroy
 		Picker is float mode, and append into an input-field. */

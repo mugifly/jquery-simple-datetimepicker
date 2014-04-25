@@ -166,6 +166,27 @@
 		$picker.hide();
 	};
 
+	/* Get a selected date from a picker */
+	PickerHandler.prototype.getDate = function(){
+		var $picker = this.$pickerObject;
+		var $input = this.$inputObject;
+		return getPickedDate($picker);
+	};
+
+	/* Set a specific date to a picker */
+	PickerHandler.prototype.setDate = function(date){
+		var $picker = this.$pickerObject;
+		var $input = this.$inputObject;
+		if (!isObj('Date', date)) {
+			date = new Date(date);
+		}
+
+		draw_date($picker, {
+			"isAnim": true,
+			"isOutputToInputObject": true
+		}, date);
+	};
+
 	/* Destroy a picker */
 	PickerHandler.prototype.destroy = function(){
 		var $picker = this.$pickerObject;
@@ -1247,7 +1268,7 @@
 				// Destroy a picker
 				handler.destroy();
 			});
-			
+
 			// Call a event-handler
 			var func = $picker.data('onInit');
 			if (func != null) {
@@ -1277,6 +1298,24 @@
 				var handler = new PickerHandler($picker, $input);
 				// Hide a picker
 				handler.hide();
+			}
+		},
+		setDate : function( date ) {
+			var $input = $(this);
+			var $picker = $(PickerObjects[$input.data('pickerId')]);
+			if ($picker != null) {
+				var handler = new PickerHandler($picker, $input);
+				// Set a date
+				handler.setDate(date);
+			}
+		},
+		getDate : function( ) {
+			var $input = $(this);
+			var $picker = $(PickerObjects[$input.data('pickerId')]);
+			if ($picker != null) {
+				var handler = new PickerHandler($picker, $input);
+				// Get a date
+				return handler.getDate();
 			}
 		},
 		destroy : function( ) {
