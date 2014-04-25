@@ -1,6 +1,6 @@
 {
   "name": "jquery-simple-datetimepicker",
-  "version": "1.12.0",
+  "version": "1.13.0",
   "description": "Date and time picker, it's simple & clean. (jQuery plugin)",
   "files": [
     "jquery.simple-dtpicker.js",
