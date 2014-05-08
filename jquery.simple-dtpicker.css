@@ -41,6 +41,7 @@
 		-moz-user-select: none;
 	cursor: pointer;
 	color: #3b7796;
+  padding: 3px 10px;
 }
 
 .datepicker > .datepicker_header > a:hover {
@@ -65,11 +66,12 @@
 	position:	absolute;
 	display:		block;
 	float:		left;
-	margin-top:	2px;
+	margin-top:	0px;
 	margin-left:	5px;
-	width:		11pt;
-	height:		11pt;
+	width:		16px;
+	height:		16px;
 	vertical-align: middle;
+  padding: 7px 12px;
 }
 
 .datepicker > .datepicker_header > .icon-home > svg > g > path {
@@ -159,6 +161,7 @@
 		-webkit-user-select: none;
 		-moz-user-select: none;
 	cursor: pointer;
+  padding: 10px;
 }
 
 .datepicker > .datepicker_inner_container > .datepicker_calendar > .datepicker_table > tbody > tr > td.today {
@@ -281,8 +284,8 @@
 }
 
 .datepicker > .datepicker_inner_container > .datepicker_timelist > div.timelist_item {
-	padding-top:   1px;
-	padding-bottom:1px;
+	padding-top:   5px;
+	padding-bottom:5px;
 	padding-left:  7px;
 	padding-right: 25px;
 	margin-top: 5px;
