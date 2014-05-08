@@ -424,9 +424,9 @@
 						is_successful = true;
 					}
 				}
-				
-				hour = ((H && pm)? parseInt(hour) + 12 : hour);
-        
+				if(H && pm) {
+					hour = parseInt(hour) + 12;
+				}
 				date = new Date(year, month, day, hour, min);
 
 				if(is_successful === true && isNaN(date) === false && isNaN(date.getDate()) === false){ // Parse successful
