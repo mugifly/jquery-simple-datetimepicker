@@ -220,7 +220,9 @@
 			}
 			
 			// Set width to assure date and time are side by side
-			$picker.parent().width($(".datepicker_calendar", $picker).width() + $(".datepicker_timelist", $picker).width() + 6);
+			if($(".datepicker_calendar", $picker).width() != 0 && $(".datepicker_timelist", $picker).width() != 0){
+				$picker.parent().width($(".datepicker_calendar", $picker).width() + $(".datepicker_timelist", $picker).width() + 6);
+			}
 			if(parseInt($(window).height()) <=  ($input.offset().top - $(document).scrollTop() + input_outer_height + picker_outer_height) ){
 				// Display to top of an input-field
 				$picker.parent().css('top', ($input.offset().top - (input_outer_height / 2) - picker_outer_height) + 'px');
