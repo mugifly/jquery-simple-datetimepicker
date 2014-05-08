@@ -41,7 +41,8 @@
 		-moz-user-select: none;
 	cursor: pointer;
 	color: #3b7796;
-  padding: 3px 10px;
+	padding: 8px 15px;
+	display: inline-block;
 }
 
 .datepicker > .datepicker_header > a:hover {
