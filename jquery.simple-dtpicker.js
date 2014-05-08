@@ -1,6 +1,6 @@
 /**
  * jquery-simple-datetimepicker (jquery.simple-dtpicker.js)
- * v1.12.0
+ * v1.13.0
  * (c) Masanori Ohgita - 2014.
  * https://github.com/mugifly/jquery-simple-datetimepicker
  */
@@ -17,46 +17,46 @@
 			today: 'Today'
 		},
 		ro:{
-			days: ['Dum', 'Lun', 'Mar', 'Mie', 'Joi', 'Vin', 'SÃ¢m'],
+			days: ['Dum', 'Lun', 'Mar', 'Mie', 'Joi', 'Vin', 'Sâm'],
 			months: ['Ian', 'Feb', 'Mar', 'Apr', 'Mai', 'Iun', 'Iul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
 			sep: '.',
 			format: 'DD.MM.YYYY hh:mm',
-			prevMonth: 'Luna precedentÄƒ',
-			nextMonth: 'Luna urmÄƒtoare',
+			prevMonth: 'Luna precedentă',
+			nextMonth: 'Luna următoare',
 			today: 'Azi'		
 		},
 
 		ja: {
-			days: ['æ—¥', 'æœˆ', 'ç«', 'æ°´', 'æœ¨', 'é‡‘', 'åœŸ'],
+			days: ['日', '月', '火', '水', '木', '金', '土'],
 			months: [ "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" ],
 			sep: '/',
 			format: 'YYYY/MM/DD hh:mm'
 		},
 		ru: {
-			days: ['Ð’Ñ', 'ÐŸÐ½', 'Ð’Ñ‚', 'Ð¡Ñ€', 'Ð§Ñ‚', 'ÐŸÑ‚', 'Ð¡Ð±'],
-			months: [ "Ð¯Ð½Ð²", "Ð¤ÐµÐ²", "ÐœÐ°Ñ€", "ÐÐ¿Ñ€", "ÐœÐ°Ð¹", "Ð˜ÑŽÐ½", "Ð˜ÑŽÐ»", "ÐÐ²Ð³", "Ð¡ÐµÐ½", "ÐžÐºÑ‚", "ÐÐ¾Ñ", "Ð”ÐµÐº" ],
+			days: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+			months: [ "Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек" ],
 			format: 'DD.MM.YYYY hh:mm'
 		},
 		br: {
-			days: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'SÃ¡b'],
-			months: [ "Janeiro", "Fevereiro", "MarÃ§o", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" ],
+			days: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+			months: [ "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" ],
 			format: 'DD/MM/YYYY hh:mm'
 		},
 		pt: {
-			days: ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sÃ¡b'],
-			months: [ "janeiro", "fevereiro", "marÃ§o", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro" ]
+			days: ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'],
+			months: [ "janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro" ]
 		},
 		cn: {
-			days: ['æ—¥', 'ä¸€', 'äºŒ', 'ä¸‰', 'å››', 'äº”', 'å…­'],
-			months: [ "ä¸€æœˆ", "äºŒæœˆ", "ä¸‰æœˆ", "å››æœˆ", "äº”æœˆ", "å…­æœˆ", "ä¸ƒæœˆ", "å…«æœˆ", "ä¹æœˆ", "åæœˆ", "åä¸€æœˆ", "åäºŒæœˆ" ]
+			days: ['日', '一', '二', '三', '四', '五', '六'],
+			months: [ "一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月" ]
 		},
 		de: {
 			days: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
-			months: [ "Jan", "Feb", "MÃ¤rz", "Apr", "Mai", "Juni", "Juli", "Aug", "Sept", "Okt", "Nov", "Dez" ],
+			months: [ "Jan", "Feb", "März", "Apr", "Mai", "Juni", "Juli", "Aug", "Sept", "Okt", "Nov", "Dez" ],
 			format: 'DD.MM.YYYY hh:mm'
 		},
 		sv: {
-			days: ['SÃ¶', 'MÃ¥', 'Ti', 'On', 'To', 'Fr', 'LÃ¶'],
+			days: ['Sö', 'Må', 'Ti', 'On', 'To', 'Fr', 'Lö'],
 			months: [ "Jan", "Feb", "Mar", "Apr", "Maj", "Juni", "Juli", "Aug", "Sept", "Okt", "Nov", "Dec" ]
 		},
 		id: {
@@ -69,17 +69,17 @@
 			format: 'DD/MM/YYYY hh:mm'
 		},
 		tr: {
-			days: ['Pz', 'Pzt', 'Sal', 'Ã‡ar', 'Per', 'Cu', 'Cts'],
-			months: [ "Ock", "Åžub", "Mar", "Nis", "May", "Haz", "Tem", "Agu", "Eyl", "Ekm", "Kas", "Arlk" ]
+			days: ['Pz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cu', 'Cts'],
+			months: [ "Ock", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Agu", "Eyl", "Ekm", "Kas", "Arlk" ]
 		},
 		es: {
-			days: ['dom', 'lun', 'mar', 'miÃ©r', 'jue', 'viÃ©', 'sÃ¡b'],
+			days: ['dom', 'lun', 'mar', 'miér', 'jue', 'vié', 'sáb'],
 			months: [ "ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic" ],
 			format: 'DD/MM/YYYY hh:mm'
 		},
 		ko: {
-			days: ['ì¼', 'ì›”', 'í™”', 'ìˆ˜', 'ëª©', 'ê¸ˆ', 'í† '],
-			months: [ "1ì›”", "2ì›”", "3ì›”", "4ì›”", "5ì›”", "6ì›”", "7ì›”", "8ì›”", "9ì›”", "10ì›”", "11ì›”", "12ì›”" ]
+			days: ['일', '월', '화', '수', '목', '금', '토'],
+			months: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ]
 		},
 		nl: {
 			days: ['zo', 'ma', 'di', 'wo', 'do', 'vr', 'za'],
@@ -87,32 +87,40 @@
 			format: 'DD-MM-YYYY hh:mm'
 		},
 		cz: {
-			days: ['Ne', 'Po', 'Ãšt', 'St', 'ÄŒt', 'PÃ¡', 'So'],
-			months: [ "Led", "Ãšno", "BÅ™e", "Dub", "KvÄ›", "ÄŒer", "ÄŒvc", "Srp", "ZÃ¡Å™", "Å˜Ã­j", "Lis", "Pro" ],
+			days: ['Ne', 'Po', 'Út', 'St', 'Čt', 'Pá', 'So'],
+			months: [ "Led", "Úno", "Bře", "Dub", "Kvě", "Čer", "Čvc", "Srp", "Zář", "Říj", "Lis", "Pro" ],
 			format: 'DD.MM.YYYY hh:mm'
 		},
 		fr: {
 			days: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
-			months: [ "Janvier", "FÃ©vrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "AoÃ»t", "Septembre", "Octobre", "Novembre", "DÃ©cembre" ],
+			months: [ "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre" ],
 			format: 'DD-MM-YYYY hh:mm'
 		},
 		pl: {
-			days: ['N', 'Pn', 'Wt', 'Åšr', 'Cz', 'Pt', 'So'],
-			months: [ "StyczeÅ„", "Luty", "Marzec", "KwiecieÅ„", "Maj", "Czerwiec", "Lipiec", "SierpieÅ„", "WrzesieÅ„", "PaÅºdziernik", "Listopad", "GrudzieÅ„" ],
+			days: ['N', 'Pn', 'Wt', 'Śr', 'Cz', 'Pt', 'So'],
+			months: [ "Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień" ],
 			sep: '-',
 			format: 'YYYY-MM-DD hh:mm',
-			prevMonth: 'Poprzedni miesiÄ…c',
-			nextMonth: 'NastÄ™pny miesiÄ…c',
+			prevMonth: 'Poprzedni miesiąc',
+			nextMonth: 'Następny miesiąc',
 			today: 'Dzisiaj'
 		},
 		gr: {
-			days: ['ÎšÏ…', 'Î”Îµ', 'Î¤Ï', 'Î¤Îµ', 'Î Îµ', 'Î Î±', 'Î£Î±'],
-			months: [ "Î™Î±Î½", "Î¦ÎµÎ²", "ÎœÎ±Ï", "Î‘Ï€Ï", "ÎœÎ±ÏŠ", "Î™Î¿Ï…Î½", "Î™Î¿Ï…Î»", "Î‘Ï…Î³", "Î£ÎµÏ€", "ÎŸÎºÏ„", "ÎÎ¿Îµ", "Î”ÎµÎº" ],
+			days: ['Κυ', 'Δε', 'Τρ', 'Τε', 'Πε', 'Πα', 'Σα'],
+			months: [ "Ιαν", "Φεβ", "Μαρ", "Απρ", "Μαϊ", "Ιουν", "Ιουλ", "Αυγ", "Σεπ", "Οκτ", "Νοε", "Δεκ" ],
 			sep: '-',
 			format: 'DD-MM-YYYY hh:mm',
-			prevMonth: 'Î ÏÎ¿Î·Î³. Î¼Î®Î½Î±Ï‚',
-			nextMonth: 'Î•Ï€ÏŒÎ¼. Î¼Î®Î½Î±Ï‚',
-			today: 'Î£Î®Î¼ÎµÏÎ±'
+			prevMonth: 'Προηγ. μήνας',
+			nextMonth: 'Επόμ. μήνας',
+			today: 'Σήμερα'
+		},
+		ua: {
+			days: ["Неділя","Понеділок","Вівторок","Cереда","Четвер","П'ятниця","Субота"],
+			months: ["Cічень","Лютий","Березень","Квітень","Травень","Червня","Липня","Серпня","Вересня","Жовтень","Листопада","Грудня"],
+			format: 'YYYY-MM-DD hh:mm',
+			prevMonth: 'Попередній місяць',
+			nextMonth: 'Наступний місяць',
+			today: 'Cьогодні'
 		}
 	};
 	/* ----- */
@@ -211,8 +219,8 @@
 				picker_outer_height = $picker.outerHeight();
 			}
 			
-      // Set width to assure date and time are side by side
-      $picker.parent().width($(".datepicker_calendar", $picker).width() + $(".datepicker_timelist", $picker).width() + 6);
+			// Set width to assure date and time are side by side
+			$picker.parent().width($(".datepicker_calendar", $picker).width() + $(".datepicker_timelist", $picker).width() + 6);
 			if(parseInt($(window).height()) <=  ($input.offset().top - $(document).scrollTop() + input_outer_height + picker_outer_height) ){
 				// Display to top of an input-field
 				$picker.parent().css('top', ($input.offset().top - (input_outer_height / 2) - picker_outer_height) + 'px');
@@ -221,13 +229,13 @@
 				$picker.parent().css('top', ($input.offset().top + input_outer_height) + 'px');
 			}
 			// Move position of a picker - horizontal
-      if($picker.parent().width() + $input.offset().left > $(window).width()) {
-        // Display left side stick to window
-        $picker.parent().css('left', (($(window).width() - $picker.parent().width()) / 2) + 'px');
-      } else {
-        // Display left side stick to input
-        $picker.parent().css('left', $input.offset().left + 'px');
-      }
+			if($picker.parent().width() + $input.offset().left > $(window).width()) {
+				// Display left side stick to window
+				$picker.parent().css('left', (($(window).width() - $picker.parent().width()) / 2) + 'px');
+			} else {
+				// Display left side stick to input
+				$picker.parent().css('left', $input.offset().left + 'px');
+			}
 			// Display on most top of the z-index
 			$picker.parent().css('z-index', 100000);
 		}
@@ -378,8 +386,8 @@
 				// Convert a string (with convert-table) to a date object
 				var year, month, day, hour, min;
 				var is_successful = false;
-        var pm = false;
-        var H = false;
+				var pm = false;
+				var H = false;
 				for(var i = 0; i < formats.length; i++){
 					if(m.length < i){
 						break;
@@ -404,20 +412,20 @@
 						is_successful = true;
 					} else if(f == 'HH' || f == 'H'){
 						hour = d;
-            H = true;
+						H = true;
 						is_successful = true;
 					} else if(f == 'mm' || f == 'm'){
 						min = d;
 						is_successful = true;
 					} else if(f == 'tt' || f == 'TT'){
-            if(d == 'pm' || d == 'PM'){
-              pm = true;
-            }
-            is_successful = true;
-          }
+						if(d == 'pm' || d == 'PM'){
+							pm = true;
+						}
+						is_successful = true;
+					}
 				}
-
-        hour = ((H && pm)? parseInt(hour) + 12 : hour);
+				
+				hour = ((H && pm)? parseInt(hour) + 12 : hour);
         
 				date = new Date(year, month, day, hour, min);
 
@@ -680,8 +688,8 @@
 				http://fortawesome.github.io/Font-Awesome/license/
 				Thankyou.
 			*/
-			$link_today.addClass('icon-home');
 			$link_today.html( decodeURIComponent('%3c%3fxml%20version%3d%221%2e0%22%20encoding%3d%22UTF%2d8%22%20standalone%3d%22no%22%3f%3e%3csvg%20%20xmlns%3adc%3d%22http%3a%2f%2fpurl%2eorg%2fdc%2felements%2f1%2e1%2f%22%20%20xmlns%3acc%3d%22http%3a%2f%2fcreativecommons%2eorg%2fns%23%22%20xmlns%3ardf%3d%22http%3a%2f%2fwww%2ew3%2eorg%2f1999%2f02%2f22%2drdf%2dsyntax%2dns%23%22%20%20xmlns%3asvg%3d%22http%3a%2f%2fwww%2ew3%2eorg%2f2000%2fsvg%22%20xmlns%3d%22http%3a%2f%2fwww%2ew3%2eorg%2f2000%2fsvg%22%20%20version%3d%221%2e1%22%20%20width%3d%22100%25%22%20%20height%3d%22100%25%22%20viewBox%3d%220%200%2010%2010%22%3e%3cg%20transform%3d%22translate%28%2d5%2e5772299%2c%2d26%2e54581%29%22%3e%3cpath%20d%3d%22m%2014%2e149807%2c31%2e130932%20c%200%2c%2d0%2e01241%200%2c%2d0%2e02481%20%2d0%2e0062%2c%2d0%2e03721%20L%2010%2e57723%2c28%2e153784%207%2e0108528%2c31%2e093719%20c%200%2c0%2e01241%20%2d0%2e0062%2c0%2e02481%20%2d0%2e0062%2c0%2e03721%20l%200%2c2%2e97715%20c%200%2c0%2e217084%200%2e1798696%2c0%2e396953%200%2e3969534%2c0%2e396953%20l%202%2e3817196%2c0%200%2c%2d2%2e38172%201%2e5878132%2c0%200%2c2%2e38172%202%2e381719%2c0%20c%200%2e217084%2c0%200%2e396953%2c%2d0%2e179869%200%2e396953%2c%2d0%2e396953%20l%200%2c%2d2%2e97715%20m%201%2e383134%2c%2d0%2e427964%20c%200%2e06823%2c%2d0%2e08063%200%2e05582%2c%2d0%2e210882%20%2d0%2e02481%2c%2d0%2e279108%20l%20%2d1%2e358324%2c%2d1%2e128837%200%2c%2d2%2e530576%20c%200%2c%2d0%2e111643%20%2d0%2e08683%2c%2d0%2e198477%20%2d0%2e198477%2c%2d0%2e198477%20l%20%2d1%2e190859%2c0%20c%20%2d0%2e111643%2c0%20%2d0%2e198477%2c0%2e08683%20%2d0%2e198477%2c0%2e198477%20l%200%2c1%2e209467%20%2d1%2e513384%2c%2d1%2e265289%20c%20%2d0%2e2605%2c%2d0%2e217083%20%2d0%2e682264%2c%2d0%2e217083%20%2d0%2e942764%2c0%20L%205%2e6463253%2c30%2e42386%20c%20%2d0%2e080631%2c0%2e06823%20%2d0%2e093036%2c0%2e198476%20%2d0%2e024809%2c0%2e279108%20l%200%2e3845485%2c0%2e458976%20c%200%2e031012%2c0%2e03721%200%2e080631%2c0%2e06203%200%2e1302503%2c0%2e06823%200%2e055821%2c0%2e0062%200%2e1054407%2c%2d0%2e01241%200%2e1488574%2c%2d0%2e04342%20l%204%2e2920565%2c%2d3%2e578782%204%2e292058%2c3%2e578782%20c%200%2e03721%2c0%2e03101%200%2e08063%2c0%2e04342%200%2e13025%2c0%2e04342%200%2e0062%2c0%200%2e01241%2c0%200%2e01861%2c0%200%2e04962%2c%2d0%2e0062%200%2e09924%2c%2d0%2e03101%200%2e130251%2c%2d0%2e06823%20l%200%2e384549%2c%2d0%2e458976%22%20%2f%3e%3c%2fg%3e%3c%2fsvg%3e') );
+			$link_today.addClass('icon-home');
 			$link_today.prop('alt', translate(locale,'today'));
 			$link_today.prop('title', translate(locale,'today'));
 			$link_today.click(function() {
