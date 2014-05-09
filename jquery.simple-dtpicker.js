@@ -426,8 +426,12 @@
 						is_successful = true;
 					}
 				}
-				if(H && pm) {
-					hour = parseInt(hour) + 12;
+				if(H) {
+					if(pm) {
+						hour = parseInt(hour) + 12;
+					} else if(hour == 12) {
+						hour = 0;
+					}
 				}
 				date = new Date(year, month, day, hour, min);
 
@@ -477,8 +481,8 @@
 		.replace(/D/g, d)
 		.replace(/hh/g, zpadding(hou))
 		.replace(/h/g, hou)
-		.replace(/HH/g, (hou > 12? zpadding(hou - 12) : zpadding(hou)))
-		.replace(/H/g, (hou > 12? hou - 12 : hou))
+		.replace(/HH/g, (hou > 12? zpadding(hou - 12) : (hou < 1? 12 : zpadding(hou))))
+		.replace(/H/g, (hou > 12? hou - 12 : (hour < 1? 12 : hou))
 		.replace(/mm/g, zpadding(min))
 		.replace(/m/g, min)
 		.replace(/tt/g, (hou >= 12? "pm" : "am"))
