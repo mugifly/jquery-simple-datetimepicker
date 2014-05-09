@@ -428,7 +428,9 @@
 				}
 				if(H) {
 					if(pm) {
-						hour = parseInt(hour) + 12;
+						if(hour != 12) {
+							hour = parseInt(hour) + 12;
+						}
 					} else if(hour == 12) {
 						hour = 0;
 					}
