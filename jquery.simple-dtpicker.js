@@ -482,7 +482,7 @@
 		.replace(/hh/g, zpadding(hou))
 		.replace(/h/g, hou)
 		.replace(/HH/g, (hou > 12? zpadding(hou - 12) : (hou < 1? 12 : zpadding(hou))))
-		.replace(/H/g, (hou > 12? hou - 12 : (hour < 1? 12 : hou))
+		.replace(/H/g, (hou > 12? hou - 12 : (hour < 1? 12 : hou)))
 		.replace(/mm/g, zpadding(min))
 		.replace(/m/g, min)
 		.replace(/tt/g, (hou >= 12? "pm" : "am"))
