@@ -872,8 +872,15 @@
 				var is_past = isCurrentDay && is_past_time;
 				
 				$o.addClass('timelist_item');
-				$o.text(zpadding(hour_) + ":" + zpadding(min_));
-
+				var oText = "";
+				if($picker.data("amPmInTimeList")){
+					oText = /*zpadding*/(hour_ > 12? hour_ - 12 : (hour_ < 1? 12 : hour_));
+					oText += ":" + zpadding(min_);
+					oText += (hour_ >= 12? "PM" : "AM");
+				} else {
+					oText = zpadding(hour_) + ":" + zpadding(min_);
+				}
+				$o.text(oText);
 				$o.data("hour", hour_);
 				$o.data("min", min_);
 
@@ -1011,7 +1018,13 @@
 		$picker.data('onHide', opt.onHide);
 		$picker.data('onInit', opt.onInit);
 		$picker.data('allowWdays', opt.allowWdays);
-
+		
+		if(opt.amPmInTimeList === true){
+			$picker.data('amPmInTimeList', true);
+		} else {
+			$picker.data('amPmInTimeList', false);
+		}
+    
 		var minDate = Date.parse(opt.minDate);
 		if (isNaN(minDate)) { // invalid date?
 			$picker.data('minDate', null); // set to null
@@ -1155,7 +1168,8 @@
 			"maxTime":"23:59",
 			"onShow": null,
 			"onHide": null,
-			"allowWdays": null
+			"allowWdays": null,
+			"amPmInTimeList": false
 		};
 	};
 	
