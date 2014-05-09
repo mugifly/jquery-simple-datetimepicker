@@ -76,7 +76,7 @@
 			$(function(){
 				$('*[name=date4]').appendDtpicker({
 					"inline": true,
-					"dateFormat": "YY/MM/DD h:m"
+					"dateFormat": "DD.MM.YY H:mmTT"
 				});
 			});
 		</script>
@@ -253,6 +253,17 @@
 				$('*[name=date16]').appendDtpicker({
 					"inline": true,
 					"futureOnly": true
+				});
+			});
+		</script>
+		
+		<h4>Show AM/PM in time list ("amPmInTimeList": true)</h4>
+		<input type="text" name="date19" value="">
+		<script type="text/javascript">
+			$(function(){
+				$('*[name=date19]').appendDtpicker({
+					"inline": true,
+					"amPmInTimeList": true
 				});
 			});
 		</script>
