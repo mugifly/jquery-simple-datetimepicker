@@ -41,7 +41,8 @@
 		-moz-user-select: none;
 	cursor: pointer;
 	color: #3b7796;
-	padding: 8px 15px;
+	padding: 3px 16px;
+	font-size: 20px;
 	display: inline-block;
 }
 
@@ -115,7 +116,7 @@
 
 .datepicker > .datepicker_inner_container > .datepicker_calendar {
 	float: left;
-	width: auto;
+	width: 18.3em;
 	
 	margin-top: -0.5px;
 	margin-left: -1px;
@@ -213,13 +214,11 @@
 
 .datepicker > .datepicker_inner_container > .datepicker_timelist {
 	float: left;
-	width: 4.2em;
-	height: 118px;
+	width: 4.9em;
+	text-align: right;
 	
 	margin-top: -0.5px;
-	padding: 5px;
-	padding-left: 0px;
-	padding-right: 0px;
+	padding: 5px 0px;
 	
 	overflow: auto;
 	overflow-x: hidden; 
@@ -285,10 +284,7 @@
 }
 
 .datepicker > .datepicker_inner_container > .datepicker_timelist > div.timelist_item {
-	padding-top:   5px;
-	padding-bottom:5px;
-	padding-left:  7px;
-	padding-right: 25px;
+	padding:   5px 7px;
 	margin-top: 5px;
 	margin-bottom: 2px;
 	font-size: small;
