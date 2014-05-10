@@ -219,6 +219,10 @@
 				picker_outer_height = $picker.outerHeight();
 			}
 			
+			// Set width to assure date and time are side by side
+			if($(".datepicker_calendar", $picker).width() !== 0 && $(".datepicker_timelist", $picker).width() !== 0){
+				$picker.parent().width($(".datepicker_calendar", $picker).width() + $(".datepicker_timelist", $picker).width() + 6);
+			}
 			if(parseInt($(window).height()) <=  ($input.offset().top - $(document).scrollTop() + input_outer_height + picker_outer_height) ){
 				// Display to top of an input-field
 				$picker.parent().css('top', ($input.offset().top - (input_outer_height / 2) - picker_outer_height) + 'px');
@@ -227,7 +231,13 @@
 				$picker.parent().css('top', ($input.offset().top + input_outer_height) + 'px');
 			}
 			// Move position of a picker - horizontal
-			$picker.parent().css('left', $input.offset().left + 'px');
+			if($picker.parent().width() + $input.offset().left > $(window).width()) {
+				// Display left side stick to window
+				$picker.parent().css('left', (($(window).width() - $picker.parent().width()) / 2) + 'px');
+			} else {
+				// Display left side stick to input
+				$picker.parent().css('left', $input.offset().left + 'px');
+			}
 			// Display on most top of the z-index
 			$picker.parent().css('z-index', 100000);
 		}
@@ -338,7 +348,6 @@
 		}
 		return year;
 	};
-	
 	var parseDate = function (str, opt_date_format) {
 		var re, m, date;
 		if(opt_date_format != null){
@@ -347,8 +356,9 @@
 			// Match a string with date format
 			var df = opt_date_format.replace(/(-|\/)/g, '[-\/]')
 				.replace(/YYYY/gi, '(\\d{2,4})')
-				.replace(/(YY|MM|DD|hh|mm)/g, '(\\d{1,2})')
-				.replace(/(M|D|h|m)/g, '(\\d{1,2})');
+				.replace(/(YY|MM|DD|HH|hh|mm)/g, '(\\d{1,2})')
+				.replace(/(M|D|H|h|m)/g, '(\\d{1,2})')
+				.replace(/(tt|TT)/g, '([aApP][mM])');
 			re = new RegExp(df);
 			m = re.exec(str);
 			if( m != null){
@@ -361,7 +371,7 @@
 				while (df_ != null && 0 < df_.length) {
 					var format_c = df_.substring(0, 1); df_ = df_.substring(1, df_.length);
 					if (format_before_c != format_c) {
-						if(/(YYYY|YY|MM|DD|mm|dd|M|D|h|m)/.test(format_buf)){
+						if(/(YYYY|YY|MM|DD|mm|dd|M|D|HH|H|hh|h|m|tt|TT)/.test(format_buf)){
 							formats.push( format_buf );
 							format_buf = '';
 						} else {
@@ -371,13 +381,15 @@
 					format_buf += format_c;
 					format_before_c = format_c;
 				}
-				if (format_buf !== '' && /(YYYY|YY|MM|DD|mm|dd|M|D|h|m)/.test(format_buf)){
+				if (format_buf !== '' && /(YYYY|YY|MM|DD|mm|dd|M|D|HH|H|hh|h|m|tt|TT)/.test(format_buf)){
 					formats.push( format_buf );
 				}
 
 				// Convert a string (with convert-table) to a date object
 				var year, month, day, hour, min;
 				var is_successful = false;
+				var pm = false;
+				var H = false;
 				for(var i = 0; i < formats.length; i++){
 					if(m.length < i){
 						break;
@@ -400,12 +412,29 @@
 					} else if(f == 'hh' || f == 'h'){
 						hour = d;
 						is_successful = true;
+					} else if(f == 'HH' || f == 'H'){
+						hour = d;
+						H = true;
+						is_successful = true;
 					} else if(f == 'mm' || f == 'm'){
 						min = d;
 						is_successful = true;
-					} 
+					} else if(f == 'tt' || f == 'TT'){
+						if(d == 'pm' || d == 'PM'){
+							pm = true;
+						}
+						is_successful = true;
+					}
 				}
-
+				if(H) {
+					if(pm) {
+						if(hour != 12) {
+							hour = parseInt(hour) + 12;
+						}
+					} else if(hour == 12) {
+						hour = 0;
+					}
+				}
 				date = new Date(year, month, day, hour, min);
 
 				if(is_successful === true && isNaN(date) === false && isNaN(date.getDate()) === false){ // Parse successful
@@ -435,7 +464,6 @@
 		}
 		return false;
 	};
-
 	var getFormattedDate = function(date, date_format) {
 		if(date == null){
 			date = new Date();
@@ -455,8 +483,12 @@
 		.replace(/D/g, d)
 		.replace(/hh/g, zpadding(hou))
 		.replace(/h/g, hou)
+		.replace(/HH/g, (hou > 12? zpadding(hou - 12) : (hou < 1? 12 : zpadding(hou))))
+		.replace(/H/g, (hou > 12? hou - 12 : (hou < 1? 12 : hou)))
 		.replace(/mm/g, zpadding(min))
-		.replace(/m/g, min);
+		.replace(/m/g, min)
+		.replace(/tt/g, (hou >= 12? "pm" : "am"))
+		.replace(/TT/g, (hou >= 12? "PM" : "AM"));
 		return date_format;
 	};
 
@@ -840,8 +872,15 @@
 				var is_past = isCurrentDay && is_past_time;
 				
 				$o.addClass('timelist_item');
-				$o.text(zpadding(hour_) + ":" + zpadding(min_));
-
+				var oText = "";
+				if($picker.data("amPmInTimeList")){
+					oText = /*zpadding*/(hour_ > 12? hour_ - 12 : (hour_ < 1? 12 : hour_));
+					oText += ":" + zpadding(min_);
+					oText += (hour_ >= 12? "PM" : "AM");
+				} else {
+					oText = zpadding(hour_) + ":" + zpadding(min_);
+				}
+				$o.text(oText);
 				$o.data("hour", hour_);
 				$o.data("min", min_);
 
@@ -979,7 +1018,13 @@
 		$picker.data('onHide', opt.onHide);
 		$picker.data('onInit', opt.onInit);
 		$picker.data('allowWdays', opt.allowWdays);
-
+		
+		if(opt.amPmInTimeList === true){
+			$picker.data('amPmInTimeList', true);
+		} else {
+			$picker.data('amPmInTimeList', false);
+		}
+    
 		var minDate = Date.parse(opt.minDate);
 		if (isNaN(minDate)) { // invalid date?
 			$picker.data('minDate', null); // set to null
@@ -1123,7 +1168,8 @@
 			"maxTime":"23:59",
 			"onShow": null,
 			"onHide": null,
-			"allowWdays": null
+			"allowWdays": null,
+			"amPmInTimeList": false
 		};
 	};
 	
@@ -1359,7 +1405,7 @@
 				o.handler.apply(this, arguments);
 			}
 		}
-	};
+  	};
 	
 	/* Set event handler to Body element, for hide a floated-picker */
 	$(function(){

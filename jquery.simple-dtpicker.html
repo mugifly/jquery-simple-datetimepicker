@@ -70,17 +70,33 @@
 			});
 		</script>
 
-		<h4>dateFormat ("dateFormat": "YY/MM/DD h:m")</h4>
+		<h4>dateFormat ("dateFormat": "DD.MM.YY H:mmTT")</h4>
 		<input type="text" name="date4" value="">
 		<script type="text/javascript">
 			$(function(){
 				$('*[name=date4]').appendDtpicker({
 					"inline": true,
-					"dateFormat": "YY/MM/DD h:m"
+					"dateFormat": "DD.MM.YY H:mmTT"
 				});
 			});
 		</script>
-		
+		<h5>Format options:</h5>
+		<ul>
+			<li>YYYY: Year, 4 digit</li>
+			<li>YY: Year, 2 digit</li>
+			<li>MM: Month, 01-12</li>
+			<li>M: Month, 1-12</li>
+			<li>DD: Day, 01-31</li>
+			<li>D: Day, 1-31</li>
+			<li>HH: Hour using 12-hour clock 01-12</li>
+			<li>H: Hour using 12-hour clock 1-12</li>
+			<li>hh: Hour using 24-hour clock 00-23</li>
+			<li>h: Hour using 24-hour clock 0-23</li>
+			<li>mm: Minute, 00-59</li>
+			<li>m: Minute, 0-59</li>
+			<li>tt: am/pm</li>
+			<li>TT: AM/PM</li>
+		</ul>
 
 		<h4>locale ("locale": "ja")</h4>
 		<input type="text" name="date5" value="">
@@ -237,6 +253,17 @@
 				$('*[name=date16]').appendDtpicker({
 					"inline": true,
 					"futureOnly": true
+				});
+			});
+		</script>
+		
+		<h4>Show AM/PM in time list ("amPmInTimeList": true)</h4>
+		<input type="text" name="date19" value="">
+		<script type="text/javascript">
+			$(function(){
+				$('*[name=date19]').appendDtpicker({
+					"inline": true,
+					"amPmInTimeList": true
 				});
 			});
 		</script>
