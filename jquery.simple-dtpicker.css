@@ -4,6 +4,7 @@
  */
 
 .datepicker {
+	position: relative;
 	display: inline-block;
 	font: 15px/1.5 "Helvetica Neue", mplus-2c, Helvetica, Arial, "Hiragino Kaku Gothic Pro", Meiryo, sans-serif;
 	font-weight: 300;
