@@ -1187,6 +1187,10 @@
 		var date = new Date();
 		var defaults = getDefaults();
 		
+		if(typeof config === "undefined" || config.closeButton !== true){
+			defaults.closeButton = false;
+		}
+		
 		defaults.inputObjectId = undefined;
 		var options = $.extend(defaults, config);
 
@@ -1201,6 +1205,10 @@
 	 $.fn.appendDtpicker = function(config) {
 		var date = new Date();
 		var defaults = getDefaults();
+		
+		if(typeof config !== "undefined" && config.inline === true && config.closeButton !== true){
+			defaults.closeButton = false;
+		}
 		
 		defaults.inline = false;
 		var options = $.extend(defaults, config);
