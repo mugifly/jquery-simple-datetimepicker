@@ -541,6 +541,7 @@
 
 		/* Read options */
 		var isTodayButton = $picker.data("todayButton");
+		var isCloseButton = $picker.data("closeButton");
 		var isScroll = option.isAnim; /* It same with isAnim */
 		if($picker.data("timelistScroll") === false) {// If disabled by user option.
 			isScroll = false;
