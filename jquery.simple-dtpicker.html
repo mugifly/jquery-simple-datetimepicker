@@ -285,6 +285,23 @@ $('#date_foo').appendDtpicker({
 	"autodateOnStart": false
 });</pre>
 		</div>
+
+		<h4>Initialize with the no close button ("closeButton": false)</h4>
+		<div>
+			<input type="text" name="date_false_closeButton" value="">
+			<script type="text/javascript">
+				$(function(){
+					$('*[name=date_false_closeButton]').appendDtpicker({
+						"closeButton": false
+					});
+				});
+			</script>
+			<pre>
+&lt;input type=&quot;text&quot; id=&quot;date_foo&quot; value=&quot;&quot;&gt;
+
+$('#date_foo').appendDtpicker({
+	"closeButton": false
+});</pre>
 		</div>
 
 		<h4>Date Ranges (not compatible with 'inline:true' at this time)</h4>
