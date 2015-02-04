@@ -50,6 +50,15 @@
 			days: ['日', '一', '二', '三', '四', '五', '六'],
 			months: [ "一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月" ]
 		},
+		da: {
+			days: ['Sø', 'Ma', 'Ti', 'On', 'To', 'Fr', 'Lø'],
+			months: [ "Jan", "Feb", "Mar", "Apr", "Maj", "Juni", "Juli", "Aug", "Sept", "Okt", "Nov", "Dec" ],
+			sep: '-',
+			format: 'DD-MM-YYYY hh:mm',
+			prevMonth: 'Forrige måned',
+			nextMonth: 'Næste måned',
+			today: 'I dag'
+		},
 		de: {
 			days: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
 			months: [ "Jan", "Feb", "März", "Apr", "Mai", "Juni", "Juli", "Aug", "Sept", "Okt", "Nov", "Dez" ],
