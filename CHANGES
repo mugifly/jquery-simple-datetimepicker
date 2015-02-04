@@ -1,8 +1,11 @@
 Version history for query-simple-datetimepicker
 https://github.com/mugifly/jquery-simple-datetimepicker/
 
-1.13.0  2014-xx-xx (JST)
-  - [Add] Ukrainian locale (Thanks to: goti2).
+1.13.0  2015-xx-xx (JST)
+  - [Add] Locales: Ukrainian, Hungarian, Danish, Estonian.
+  - [Add] Close button option.
+  - [Fix] isPast logic when calendar is in next month display.
+  - [Fix] Locales: Spanish, Korean.
 
 1.12.0  2014-04-25 (JST)
   - [Add] Automatically relocate a position of a picker when picker is float-mode.
