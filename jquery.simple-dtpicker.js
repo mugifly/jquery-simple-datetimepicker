@@ -121,6 +121,15 @@
 			prevMonth: 'Попередній місяць',
 			nextMonth: 'Наступний місяць',
 			today: 'Cьогодні'
+		},
+		et: {
+			days: ['P', 'E', 'T', 'K', 'N', 'R', 'L'],
+			months: [ "Jaan", "Veebr", "Märts", "Apr", "Mai", "Juun", "Juul", "Aug", "Sept", "Okt", "Nov", "Dets" ],
+			sep: '.',
+			format: 'DD.MM.YYYY hh:mm',
+			prevMonth: 'Eelmine kuu',
+			nextMonth: 'Järgmine kuu',
+			today: 'Täna'
 		}
 	};
 	/* ----- */
