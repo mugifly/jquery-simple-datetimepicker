@@ -143,6 +143,15 @@
 			prevMonth: 'Eelmine kuu',
 			nextMonth: 'Järgmine kuu',
 			today: 'Täna'
+		},
+		hu: {
+			days: ['Va', 'Hé', 'Ke', 'Sze', 'Cs', 'Pé', 'Szo'],
+			months: [ "Jan", "Feb", "Már", "Ápr", "Máj", "Jún", "Júl", "Aug", "Szep", "Okt", "Nov", "Dec" ],
+			sep: '-',
+			format: 'YYYY-MM-DD hh:mm:00',
+			prevMonth: 'Előző hónap',
+			nextMonth: 'Következő hónap',
+			today: 'Ma'
 		}
 	};
 	/* ----- */
