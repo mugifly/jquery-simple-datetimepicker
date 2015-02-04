@@ -601,6 +601,9 @@
 		var isCurrentYear = todayDate.getFullYear() == date.getFullYear();
 		var isCurrentMonth = isCurrentYear && todayDate.getMonth() == date.getMonth();
 		var isCurrentDay = isCurrentMonth && todayDate.getDate() == date.getDate();
+		var isNextYear = (todayDate.getFullYear() + 1 == date.getFullYear());
+		var isNextMonth = (isCurrentYear && todayDate.getMonth() + 1 == date.getMonth()) ||
+			(isNextYear && todayDate.getMonth() === 11 && date.getMonth() === 0);
 		var isPastMonth = false;
 		if (date.getFullYear() < todayDate.getFullYear() || (isCurrentYear && date.getMonth() < todayDate.getMonth())) {
 			isPastMonth = true;
@@ -742,7 +745,9 @@
 		for (var zz = 0; i < cellNum; i++) {
 			var realDay = i + 1 - firstWday;
 
-			var isPast = isPastMonth || (isCurrentMonth && realDay < todayDate.getDate());
+			var isPast = isPastMonth ||
+				(isCurrentMonth && realDay < todayDate.getDate()) ||
+				(isNextMonth && firstWday > i && (beforeMonthLastDay + realDay) < todayDate.getDate());
 
 			if (i % 7 === 0) {
 				$tr = $('<tr>');
