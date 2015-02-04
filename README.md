@@ -35,11 +35,11 @@ And, the test scripts (it using [QUnit](https://qunitjs.com/) testing framework)
 
 ### Contributors
 
-[List of contributors](CONTRIBUTORS.md); Thanks.
+[List of contributors](https://github.com/mugifly/jquery-simple-datetimepicker/wiki/Contributors); Thanks.
 
 ## License and author
 
-Copyright (c) 2013 Masanori Ohgita (http://ohgita.info/). 
+Copyright (c) 2013-2015 Masanori Ohgita (http://ohgita.info/). 
 
 This program is free software distributed under the terms of the MIT license. 
 See LICENSE.txt for details.
