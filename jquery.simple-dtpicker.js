@@ -73,7 +73,7 @@
 			months: [ "Ock", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Agu", "Eyl", "Ekm", "Kas", "Arlk" ]
 		},
 		es: {
-			days: ['dom', 'lun', 'mar', 'miér', 'jue', 'vié', 'sáb'],
+			days: ['dom', 'lun', 'mar', 'miér', 'jue', 'vie', 'sáb'],
 			months: [ "ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic" ],
 			format: 'DD/MM/YYYY hh:mm'
 		},
