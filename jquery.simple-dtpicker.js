@@ -99,6 +99,15 @@
 			months: [ "jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec" ],
 			format: 'DD-MM-YYYY hh:mm'
 		},
+		no: {
+			days: ['Søn', 'Man', 'Tir', 'Ons', 'Tor', 'Fre', 'Lør'],
+			months: [ "Jan", "Feb", "Mar", "Apr", "Mi", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Des" ],
+			sep: '.',
+			format: 'YYYY-MM-DD hh:mm',
+			prevMonth: 'Forrige Måned',
+			nextMonth: 'Neste Måned',
+			today: 'I dag'
+		},
 		cz: {
 			days: ['Ne', 'Po', 'Út', 'St', 'Čt', 'Pá', 'So'],
 			months: [ "Led", "Úno", "Bře", "Dub", "Kvě", "Čer", "Čvc", "Srp", "Zář", "Říj", "Lis", "Pro" ],
