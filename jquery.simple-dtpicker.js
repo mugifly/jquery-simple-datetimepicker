@@ -876,20 +876,22 @@
 						"isOutputToInputObject": true
 					}, targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate(), selectedDate.getHours(), selectedDate.getMinutes());
 
-						// Generate the handler of a picker
-						var $input = $(this);
-						var handler = new PickerHandler($picker, $input);
-						// Call a event-hanlder for onSelect
-						var func = $picker.data('onSelect');
-						if (func != null) {
-						    console.log("dtpicker- Call the onSelect handler");
-						    func(handler, targetDate);
-						}
-						if ($picker.data("dateOnly") === true && $picker.data("isInline") === false && $picker.data("closeOnSelected")){
-							// Close a picker
-							ActivePickerId = -1;
-							$picker.hide();
-						}
+					// Generate the handler of a picker
+					var $input = $(this);
+					var handler = new PickerHandler($picker, $input);
+
+					// Call a event-hanlder for onSelect
+					var func = $picker.data('onSelect');
+					if (func != null) {
+					    console.log("dtpicker- Call the onSelect handler");
+					    func(handler, targetDate);
+					}
+
+					if ($picker.data("dateOnly") === true && $picker.data("isInline") === false && $picker.data("closeOnSelected")){
+						// Close a picker
+						ActivePickerId = -1;
+						$picker.hide();
+					}
 				});
 
 				$td.hover(function() {
