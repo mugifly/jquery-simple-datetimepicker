@@ -389,10 +389,13 @@
 			if (targetMonth_lastDay < date.getDate()) {
 				date.setDate(targetMonth_lastDay);
 			}
+			newdate = new Date(date.getFullYear(), date.getMonth() - 1, date.getDate(), date.getHours(), date.getMinutes());
+			if (newdate < $picker.data("minDate"))
+				newdate = $picker.data("minDate")
 			draw($picker, {
 				"isAnim": true,
 				"isOutputToInputObject": true
-			}, date.getFullYear(), date.getMonth() - 1, date.getDate(), date.getHours(), date.getMinutes());
+			}, newdate.getFullYear(), newdate.getMonth(), newdate.getDate(), newdate.getHours(), newdate.getMinutes());
 		}
 	};
 
@@ -408,11 +411,13 @@
 		if (getLastDate(date.getFullYear(), date.getMonth() + 1) < date.getDate()) {
 			date.setDate(getLastDate(date.getFullYear(), date.getMonth() + 1));
 		}
-
+		newdate = new Date(date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours(), date.getMinutes());
+		if (newdate > $picker.data("maxDate"))
+			newdate = $picker.data("maxDate")
 		draw($picker, {
 			"isAnim": true,
 			"isOutputToInputObject": true
-		}, date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours(), date.getMinutes());
+		}, newdate.getFullYear(), newdate.getMonth(), newdate.getDate(), newdate.getHours(), newdate.getMinutes());
 	};
 
 	/**
