@@ -344,7 +344,24 @@ $('#date_foo').appendDtpicker({
 				$('#start_time').trigger('change');
 			});
 		</script>
+
+		<h4>Date Ranges NEW semple with setMinDate/setMaxDate Functions</h4>
+		<label for='startdt'> Start Date: </label>
+			<input type="text" class="dtpicker" name="startdt" id="startdt" value="">
+
+		<label for='enddt'> End Date: </label>
+			<input type="text" class="dtpicker" name="enddt" id="enddt" value="">
+		<script type="text/javascript">
+			$(function(){
+			 	// -- append by class just for lower strings count --
+				$('.dtpicker').appendDtpicker({"minuteInterval": 15, "calendarMouseScroll": false, "futureOnly": true, "autodateOnStart": false}); 
 		
+				$('#startdt').change(function() {
+				     $('#enddt').handleDtpicker('setMinDate', $('#startdt').val()); //set end datetime not lower then start datetime
+				});
+			});
+		</script>
+
 		<h4>Set min and max times ("minTime":"hh:mm" and "maxTime":"hh:mm")</h4>
 		<h5>e.g. 08:30 - 19:15, and future-only</h5>
 		<div>
