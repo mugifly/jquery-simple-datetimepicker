@@ -239,7 +239,6 @@
 	PickerHandler.prototype.setMinDate = function(date){
 		var $picker = this.$pickerObject;
 		var $input = this.$inputObject;
-		console.log(date);
 		if (!isObj('Date', date)) {
 			date = new Date(date);
 		}
@@ -252,6 +251,33 @@
             }, date);
         else
             if (dateinput > date)
+                draw_date($picker, {
+                    "isAnim": true,
+                    "isOutputToInputObject": true
+                }, dateinput);
+            else
+                draw_date($picker, {
+                    "isAnim": true,
+                    "isOutputToInputObject": true
+                }, date);
+	};
+
+	/* Set a specific max date to a picker and redraw */
+	PickerHandler.prototype.setMaxDate = function(date){
+		var $picker = this.$pickerObject;
+		var $input = this.$inputObject;
+		if (!isObj('Date', date)) {
+			date = new Date(date);
+		}
+		$picker.data("maxDate", date);
+        dateinput = new Date($input.val());
+        if (dateinput=='Invalid Date')
+            draw_date($picker, {
+                "isAnim": true,
+                "isOutputToInputObject": false
+            }, date);
+        else
+            if (dateinput < date)
                 draw_date($picker, {
                     "isAnim": true,
                     "isOutputToInputObject": true
@@ -1458,6 +1484,15 @@
 				var handler = new PickerHandler($picker, $input);
 				// Set a min date
 				handler.setMinDate(date);
+			}
+		},
+		setMaxDate : function( date ) {
+			var $input = $(this);
+			var $picker = $(PickerObjects[$input.data('pickerId')]);
+			if ($picker != null) {
+				var handler = new PickerHandler($picker, $input);
+				// Set a max date
+				handler.setMaxDate(date);
 			}
 		},
 		getDate : function( ) {
