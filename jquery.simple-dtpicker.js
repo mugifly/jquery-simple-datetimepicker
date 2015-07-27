@@ -391,7 +391,7 @@
 			}
 			var newdate = new Date(date.getFullYear(), date.getMonth() - 1, date.getDate(), date.getHours(), date.getMinutes());
 			if ($picker.data("minDate") && newdate < $picker.data("minDate"))
-				newdate = $picker.data("minDate")
+				newdate = $picker.data("minDate");
 			draw($picker, {
 				"isAnim": true,
 				"isOutputToInputObject": true
@@ -413,7 +413,7 @@
 		}
 		var newdate = new Date(date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours(), date.getMinutes());
 		if ($picker.data("maxDate") && newdate > $picker.data("maxDate"))
-			newdate = $picker.data("maxDate")
+			newdate = $picker.data("maxDate");
 		draw($picker, {
 			"isAnim": true,
 			"isOutputToInputObject": true
