@@ -31,6 +31,7 @@
 	text-align: center;
 	font-size: 9pt;
 	font-weight: bold;
+	min-height: 30px;
 	user-select: none;
 		-webkit-user-select: none;
 		-moz-user-select: none;
