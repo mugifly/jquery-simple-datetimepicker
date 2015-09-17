@@ -14,10 +14,11 @@ you can send requests and bug reports as [Issues on GitHub](https://github.com/m
 
 * jQuery 1.7.2 or later
 
-## Development
+## For users
 
-The master branch is development version.
-Instead, You can get a stable version from [released tags](https://github.com/mugifly/jquery-simple-datetimepicker/releases).
+The master branch is development version. Instead you can get a stable version from [released tags](https://github.com/mugifly/jquery-simple-datetimepicker/releases).
+
+## For developers
 
 Automated testing status of master branch: [![Build Status](https://travis-ci.org/mugifly/jquery-simple-datetimepicker.svg?branch=master)](https://travis-ci.org/mugifly/jquery-simple-datetimepicker)
 
@@ -25,22 +26,21 @@ Automated testing status of master branch: [![Build Status](https://travis-ci.or
 
 I will not force you to testing work about yourself of commit, However that recommends.
 
-Requirements for develop: [Node.js](http://nodejs.org/) (that includes the npm).
+Required software for development: [Node.js](http://nodejs.org/) (that includes the npm).
 
-    $ npm install -g grunt-cli
+    $ sudo npm install -g grunt-cli
     $ npm install
     $ grunt test
 
-And, the test scripts (it using [QUnit](https://qunitjs.com/) testing framework) has included into [t/](https://github.com/mugifly/jquery-simple-datetimepicker/tree/master/t) directory.
+And the test scripts which based on [QUnit](https://qunitjs.com/) testing framework has included in [t/](https://github.com/mugifly/jquery-simple-datetimepicker/tree/master/t) directory.
 
-### Contributors
+### Contributors list
 
-[List of contributors](https://github.com/mugifly/jquery-simple-datetimepicker/wiki/Contributors); Thanks.
+[List of contributors](https://github.com/mugifly/jquery-simple-datetimepicker/wiki/Contributors); Thanks :)
 
-## License and author
+## License and maintainer
 
-Copyright (c) 2013-2015 Masanori Ohgita (http://ohgita.info/). 
+Copyright (c) 2013-2015 Masanori Ohgita (http://ohgita.info/).
 
-This program is free software distributed under the terms of the MIT license. 
-See LICENSE.txt for details.
-
+This program is free software distributed under the terms of the MIT license.
+See LICENSE file for details.
