@@ -235,6 +235,60 @@
 		}, date);
 	};
 
+	/* Set a specific min date to a picker and redraw */
+	PickerHandler.prototype.setMinDate = function(date){
+		var $picker = this.$pickerObject;
+		var $input = this.$inputObject;
+		if (!isObj('Date', date)) {
+			date = new Date(date);
+		}
+		$picker.data("minDate", date);
+        dateinput = new Date($input.val());
+        if (dateinput=='Invalid Date')
+            draw_date($picker, {
+                "isAnim": true,
+                "isOutputToInputObject": false
+            }, date);
+        else
+            if (dateinput > date)
+                draw_date($picker, {
+                    "isAnim": true,
+                    "isOutputToInputObject": true
+                }, dateinput);
+            else
+                draw_date($picker, {
+                    "isAnim": true,
+                    "isOutputToInputObject": true
+                }, date);
+	};
+
+	/* Set a specific max date to a picker and redraw */
+	PickerHandler.prototype.setMaxDate = function(date){
+		var $picker = this.$pickerObject;
+		var $input = this.$inputObject;
+		if (!isObj('Date', date)) {
+			date = new Date(date);
+		}
+		$picker.data("maxDate", date);
+        dateinput = new Date($input.val());
+        if (dateinput=='Invalid Date')
+            draw_date($picker, {
+                "isAnim": true,
+                "isOutputToInputObject": false
+            }, date);
+        else
+            if (dateinput < date)
+                draw_date($picker, {
+                    "isAnim": true,
+                    "isOutputToInputObject": true
+                }, dateinput);
+            else
+                draw_date($picker, {
+                    "isAnim": true,
+                    "isOutputToInputObject": true
+                }, date);
+	};
+
 	/* Destroy a picker */
 	PickerHandler.prototype.destroy = function(){
 		var $picker = this.$pickerObject;
@@ -335,10 +389,13 @@
 			if (targetMonth_lastDay < date.getDate()) {
 				date.setDate(targetMonth_lastDay);
 			}
+			var newdate = new Date(date.getFullYear(), date.getMonth() - 1, date.getDate(), date.getHours(), date.getMinutes());
+			if ($picker.data("minDate") && newdate < $picker.data("minDate"))
+				newdate = $picker.data("minDate");
 			draw($picker, {
 				"isAnim": true,
 				"isOutputToInputObject": true
-			}, date.getFullYear(), date.getMonth() - 1, date.getDate(), date.getHours(), date.getMinutes());
+			}, newdate.getFullYear(), newdate.getMonth(), newdate.getDate(), newdate.getHours(), newdate.getMinutes());
 		}
 	};
 
@@ -354,11 +411,13 @@
 		if (getLastDate(date.getFullYear(), date.getMonth() + 1) < date.getDate()) {
 			date.setDate(getLastDate(date.getFullYear(), date.getMonth() + 1));
 		}
-
+		var newdate = new Date(date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours(), date.getMinutes());
+		if ($picker.data("maxDate") && newdate > $picker.data("maxDate"))
+			newdate = $picker.data("maxDate");
 		draw($picker, {
 			"isAnim": true,
 			"isOutputToInputObject": true
-		}, date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours(), date.getMinutes());
+		}, newdate.getFullYear(), newdate.getMonth(), newdate.getDate(), newdate.getHours(), newdate.getMinutes());
 	};
 
 	/**
@@ -1421,6 +1480,24 @@
 				var handler = new PickerHandler($picker, $input);
 				// Set a date
 				handler.setDate(date);
+			}
+		},
+		setMinDate : function( date ) {
+			var $input = $(this);
+			var $picker = $(PickerObjects[$input.data('pickerId')]);
+			if ($picker != null) {
+				var handler = new PickerHandler($picker, $input);
+				// Set a min date
+				handler.setMinDate(date);
+			}
+		},
+		setMaxDate : function( date ) {
+			var $input = $(this);
+			var $picker = $(PickerObjects[$input.data('pickerId')]);
+			if ($picker != null) {
+				var handler = new PickerHandler($picker, $input);
+				// Set a max date
+				handler.setMaxDate(date);
 			}
 		},
 		getDate : function( ) {
