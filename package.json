@@ -6,10 +6,14 @@
     "jquery.simple-dtpicker.js",
     "jquery.simple-dtpicker.css"
   ],
-  "main": "jquery.simple-dtpicker",
+  "main": "jquery.simple-dtpicker.js",
   "scripts": {
     "test": "grunt test --verbose --force"
   },
+  "keywords": [
+      "jquery-plugin",
+      "ecosystem:jquery"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/mugifly/jquery-simple-datetimepicker.git"
