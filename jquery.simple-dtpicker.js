@@ -428,13 +428,16 @@
 		return date.getDate();
 	};
 
-	var getDateFormat = function(format, locale, is_date_only) {
-		if (format == "default"){
+	var getDateFormat = function (format, locale, is_date_only, is_time_only) {
+		if (format == "default") {
 			// Default format
 			format = translate(locale,'format');
 			if (is_date_only) {
 				// Convert the format to date-only (ex: YYYY/MM/DD)
 				format = format.substring(0, format.search(' '));
+			}
+			else if (is_time_only) {
+			    format = format.substring(format.search(' ') + 1);
 			}
 		}
 		return format; // Return date-format
@@ -598,7 +601,7 @@
 		}
 		var date = getPickedDate($picker);
 		var locale = $picker.data("locale");
-		var format = getDateFormat($picker.data("dateFormat"), locale, $picker.data('dateOnly'));
+		var format = getDateFormat($picker.data("dateFormat"), locale, $picker.data('dateOnly'), $picker.data('timeOnly'));
 		
 		var old = $inp.val();                        
 		$inp.val(getFormattedDate(date, format));
@@ -954,6 +957,15 @@
 
 			/* ---- */
 		}
+
+		if ($picker.data('timeOnly') === true) {
+		    $calendar.css("display", "none");
+		    $now_month.css("display", "none");
+		    if ($link_next_month != null)
+		        $link_next_month.css("display", "none");
+		    if ($link_before_month != null)
+		        $link_before_month.css("display", "none");
+		}
 		
 		if ($picker.data("dateOnly") === true) {
 			/* dateOnly mode */
@@ -968,7 +980,7 @@
 			}
 
 			realDayObj =  new Date(date.getTime());
-			$timelist.css("height", $calendar.innerHeight() - 10 + 'px');
+			$timelist.css("height", Math.max($calendar.innerHeight() - 10, 200) + 'px');
 
 			/* Output time cells */
 			var hour_ = minTime[0];
@@ -1099,7 +1111,7 @@
 		if(!opt.current) {
 			opt.current = new Date();
 		} else {
-			var format = getDateFormat(opt.dateFormat, opt.locale, opt.dateOnly);
+			var format = getDateFormat(opt.dateFormat, opt.locale, opt.dateOnly, opt.timeOnly);
 			var date = parseDate(opt.current, format);
 			if (date) {
 				opt.current = date;
@@ -1112,6 +1124,7 @@
 		if (opt.inputObjectId != null) {
 			$picker.data("inputObjectId", opt.inputObjectId);
 		}
+		$picker.data("timeOnly", opt.timeOnly);
 		$picker.data("dateOnly", opt.dateOnly);
 		$picker.data("pickerId", PickerObjects.length);
 		$picker.data("dateFormat", opt.dateFormat);
@@ -1271,6 +1284,7 @@
 			"todayButton": true,
 			"closeButton": true,
 			"dateOnly": false,
+			"timeOnly": false,
 			"futureOnly": false,
 			"minDate" : null,
 			"maxDate" : null,
@@ -1366,7 +1380,7 @@
 					$input.data('beforeVal') == null ||
 					( $input.data('beforeVal') != null && $input.data('beforeVal') != $input.val())	)
 					) { /* beforeValue == null || beforeValue != nowValue  */
-					var format = getDateFormat($picker.data('dateFormat'), $picker.data('locale'), $picker.data('dateOnly'));
+				    var format = getDateFormat($picker.data('dateFormat'), $picker.data('locale'), $picker.data('dateOnly'), $picker.data('timeOnly'));
 					var date = parseDate($input.val(), format);
 					//console.log("dtpicker - inputKeyup - format: " + format + ", date: " + $input.val() + " -> " + date);
 					if (date) {
