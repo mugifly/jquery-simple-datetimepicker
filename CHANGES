@@ -4,7 +4,8 @@ https://github.com/mugifly/jquery-simple-datetimepicker/
 1.13.0  2015-xx-xx (JST)
   - [Add] Locales: Ukrainian, Hungarian, Danish, Estonian, Norwegian.
   - [Add] Close button option.
-  - [Add] setMinDate and mixDate function.
+  - [Add] minDate option and setMinDate function.
+  - [Add] timeOnly option.
   - [Fix] isPast logic when calendar is in next month display.
   - [Fix] Locales: Spanish, Korean.
 
