@@ -3,14 +3,14 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Demo - jquery-simple-datetimepicker</title>
-	
+
 	<!--Requirement jQuery-->
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 	<!--Load Script and Stylesheet -->
 	<script type="text/javascript" src="jquery.simple-dtpicker.js"></script>
 	<link type="text/css" href="jquery.simple-dtpicker.css" rel="stylesheet" />
 	<!---->
-	
+
 	<style type="text/css">
 		body { background-color: #fefefe; padding-left: 2%; padding-bottom: 100px; color: #101010; }
 		footer{ font-size:small;position:fixed;right:5px;bottom:5px; }
@@ -28,7 +28,7 @@
 		<h2>Demo - jquery-simple-datetimepicker</h2>
 	</header>
 	<small class="nav"><a href="#">Top</a> | <a href="#section_available_options">Avaiable options</a> | <a href="#section_more_methods">More methods</a></small>
-	
+
 	<h3>Inline</h3>
 	<div id="date_picker"> </div>
 	<script type="text/javascript">
@@ -36,7 +36,7 @@
 			$('#date_picker').dtpicker();
 		});
 	</script>
-	
+
 	<h3>Append to Input-field</h3>
 	<input type="text" name="date" value="">
 	<script type="text/javascript">
@@ -44,7 +44,7 @@
 			$('*[name=date]').appendDtpicker();
 		});
 	</script>
-	
+
 	<h3>Append to Input-field (Inline)</h3>
 	<input type="text" name="date2" value="2012/01/01 10:00">
 	<script type="text/javascript">
@@ -53,12 +53,12 @@
 		});
 	</script>
 	<small>In addition, this default date has specified by the input's value ("2012-01-01 10:00").</small>
-	
+
 	<hr />
 
 	<h3 id="section_available_options">Avaiable options</h3>
 		<p>About details for these options, please see: <a href="https://github.com/mugifly/jquery-simple-datetimepicker/wiki/Options">Wiki</a>.</p>
-	
+
 		<h4>Current date ("current": "2012-3-4 12:30")</h4>
 		<input type="text" name="date3" value="">
 		<script type="text/javascript">
@@ -177,8 +177,8 @@
 
 		<p>
 			It's will also useful for use with two input-fields.<br />
-			<input type="text" name="date10" value=""> 
-			- 
+			<input type="text" name="date10" value="">
+			-
 			<input type="text" name="date11" value="">
 			<script type="text/javascript">
 				$(function(){
@@ -237,7 +237,7 @@
 				});
 			});
 		</script>
-                
+
 		<h4>Date-only mode ("dateOnly": true)</h4>
 		<input type="text" name="date15" value="">
 		<script type="text/javascript">
@@ -249,7 +249,18 @@
 				});
 			});
 		</script>
-		
+
+		<h4>Time-only mode ("timeOnly": true)</h4>
+		<input type="text" name="date-time-only" value="">
+		<script type="text/javascript">
+			$(function(){
+				$('*[name=date-time-only]').appendDtpicker({
+					"inline": true,
+					"timeOnly": true,
+				});
+			});
+		</script>
+
 		<h4>Only allow future datetimes ("futureOnly": true)</h4>
 		<input type="text" name="date16" value="">
 		<script type="text/javascript">
@@ -260,7 +271,7 @@
 				});
 			});
 		</script>
-		
+
 		<h4>Show AM/PM in time list ("amPmInTimeList": true)</h4>
 		<input type="text" name="date19" value="">
 		<script type="text/javascript">
@@ -320,25 +331,25 @@ $('#date_foo').appendDtpicker({
 				var d = new Date();
 				d.setDate(10);
 				$('#start_time').val(d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate() + " 1:00 pm");
-				// Example Only - Set the end date to 7 days in the future so we have an actual 
+				// Example Only - Set the end date to 7 days in the future so we have an actual
 				d.setDate(d.getDate() + 7);
 				$('#end_time').val(d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate() + " 13:45 ");
 				// -- End Example Only Code --
 
-				// Attach a change event to end_time - 
+				// Attach a change event to end_time -
 				// NOTE we are using '#ID' instead of '*[name=]' selectors in this example to ensure we have the correct field
 				$('#end_time').change(function() {
 				    $('#start_time').appendDtpicker({
 					    maxDate: $('#end_time').val() // when the end time changes, update the maxDate on the start field
 				    });
 				});
-		
+
 				$('#start_time').change(function() {
 				    $('#end_time').appendDtpicker({
 					    minDate: $('#start_time').val() // when the start time changes, update the minDate on the end field
 				    });
 				});
-		
+
 				// trigger change event so datapickers get attached
 				$('#end_time').trigger('change');
 				$('#start_time').trigger('change');
@@ -355,8 +366,8 @@ $('#date_foo').appendDtpicker({
 		<script type="text/javascript">
 			$(function(){
 			 	// -- append by class just for lower strings count --
-				$('.dtpicker').appendDtpicker({"minuteInterval": 15, "calendarMouseScroll": false, "futureOnly": true, "autodateOnStart": false}); 
-		
+				$('.dtpicker').appendDtpicker({"minuteInterval": 15, "calendarMouseScroll": false, "futureOnly": true, "autodateOnStart": false});
+
 				$('#startdt').change(function() {
 				     $('#enddt').handleDtpicker('setMinDate', $('#startdt').val()); //set end datetime not lower then start datetime
 				});
@@ -372,8 +383,8 @@ $('#date_foo').appendDtpicker({
 		<script type="text/javascript">
 			$(function(){
 			 	// -- append by class just for lower strings count --
-				$('.dtpicker2').appendDtpicker({"futureOnly": false, "autodateOnStart": false}); 
-		
+				$('.dtpicker2').appendDtpicker({"futureOnly": false, "autodateOnStart": false});
+
 				$('#startdt2').change(function() {
 				     var de = new Date($('#startdt2').handleDtpicker('getDate')); // constructor need to avoid linking object
 					 de.setDate(de.getDate() + 7);
@@ -526,7 +537,7 @@ $('#btn_generate').click(function(){
 				You can handle the appended picker with using "handleDtpicker" method into the input-field.<br/>
 				To handle a picker using handleDtpicker method, call the handleDtpicker method with setting the your hope method-name (e.g. "show" and <a href="#manual-handling_method-names">more</a>) as a parameter.
 			</p>
-			
+
 			<h5><a name="manual-handling_method-names">Available method-names as parameter of <u>handleDtpicker</u> method</a></h5>
 			<div>
 				<ul>
@@ -610,7 +621,7 @@ $('#btn_generate').click(function(){
 
 	<footer>
 		<a href="https://github.com/mugifly/jquery-simple-datetimepicker">jquery.simple-dtpicker.js (jquery-simple-datetimepicker)</a><br>
-		 - Your feedback is highly appreciated :) 
+		 - Your feedback is highly appreciated :)
 	</footer>
 </body>
 </html>
