@@ -1,10 +1,11 @@
 module.exports = function(grunt) {
-	// Configuration for testing with using the qunit.
 	grunt.initConfig({
 		pkg: '<json:package.json>',
+		// Test with using QUnit
 		qunit: {
 			files: ['t/test.html']
 		},
+		// Syntax check with using JSHint
 		jshint: {
 			default: {
 				src: ['jquery.simple-dtpicker.js'],
@@ -17,24 +18,25 @@ module.exports = function(grunt) {
 				]
 			}
 		},
-		jquerymanifest: {
-			options: {
-				source: grunt.file.readJSON('package.json'),
-				overrides: {
-					name: "simple-dtpicker", 
-					docs: "https://github.com/mugifly/jquery-simple-datetimepicker/blob/master/README.md", 
-					demo: "http://mugifly.github.com/jquery-simple-datetimepicker/jquery.simple-dtpicker.html", 
-					keywords: ["date","time","picker","input","form","datepicker","timepicker"]
+		// Sync manifest for bower.json
+		manifestSync: {
+			dist: {
+				options: {
+					primaryManifest: "package.json",
+					manifests: {
+						bower: "bower.json"
+					}
 				}
 			}
 		}
-		});
+	});
 
-	// Load a module	
+	// Load a module
 	grunt.loadNpmTasks('grunt-contrib-qunit');
-	grunt.loadNpmTasks('grunt-jquerymanifest');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-manifest-sync');
+
 	// Register a tasks
 	grunt.registerTask('test', ['qunit', 'jshint']);
-	grunt.registerTask('default', ['jquerymanifest', 'test']);
+	grunt.registerTask('default', ['manifestSync', 'test']);
 }
