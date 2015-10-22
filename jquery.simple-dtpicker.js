@@ -243,23 +243,11 @@
 			date = new Date(date);
 		}
 		$picker.data("minDate", date);
-		dateinput = new Date($input.val());
-		if (dateinput=='Invalid Date')
-			draw_date($picker, {
-				"isAnim": true,
-				"isOutputToInputObject": false
-			}, date);
-		else
-			if (dateinput > date)
-				draw_date($picker, {
-					"isAnim": true,
-					"isOutputToInputObject": true
-				}, dateinput);
-			else
-				draw_date($picker, {
-					"isAnim": true,
-					"isOutputToInputObject": true
-				}, date);
+		datepicked = new Date(getPickedDate($picker));
+		draw_date($picker, {
+			"isAnim": true,
+			"isOutputToInputObject": true
+		}, ((datepicked > date) ? datepicked : date));
 	};
 
 	/* Set a specific max date to a picker and redraw */
@@ -270,23 +258,11 @@
 			date = new Date(date);
 		}
 		$picker.data("maxDate", date);
-		dateinput = new Date($input.val());
-		if (dateinput=='Invalid Date')
-			draw_date($picker, {
-				"isAnim": true,
-				"isOutputToInputObject": false
-			}, date);
-		else
-			if (dateinput < date)
-				draw_date($picker, {
-					"isAnim": true,
-					"isOutputToInputObject": true
-				}, dateinput);
-			else
-				draw_date($picker, {
-					"isAnim": true,
-					"isOutputToInputObject": true
-				}, date);
+		datepicked = new Date(getPickedDate($picker));
+		draw_date($picker, {
+			"isAnim": true,
+			"isOutputToInputObject": true
+		}, ((datepicked < date) ? datepicked : date));
 	};
 
 	/* Destroy a picker */
