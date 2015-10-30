@@ -926,11 +926,22 @@
 						"isAnim": false,
 						"isOutputToInputObject": true
 					}, targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate(), selectedDate.getHours(), selectedDate.getMinutes());
-						if ($picker.data("dateOnly") === true && $picker.data("isInline") === false && $picker.data("closeOnSelected")){
-							// Close a picker
-							ActivePickerId = -1;
-							$picker.hide();
-						}
+
+					// Generate the handler of a picker
+					var $input = $(this);
+					var handler = new PickerHandler($picker, $input);
+
+					// Call a event-hanlder for onSelect
+					var func = $picker.data('onSelect');
+					if (func != null) {
+						func(handler, targetDate);
+					}
+
+					if ($picker.data("dateOnly") === true && $picker.data("isInline") === false && $picker.data("closeOnSelected")){
+						// Close a picker
+						ActivePickerId = -1;
+						$picker.hide();
+					}
 				});
 
 				$td.hover(function() {
@@ -1065,10 +1076,10 @@
 
 		/* Fade-in animation */
 		if (isAnim === true) {
-			if(changePoint == "calendar"){
-				$calendar.fadeTo("fast", 1.0);
-			}else if(changePoint == "timelist"){
-				$timelist.fadeTo("fast", 1.0);
+			if (changePoint == 'calendar' && $picker.data('timeOnly') === false) {
+				$calendar.fadeTo('fast', 1.0);
+			} else if (changePoint == 'timelist' && $picker.data('dateOnly') === false) {
+				$timelist.fadeTo('fast', 1.0);
 			}
 		}
 
@@ -1127,6 +1138,7 @@
 		$picker.data('futureOnly', opt.futureOnly);
 		$picker.data('onShow', opt.onShow);
 		$picker.data('onHide', opt.onHide);
+		$picker.data('onSelect', opt.onSelect);
 		$picker.data('onInit', opt.onInit);
 		$picker.data('allowWdays', opt.allowWdays);
 
@@ -1281,6 +1293,7 @@
 			"maxTime":"23:59",
 			"onShow": null,
 			"onHide": null,
+			"onSelect": null,
 			"allowWdays": null,
 			"amPmInTimeList": false
 		};
