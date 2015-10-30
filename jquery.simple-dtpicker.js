@@ -1295,7 +1295,8 @@
 			"onHide": null,
 			"onSelect": null,
 			"allowWdays": null,
-			"amPmInTimeList": false
+			"amPmInTimeList": false,
+			"externalLocale": null
 		};
 	};
 
@@ -1331,6 +1332,10 @@
 
 		defaults.inline = false;
 		var options = $.extend(defaults, config);
+
+		if (options.externalLocale != null) {
+			lang = $.extend(lang, options.externalLocale);
+		}
 
 		return this.each(function(i) {
 			/* Checking exist a picker */
