@@ -136,6 +136,38 @@
 			<li>"ua" : Ukrainian - Thanks to: goti2</li>
 		</ul>
 
+		<h4>externalLocale</h4>
+		<input type="text" name="externalLocale" value="">
+		<script type="text/javascript">
+			$(function(){
+				$('*[name=externalLocale]').appendDtpicker({
+					"inline": true,
+					"locale": "foo",
+					"externalLocale": {
+						foo: {
+							days: ['foo', 'bar', 'foo', 'bar', 'foo', 'bar', 'foo'],
+							months: ['Foo', 'Bar', 'Foo', 'Bar', 'Foo', 'Bar', 'Foo', 'Bar', 'Foo', 'Bar', 'Foo', 'Bar'],
+							sep: '.',
+							format: 'YYYY.MM.DD hh:mm',
+							prevMonth: 'Foo',
+							nextMonth: 'Bar',
+							today: 'Foobar'
+						}
+					}
+				});
+			});
+		</script>
+		<h5>externalLocale format:</h5>
+		<pre>foo: {
+	days: ['foo', 'bar', 'foo', 'bar', 'foo', 'bar', 'foo'],
+	months: ['Foo', 'Bar', 'Foo', 'Bar', 'Foo', 'Bar', 'Foo', 'Bar', 'Foo', 'Bar', 'Foo', 'Bar'],
+	sep: '.',
+	format: 'YYYY.MM.DD hh:mm',
+	prevMonth: 'Foo',
+	nextMonth: 'Bar',
+	today: 'Foobar'
+}</pre>
+
 		<h4>Change the interval of minute ("minuteInterval": 15)</h4>
 		<input type="text" name="date6" value="">
 		<script type="text/javascript">

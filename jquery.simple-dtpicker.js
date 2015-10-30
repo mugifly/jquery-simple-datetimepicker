@@ -1282,7 +1282,8 @@
 			"onShow": null,
 			"onHide": null,
 			"allowWdays": null,
-			"amPmInTimeList": false
+			"amPmInTimeList": false,
+			"externalLocale": null
 		};
 	};
 
@@ -1308,7 +1309,7 @@
 	/**
 	 * Initialize dtpicker, append to Text input field
 	 * */
-	 $.fn.appendDtpicker = function(config, external_locale) {
+	 $.fn.appendDtpicker = function(config) {
 		var date = new Date();
 		var defaults = getDefaults();
 
@@ -1319,8 +1320,8 @@
 		defaults.inline = false;
 		var options = $.extend(defaults, config);
 
-		if (external_locale !== "undefined") {
-			lang = $.extend(lang, external_locale);
+		if (options.externalLocale != null) {
+			lang = $.extend(lang, options.externalLocale);
 		}
 
 		return this.each(function(i) {
