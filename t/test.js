@@ -1,9 +1,14 @@
 /**
 	Test script.
 	The date-picker elements is cleared when each test has finished.
+
+	Based on QUnit: http://api.qunitjs.com/category/assert/
+
 **/
 
 $(function() {
+
+
 	/* Basic test
 		Picker is inline and standalone mode (That not append with an input-field). */
 	test('Basic', function(){
@@ -22,6 +27,7 @@ $(function() {
 		}
 	});
 
+
 	/* Switching a month - Previous
 		2014-10-31 00:00 -> 2014-09-30 00:00
 		Picker is inline mode, and append into an input-field. */
@@ -35,7 +41,7 @@ $(function() {
 
 		var $picker_header = $('.datepicker_header');
 		var $prev_button = $($picker_header.children('a')[1]);
-		
+
 		// Switching a month to previous
 		$prev_button.click();
 		setTimeout(function(){
@@ -45,6 +51,7 @@ $(function() {
 			start(); // Done.
 		}, 100);
 	});
+
 
 	/* Switching a month - Next
 		2014-10-31 00:00 -> 2014-11-30 00:00
@@ -59,7 +66,7 @@ $(function() {
 
 		var $picker_header = $('.datepicker_header');
 		var $next_button = $($picker_header.children('a')[2]);
-		
+
 		// Switching a month to previous
 		$next_button.click();
 		setTimeout(function(){
@@ -69,7 +76,8 @@ $(function() {
 			start(); // Done.
 		}, 100);
 	});
-	
+
+
 	/* handleDtpicker method
 		Picker is inline mode, and append into an input-field. */
 	test('handleDtpicker method', function(){
@@ -79,13 +87,13 @@ $(function() {
 			'inline': true
 		});
 		var $picker = $('.datepicker');
-		
+
 		$date_input.handleDtpicker('show');
 		equal($picker.css('display'), "block");
 
 		$date_input.handleDtpicker('hide');
 		equal($picker.css('display'), "none");
-		
+
 		$date_input.handleDtpicker('setDate', new Date(2014, 11, 01, 12, 10, 0));
 
 		// Check a date
@@ -97,6 +105,7 @@ $(function() {
 		equal(date.getMinutes(), 10);
 	});
 
+
 	/* Automatically destroy
 		Picker is float mode, and append into an input-field. */
 	asyncTest('Automatically destroy', function(){
@@ -106,7 +115,7 @@ $(function() {
 		$date_input.appendDtpicker({
 			'inline': false
 		});
-		
+
 		// Delete an input-field
 		$date_input.remove();
 		setTimeout(function(){
@@ -115,7 +124,8 @@ $(function() {
 			start(); // Done.
 		}, 100);
 	});
-	
+
+
 	/* Option - Inline : true (Inline mode)
 		Picker is inline mode, and append into an input-field. */
 	test('Option - inline : true (Inline mode)', function(){
@@ -123,10 +133,11 @@ $(function() {
 		$('#date_input').appendDtpicker({
 			'inline' : true
 		});
-		
+
 		var $picker = $('.datepicker');
 		equal($picker.css('display'), "block");
 	});
+
 
 	/* Option - Inline : FALSE (Float mode)
 		Picker is float mode, and append into an input-field.
@@ -146,7 +157,7 @@ $(function() {
 			var $picker = $('.datepicker');
 			equal($picker.css('display'), "block");
 			$date_input.unbind('focus');
-			
+
 			// Destroy a picker on the root element
 			$date_input.handleDtpicker('destroy');
 		});
@@ -154,7 +165,8 @@ $(function() {
 		$date_input.triggerHandler('focus');
 	});
 
-	/* Option : minuteInterval */
+
+	/* Option - minuteInterval */
 	test('Option - minuteInterval', function(){
 		var $date_input = $('#date_input');
 		$date_input.appendDtpicker({
@@ -169,7 +181,7 @@ $(function() {
 		equal($($time_cells[$time_cells.length  - 1]).text(), '23:45');
 	});
 
-	/* Option : firstDayOfWeek (Change the first day of the week) */
+	/* Option - firstDayOfWeek (Change the first day of the week) */
 	test('Option - firstDayOfWeek', function(){
 		var $date_input = $('#date_input');
 		$date_input.appendDtpicker({
@@ -183,4 +195,58 @@ $(function() {
 		equal($($wday_cells[0]).text(), 'Mo'); // Monday
 		equal($($wday_cells[6]).text(), 'Su'); // Sunday
 	});
+
+
+	/* Option - minTime & maxTime */
+	asyncTest('Option - minTime & maxTime', function(){
+
+		// Initialize
+		var $date_input = $('#date_input');
+		$date_input.val('2014-10-31 00:00');
+		$date_input.appendDtpicker({
+			inline: true,
+			futureOnly: true,
+			minTime: '08:30',
+			maxTime: '19:15'
+		});
+
+		// Check the time list
+		var chkTimeList = function() {
+
+			var $picker_time_list = $('.datepicker_timelist');
+			var $times = $picker_time_list.children('.timelist_item');
+
+			$times.each(function(){
+				var $time = $(this);
+				var time = $time.text().split(/:/);
+				if (time[1] == 19 && 16 <= time[1]) { // It expect as invalid time
+					ok($(this).hasClass('time_in_past') == true, $time.text() + ' is invalid time');
+				} else if (time[0] <= 7 || 20 <= time[0]) { // It expect as invalid time
+					ok($(this).hasClass('time_in_past') == true, $time.text() + ' is invalid time');
+				} else { // It expect as valid time
+					ok($(this).hasClass('time_in_past') == false, $time.text() + ' is valid time');
+				}
+			});
+
+		};
+		chkTimeList();
+
+		// Switch to next month
+		var $picker_header = $('.datepicker_header');
+		var $next_button = $($picker_header.children('a')[2]);
+		$next_button.click();
+		setTimeout(function(){
+
+			// Check the time list again
+			chkTimeList();
+
+			// Test was done
+			$date_input.handleDtpicker('destroy'); // Destroy a picker on the root element
+			start();
+
+		}, 100);
+
+	});
+
+
 });
