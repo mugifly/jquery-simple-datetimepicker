@@ -928,7 +928,8 @@
 				$td.addClass('day_in_past');
 			} else {
 				/* Set event-handler to day cell */
-				$td.click(function() {
+				$td.click(function(ev) {
+					ev.stopPropagation();
 					if ($(this).hasClass('hover')) {
 						$(this).removeClass('hover');
 					}
@@ -1033,7 +1034,8 @@
 					$o.addClass('time_in_past');
 				} else { // Normal cell
 					/* Set event handler to time cell */
-					$o.click(function() {
+					$o.click(function(ev) {
+						ev.stopPropagation();
 						if ($(this).hasClass('hover')) {
 							$(this).removeClass('hover');
 						}
@@ -1224,16 +1226,6 @@
 		var $timelist = $('<div>');
 		$timelist.addClass('datepicker_timelist');
 		$inner.append($timelist);
-
-		/* Set event handler to picker */
-		$picker.hover(
-			function(){
-				ActivePickerId = $(this).data("pickerId");
-			},
-			function(){
-				ActivePickerId = -1;
-			}
-		);
 
 		/* Set event-handler to calendar */
 		if (opt.calendarMouseScroll) {
@@ -1435,7 +1427,8 @@
 				$picker.hide();
 
 				/* Set onClick event handler for input-field */
-				$(input).on('click, focus',function(){
+				$(input).on('click, focus',function(ev){
+					ev.stopPropagation();
 					var $input = $(this);
 					var $picker = $(PickerObjects[$input.data('pickerId')]);
 
@@ -1584,21 +1577,20 @@
 		$('body').click(function(){
 			for(var i=0;i<PickerObjects.length;i++){
 				var $picker = $(PickerObjects[i]);
-				if(ActivePickerId != i){	/* if not-active picker */
-					if($picker.data("inputObjectId") != null && $picker.data("isInline") === false && $picker.css('display') != 'none'){
-						/* if append input-field && float picker */
+				if($picker.data("inputObjectId") != null && $picker.data("isInline") === false && $picker.css('display') != 'none'){
+					/* if append input-field && float picker */
 
-						// Hide a picker
-						var $input = InputObjects[$picker.data("inputObjectId")];
-						var handler = new PickerHandler($picker, $input);
-						handler.hide();
+					// Hide a picker
+					var $input = InputObjects[$picker.data("inputObjectId")];
+					if ($($input).is(':focus')) continue;
+					var handler = new PickerHandler($picker, $input);
+					handler.hide();
 
-						// Call a event-hanlder
-						var func = $picker.data('onHide');
-						if (func != null) {
-							console.log("dtpicker- Call the onHide handler");
-							func(handler);
-						}
+					// Call a event-hanlder
+					var func = $picker.data('onHide');
+					if (func != null) {
+						console.log("dtpicker- Call the onHide handler");
+						func(handler);
 					}
 				}
 			}
