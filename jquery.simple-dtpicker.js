@@ -1200,10 +1200,10 @@
 		if(! ((opt.maxTime[1] >= 0 ) && (opt.maxTime[1] <24 ))){
 			opt.maxTime[1]="59";
 		}
-		opt.minTime[0]=parseInt(opt.minTime[0]);
-		opt.minTime[1]=parseInt(opt.minTime[1]);
-		opt.maxTime[0]=parseInt(opt.maxTime[0]);
-		opt.maxTime[1]=parseInt(opt.maxTime[1]);
+		opt.minTime[0]=parseInt(opt.minTime[0], 10); // parse as decimal number
+		opt.minTime[1]=parseInt(opt.minTime[1], 10);
+		opt.maxTime[0]=parseInt(opt.maxTime[0], 10);
+		opt.maxTime[1]=parseInt(opt.maxTime[1], 10);
 		$picker.data('minTime', opt.minTime);
 		$picker.data('maxTime', opt.maxTime);
 
