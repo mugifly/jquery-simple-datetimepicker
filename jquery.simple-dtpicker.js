@@ -361,14 +361,15 @@
 			return;
 		}
 
-		var date = getPickedDate($picker);
+		var date = getShownDate($picker);
 		var targetMonth_lastDay = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
 		if (targetMonth_lastDay < date.getDate()) {
 			date.setDate(targetMonth_lastDay);
 		}
 		draw($picker, {
 			"isAnim": true,
-			"isOutputToInputObject": true
+			"isOutputToInputObject": false,
+			"keepPickedDate": true
 		}, date.getFullYear(), date.getMonth() - 1, date.getDate(), date.getHours(), date.getMinutes());
 
 		var todayDate = new Date();
@@ -384,14 +385,15 @@
 				newdate = $picker.data("minDate");
 			draw($picker, {
 				"isAnim": true,
-				"isOutputToInputObject": true
+				"isOutputToInputObject": false,
+				"keepPickedDate": true
 			}, newdate.getFullYear(), newdate.getMonth(), newdate.getDate(), newdate.getHours(), newdate.getMinutes());
 		}
 	};
 
 	var nextMonth = function($obj) {
 		var $picker = getParentPickerObject($obj);
-		var date = getPickedDate($picker);
+		var date = getShownDate($picker);
 		var targetMonth_lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
 		if (targetMonth_lastDay < date.getDate()) {
 			date.setDate(targetMonth_lastDay);
@@ -406,7 +408,8 @@
 			newdate = $picker.data("maxDate");
 		draw($picker, {
 			"isAnim": true,
-			"isOutputToInputObject": true
+			"isOutputToInputObject": false,
+			"keepPickedDate": true
 		}, newdate.getFullYear(), newdate.getMonth(), newdate.getDate(), newdate.getHours(), newdate.getMinutes());
 	};
 
@@ -599,6 +602,11 @@
 		}
 	};
 
+	var getShownDate = function($obj) {
+		var $picker = getParentPickerObject($obj);
+		return $picker.data("shownDate");
+	};
+
 	var getPickedDate = function($obj) {
 		var $picker = getParentPickerObject($obj);
 		return $picker.data("pickedDate");
@@ -648,6 +656,8 @@
 		var maxDate = $picker.data("maxDate");
 
 		var isOutputToInputObject = option.isOutputToInputObject;
+		var keepPickedDate = option.keepPickedDate;
+		if (typeof keepPickedDate === "undefined") keepPickedDate = false;
 
 		var minuteInterval = $picker.data("minuteInterval");
 		var firstDayOfWeek = $picker.data("firstDayOfWeek");
@@ -722,7 +732,10 @@
 		}
 
 		/* Save newly date to Picker data */
-		$($picker).data("pickedDate", date);
+		if (keepPickedDate === false) {
+			$($picker).data("pickedDate", date);
+		}
+		$($picker).data("shownDate", date);
 
 		/* Fade-out animation */
 		if (isAnim === true) {
@@ -838,6 +851,8 @@
 		realDayObj.setHours(0);
 		realDayObj.setMinutes(0);
 		realDayObj.setSeconds(0);
+		var pickedDate = getPickedDate($picker);
+		var shownDate = getShownDate($picker);
 		for (var zz = 0; i < cellNum; i++) {
 			var realDay = i + 1 - firstWday;
 
@@ -891,7 +906,7 @@
 			}
 
 			/* Set a special mark class */
-			if (realDay == date.getDate()) { /* selected day */
+			if (shownDate.getFullYear() == pickedDate.getFullYear() && shownDate.getMonth() == pickedDate.getMonth() && realDay == pickedDate.getDate()) { /* selected day */
 				$td.addClass('active');
 			}
 
