@@ -23,53 +23,99 @@ $(function() {
 	});
 
 	/* Switching a month - Previous
-		2014-10-31 00:00 -> 2014-09-30 00:00
+		2014-01-01 00:00 -> 2013-12-01 00:00
 		Picker is inline mode, and append into an input-field. */
 	asyncTest('Switching a month - Previous', function(){
-		expect(1);
+		expect(2);
+
 		var $date_input = $('#date_input');
-		$date_input.val('2014-10-31 00:00'); // Initial date
+
+		// The field value should be initial date
+		$date_input.val('2014-01-01 00:00');
 		$date_input.appendDtpicker({
 			'inline': true
 		});
 
 		var $picker_header = $('.datepicker_header');
-		var $prev_button = $($picker_header.children('a')[1]);
-		
-		// Switching a month to previous
-		$prev_button.click();
+		var $previous_button = $($picker_header.children('a')[1]);
+
+		// Switch a month to previous
+		$previous_button.click();
+
 		setTimeout(function(){
-			equal($date_input.val(), '2014-09-30 00:00');
-			// Destroy a picker
-			$date_input.handleDtpicker('destroy');
-			start(); // Done.
+			// The field value should be same with first
+			equal($date_input.val(), '2014-01-01 00:00');
+
+			// Choose a first day
+			var $days = $('.datepicker_table td');
+			var $first_day = null;
+			$days.each(function() {
+				if ($(this).text() == 1) {
+					$first_day = $(this);
+					return false;
+				}
+			});
+			$first_day.click();
+
+			setTimeout(function() {
+				// The field value should be first day of previous month
+				equal($date_input.val(), '2013-12-01 00:00');
+				// Destroy a picker on the root element
+				$date_input.handleDtpicker('destroy');
+				// Done
+				start();
+			}, 100);
+
 		}, 100);
 	});
 
 	/* Switching a month - Next
-		2014-10-31 00:00 -> 2014-11-30 00:00
+		2014-01-01 00:00 -> 2014-02-01 00:00
 		Picker is inline mode, and append into an input-field. */
 	asyncTest('Switching a month - Next', function(){
-		expect(1);
+		expect(2);
+
 		var $date_input = $('#date_input');
-		$date_input.val('2014-10-31 00:00'); // Initial date
+
+		// The field value should be initial date
+		$date_input.val('2014-01-01 00:00');
 		$date_input.appendDtpicker({
 			'inline': true
 		});
 
 		var $picker_header = $('.datepicker_header');
 		var $next_button = $($picker_header.children('a')[2]);
-		
-		// Switching a month to previous
+
+		// Switch a month to previous
 		$next_button.click();
+
 		setTimeout(function(){
-			equal($date_input.val(), '2014-11-30 00:00');
-			// Destroy a picker on the root element
-			$date_input.handleDtpicker('destroy');
-			start(); // Done.
+			// The field value should be same with first
+			equal($date_input.val(), '2014-01-01 00:00');
+
+			// Choose a first day
+			var $days = $('.datepicker_table td');
+			var $first_day = null;
+			$days.each(function() {
+				if ($(this).text() == 1) {
+					$first_day = $(this);
+					return false;
+				}
+			});
+			$first_day.click();
+
+			setTimeout(function() {
+				// The field value should be first day of next month
+				equal($date_input.val(), '2014-02-01 00:00');
+				// Destroy a picker on the root element
+				$date_input.handleDtpicker('destroy');
+				// Done
+				start();
+			}, 100);
+
 		}, 100);
 	});
-	
+
 	/* handleDtpicker method
 		Picker is inline mode, and append into an input-field. */
 	test('handleDtpicker method', function(){
@@ -79,13 +125,13 @@ $(function() {
 			'inline': true
 		});
 		var $picker = $('.datepicker');
-		
+
 		$date_input.handleDtpicker('show');
 		equal($picker.css('display'), "block");
 
 		$date_input.handleDtpicker('hide');
 		equal($picker.css('display'), "none");
-		
+
 		$date_input.handleDtpicker('setDate', new Date(2014, 11, 01, 12, 10, 0));
 
 		// Check a date
@@ -106,7 +152,7 @@ $(function() {
 		$date_input.appendDtpicker({
 			'inline': false
 		});
-		
+
 		// Delete an input-field
 		$date_input.remove();
 		setTimeout(function(){
@@ -115,7 +161,7 @@ $(function() {
 			start(); // Done.
 		}, 100);
 	});
-	
+
 	/* Option - Inline : true (Inline mode)
 		Picker is inline mode, and append into an input-field. */
 	test('Option - inline : true (Inline mode)', function(){
@@ -123,7 +169,7 @@ $(function() {
 		$('#date_input').appendDtpicker({
 			'inline' : true
 		});
-		
+
 		var $picker = $('.datepicker');
 		equal($picker.css('display'), "block");
 	});
@@ -146,7 +192,7 @@ $(function() {
 			var $picker = $('.datepicker');
 			equal($picker.css('display'), "block");
 			$date_input.unbind('focus');
-			
+
 			// Destroy a picker on the root element
 			$date_input.handleDtpicker('destroy');
 		});
