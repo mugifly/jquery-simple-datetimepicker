@@ -202,10 +202,9 @@ $(function() {
 
 		// Initialize
 		var $date_input = $('#date_input');
-		$date_input.val('2014-10-31 00:00');
+		$date_input.val('');
 		$date_input.appendDtpicker({
 			inline: true,
-			futureOnly: true,
 			minTime: '08:30',
 			maxTime: '19:15'
 		});
@@ -218,13 +217,11 @@ $(function() {
 
 			$times.each(function(){
 				var $time = $(this);
-				var time = $time.text().split(/:/);
-				if (time[1] == 19 && 16 <= time[1]) { // It expect as invalid time
-					ok($(this).hasClass('time_in_past') == true, $time.text() + ' is invalid time');
-				} else if (time[0] <= 7 || 20 <= time[0]) { // It expect as invalid time
-					ok($(this).hasClass('time_in_past') == true, $time.text() + ' is invalid time');
-				} else { // It expect as valid time
-					ok($(this).hasClass('time_in_past') == false, $time.text() + ' is valid time');
+				var t = $time.text().split(/:/);
+				if ((t[0] == 8 && 30 <= t[1]) || (t[0] == 19 && t[1] <= 15) || (9 <= t[0] && t[0] <= 18)) { // It expect as valid time
+					equal($time.hasClass('time_in_past'), false, $time.text() + ' is valid time');
+				} else {
+					assert.notOk(false, $time.text() + ' is invalid time. It should not shown.');
 				}
 			});
 
