@@ -202,7 +202,7 @@ $(function() {
 
 		// Initialize
 		var $date_input = $('#date_input');
-		$date_input.val('');
+		$date_input.val('2015-01-01 00:00:00');
 		$date_input.appendDtpicker({
 			inline: true,
 			minTime: '08:30',
