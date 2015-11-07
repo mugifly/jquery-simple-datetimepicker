@@ -1573,23 +1573,28 @@
   	};
 
 	/* Set event handler to Body element, for hide a floated-picker */
-	$(function(){
-		$('body').click(function(){
-			for(var i=0;i<PickerObjects.length;i++){
+	$(function() {
+		$('body').click(function() {
+			for (var i=0;i<PickerObjects.length;i++) {
 				var $picker = $(PickerObjects[i]);
-				if($picker.data("inputObjectId") != null && $picker.data("isInline") === false && $picker.css('display') != 'none'){
+				if ($picker.data('inputObjectId') != null && !$picker.data('isInline') && $picker.css('display') != 'none') {
 					/* if append input-field && float picker */
+					
+					// Check overlapping of cursor and picker
+					if ($picker.is(':hover')) continue;
+
+					// Check overlapping of cursor and input-field
+					var $input = $(InputObjects[$picker.data('inputObjectId')]);
+					if ($input.is(':focus')) continue;
 
 					// Hide a picker
-					var $input = InputObjects[$picker.data("inputObjectId")];
-					if ($($input).is(':focus')) continue;
 					var handler = new PickerHandler($picker, $input);
 					handler.hide();
 
 					// Call a event-hanlder
 					var func = $picker.data('onHide');
 					if (func != null) {
-						console.log("dtpicker- Call the onHide handler");
+						console.log('dtpicker- Call the onHide handler');
 						func(handler);
 					}
 				}
