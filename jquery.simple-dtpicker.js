@@ -361,14 +361,15 @@
 			return;
 		}
 
-		var date = getPickedDate($picker);
+		var date = getShownDate($picker);
 		var targetMonth_lastDay = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
 		if (targetMonth_lastDay < date.getDate()) {
 			date.setDate(targetMonth_lastDay);
 		}
 		draw($picker, {
 			"isAnim": true,
-			"isOutputToInputObject": true
+			"isOutputToInputObject": false,
+			"keepPickedDate": true
 		}, date.getFullYear(), date.getMonth() - 1, date.getDate(), date.getHours(), date.getMinutes());
 
 		var todayDate = new Date();
@@ -384,14 +385,15 @@
 				newdate = $picker.data("minDate");
 			draw($picker, {
 				"isAnim": true,
-				"isOutputToInputObject": true
+				"isOutputToInputObject": false,
+				"keepPickedDate": true
 			}, newdate.getFullYear(), newdate.getMonth(), newdate.getDate(), newdate.getHours(), newdate.getMinutes());
 		}
 	};
 
 	var nextMonth = function($obj) {
 		var $picker = getParentPickerObject($obj);
-		var date = getPickedDate($picker);
+		var date = getShownDate($picker);
 		var targetMonth_lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
 		if (targetMonth_lastDay < date.getDate()) {
 			date.setDate(targetMonth_lastDay);
@@ -406,7 +408,8 @@
 			newdate = $picker.data("maxDate");
 		draw($picker, {
 			"isAnim": true,
-			"isOutputToInputObject": true
+			"isOutputToInputObject": false,
+			"keepPickedDate": true
 		}, newdate.getFullYear(), newdate.getMonth(), newdate.getDate(), newdate.getHours(), newdate.getMinutes());
 	};
 
@@ -599,6 +602,11 @@
 		}
 	};
 
+	var getShownDate = function($obj) {
+		var $picker = getParentPickerObject($obj);
+		return $picker.data("shownDate");
+	};
+
 	var getPickedDate = function($obj) {
 		var $picker = getParentPickerObject($obj);
 		return $picker.data("pickedDate");
@@ -648,6 +656,8 @@
 		var maxDate = $picker.data("maxDate");
 
 		var isOutputToInputObject = option.isOutputToInputObject;
+		var keepPickedDate = option.keepPickedDate;
+		if (typeof keepPickedDate === "undefined") keepPickedDate = false;
 
 		var minuteInterval = $picker.data("minuteInterval");
 		var firstDayOfWeek = $picker.data("firstDayOfWeek");
@@ -722,7 +732,10 @@
 		}
 
 		/* Save newly date to Picker data */
-		$($picker).data("pickedDate", date);
+		if (keepPickedDate === false) {
+			$($picker).data("pickedDate", date);
+		}
+		$($picker).data("shownDate", date);
 
 		/* Fade-out animation */
 		if (isAnim === true) {
@@ -838,6 +851,8 @@
 		realDayObj.setHours(0);
 		realDayObj.setMinutes(0);
 		realDayObj.setSeconds(0);
+		var pickedDate = getPickedDate($picker);
+		var shownDate = getShownDate($picker);
 		for (var zz = 0; i < cellNum; i++) {
 			var realDay = i + 1 - firstWday;
 
@@ -891,7 +906,7 @@
 			}
 
 			/* Set a special mark class */
-			if (realDay == date.getDate()) { /* selected day */
+			if (shownDate.getFullYear() == pickedDate.getFullYear() && shownDate.getMonth() == pickedDate.getMonth() && realDay == pickedDate.getDate()) { /* selected day */
 				$td.addClass('active');
 			}
 
@@ -1185,10 +1200,10 @@
 		if(! ((opt.maxTime[1] >= 0 ) && (opt.maxTime[1] <24 ))){
 			opt.maxTime[1]="59";
 		}
-		opt.minTime[0]=parseInt(opt.minTime[0]);
-		opt.minTime[1]=parseInt(opt.minTime[1]);
-		opt.maxTime[0]=parseInt(opt.maxTime[0]);
-		opt.maxTime[1]=parseInt(opt.maxTime[1]);
+		opt.minTime[0]=parseInt(opt.minTime[0], 10); // parse as decimal number
+		opt.minTime[1]=parseInt(opt.minTime[1], 10);
+		opt.maxTime[0]=parseInt(opt.maxTime[0], 10);
+		opt.maxTime[1]=parseInt(opt.maxTime[1], 10);
 		$picker.data('minTime', opt.minTime);
 		$picker.data('maxTime', opt.maxTime);
 
@@ -1558,23 +1573,28 @@
   	};
 
 	/* Set event handler to Body element, for hide a floated-picker */
-	$(function(){
-		$('body').click(function(){
-			for(var i=0;i<PickerObjects.length;i++){
+	$(function() {
+		$('body').click(function() {
+			for (var i=0;i<PickerObjects.length;i++) {
 				var $picker = $(PickerObjects[i]);
-				if($picker.data("inputObjectId") != null && $picker.data("isInline") === false && $picker.css('display') != 'none'){
+				if ($picker.data('inputObjectId') != null && !$picker.data('isInline') && $picker.css('display') != 'none') {
 					/* if append input-field && float picker */
+					
+					// Check overlapping of cursor and picker
+					if ($picker.is(':hover')) continue;
+
+					// Check overlapping of cursor and input-field
+					var $input = $(InputObjects[$picker.data('inputObjectId')]);
+					if ($input.is(':focus')) continue;
 
 					// Hide a picker
-					var $input = InputObjects[$picker.data("inputObjectId")];
-					if ($($input).is(':focus')) continue;
 					var handler = new PickerHandler($picker, $input);
 					handler.hide();
 
 					// Call a event-hanlder
 					var func = $picker.data('onHide');
 					if (func != null) {
-						console.log("dtpicker- Call the onHide handler");
+						console.log('dtpicker- Call the onHide handler');
 						func(handler);
 					}
 				}
