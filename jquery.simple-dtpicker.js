@@ -449,7 +449,9 @@
 			// Parse date & time with date-format
 
 			// Match a string with date format
-			var df = opt_date_format.replace(/(-|\/)/g, '[-\/]')
+			var df = opt_date_format.replace(/hh:mm.*/,'(?:$&)?')
+				.replace(/\s/,'\\s?')
+				.replace(/(-|\/)/g, '[-\/]')
 				.replace(/YYYY/gi, '(\\d{2,4})')
 				.replace(/(YY|MM|DD|HH|hh|mm)/g, '(\\d{1,2})')
 				.replace(/(M|D|H|h|m)/g, '(\\d{1,2})')
@@ -505,14 +507,14 @@
 						day = d;
 						is_successful = true;
 					} else if(f == 'hh' || f == 'h'){
-						hour = d;
+						hour = (typeof d != 'undefined') ? d : 0;
 						is_successful = true;
 					} else if(f == 'HH' || f == 'H'){
-						hour = d;
+						hour = (typeof d != 'undefined') ? d : 0;
 						H = true;
 						is_successful = true;
 					} else if(f == 'mm' || f == 'm'){
-						min = d;
+						min = (typeof d != 'undefined') ? d : 0;
 						is_successful = true;
 					} else if(f == 'tt' || f == 'TT'){
 						if(d == 'pm' || d == 'PM'){
