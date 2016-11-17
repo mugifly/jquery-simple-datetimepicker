@@ -396,8 +396,8 @@
 		}, date.getFullYear(), date.getMonth() - 1, date.getDate(), date.getHours(), date.getMinutes());
 
 		var todayDate = new Date();
-		if ($picker.data("futureOnly") && $picker.data("startDate")) {
-			todayDate = new Date($picker.data("startDate"));
+		if ($picker.data("futureOnly") && $picker.data("current")) {
+			todayDate = new Date($picker.data("current"));
 		}
 
 		var isCurrentYear = todayDate.getFullYear() == date.getFullYear();
@@ -704,8 +704,8 @@
 	
 
 		if (isFutureOnly) {
-			if ($picker.data("startDate") {
-				todayDate = new Date($picker.date("startDate"));
+			if ($picker.data("current")) {
+				todayDate = new Date($picker.data("current"));
 			}
 			if (date.getTime() < todayDate.getTime()) { // Already passed
 				date.setTime(todayDate.getTime());
@@ -1192,6 +1192,7 @@
 		$picker.data('onSelect', opt.onSelect);
 		$picker.data('onInit', opt.onInit);
 		$picker.data('allowWdays', opt.allowWdays);
+		$picker.data('current', opt.current);
 
 		if(opt.amPmInTimeList === true){
 			$picker.data('amPmInTimeList', true);
