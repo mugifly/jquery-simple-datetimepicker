@@ -175,7 +175,7 @@
 			days: ['Sv', 'P', 'O', 'T', 'C', 'P', 'S'],
 			months: [ "Jan", "Feb", "Mar", "Apr", "Mai", "Jūn", "Jūl", "Avg", "Sep", "Okt", "Nov", "Dec" ],
 			format: 'DD.MM.YYYY hh:mm'
-		}
+		},
 		lt: {
 			days: ['Pr', 'A', 'T', 'K', 'P', 'Š', 'S'],
 			months: [ "Saus.", "Vas.", "Kovas", "Bal.", "Geg.", "Birž.", "Liepa", "Rugp.", "Rugs.", "Spal.", "Lapkr.", "Gruod." ],
