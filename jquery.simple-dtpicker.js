@@ -161,6 +161,29 @@
 			prevMonth: 'Előző hónap',
 			nextMonth: 'Következő hónap',
 			today: 'Ma'
+		},
+		fa: {
+			days: ['یکشنبه', 'دوشنبه', 'سه شنبه', 'چهارشنبه', 'پنج شنبه', 'جمعه', 'شنبه'],
+			months: [ "ژانویه", "فبریه", "مارچ", "آپریل", "می", "ژوئن", "جولای", "آگوست", "سپتامبر", "اکتبر", "نوامبر", "دسامبر" ],
+			sep: '-',
+			format: 'YYYY-MM-DD hh:mm',
+			prevMonth: 'ماه قبل',
+			nextMonth: 'ماه بعد',
+			today: 'امروز'
+		},
+		lv: {
+			days: ['Sv', 'P', 'O', 'T', 'C', 'P', 'S'],
+			months: [ "Jan", "Feb", "Mar", "Apr", "Mai", "Jūn", "Jūl", "Avg", "Sep", "Okt", "Nov", "Dec" ],
+			format: 'DD.MM.YYYY hh:mm'
+		}
+		lt: {
+			days: ['Pr', 'A', 'T', 'K', 'P', 'Š', 'S'],
+			months: [ "Saus.", "Vas.", "Kovas", "Bal.", "Geg.", "Birž.", "Liepa", "Rugp.", "Rugs.", "Spal.", "Lapkr.", "Gruod." ],
+			sep: '-',
+			format: 'YYYY-MM-DD hh:mm',
+			prevMonth: 'Praeitas mėnesis',
+			nextMonth: 'Sekantis mėnesis',
+			today: 'Šiandien'
 		}
 	};
 	/* ----- */
