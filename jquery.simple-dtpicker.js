@@ -396,6 +396,10 @@
 		}, date.getFullYear(), date.getMonth() - 1, date.getDate(), date.getHours(), date.getMinutes());
 
 		var todayDate = new Date();
+		if ($picker.data("futureOnly") && $picker.data("startDate")) {
+			todayDate = new Date($picker.data("startDate"));
+		}
+
 		var isCurrentYear = todayDate.getFullYear() == date.getFullYear();
 		var isCurrentMonth = isCurrentYear && todayDate.getMonth() == date.getMonth();
 
@@ -697,7 +701,12 @@
 
 		/* Check a specified date */
 		var todayDate = new Date();
+	
+
 		if (isFutureOnly) {
+			if ($picker.data("startDate") {
+				todayDate = new Date($picker.date("startDate"));
+			}
 			if (date.getTime() < todayDate.getTime()) { // Already passed
 				date.setTime(todayDate.getTime());
 			}
