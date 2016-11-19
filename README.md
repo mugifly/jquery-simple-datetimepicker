@@ -12,7 +12,10 @@ You can send requests and bug reports as [Issues on GitHub](https://github.com/m
 
 ## Requirements
 
+This plugin requires these either version of jQuery.
+
 * jQuery 1.7.2 or later
+* jQuery 2.x
 
 ## For users
 

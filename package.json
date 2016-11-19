@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/mugifly/jquery-simple-datetimepicker",
   "dependencies": {
-    "jquery": ">=1.7.2"
+    "jquery": "^2.1.4"
   },
   "devDependencies": {
     "express": "^4.13.3",
