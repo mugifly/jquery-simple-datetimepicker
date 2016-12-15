@@ -386,14 +386,6 @@
 
 		var date = getShownDate($picker);
 		var targetMonth_lastDay = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
-		if (targetMonth_lastDay < date.getDate()) {
-			date.setDate(targetMonth_lastDay);
-		}
-		draw($picker, {
-			"isAnim": true,
-			"isOutputToInputObject": false,
-			"keepPickedDate": true
-		}, date.getFullYear(), date.getMonth() - 1, date.getDate(), date.getHours(), date.getMinutes());
 
 		var todayDate = new Date();
 		if ($picker.data("futureOnly") && $picker.data("current")) {
@@ -403,19 +395,17 @@
 		var isCurrentYear = todayDate.getFullYear() == date.getFullYear();
 		var isCurrentMonth = isCurrentYear && todayDate.getMonth() == date.getMonth();
 
-		if (!isCurrentMonth || !$picker.data("futureOnly")) {
-			if (targetMonth_lastDay < date.getDate()) {
-				date.setDate(targetMonth_lastDay);
-			}
-			var newdate = new Date(date.getFullYear(), date.getMonth() - 1, date.getDate(), date.getHours(), date.getMinutes());
-			if ($picker.data("minDate") && newdate < $picker.data("minDate"))
-				newdate = $picker.data("minDate");
-			draw($picker, {
-				"isAnim": true,
-				"isOutputToInputObject": false,
-				"keepPickedDate": true
-			}, newdate.getFullYear(), newdate.getMonth(), newdate.getDate(), newdate.getHours(), newdate.getMinutes());
+		if (targetMonth_lastDay < date.getDate()) {
+			date.setDate(targetMonth_lastDay);
 		}
+		var newdate = new Date(date.getFullYear(), date.getMonth() - 1, date.getDate(), date.getHours(), date.getMinutes());
+		if ($picker.data("minDate") && newdate < $picker.data("minDate"))
+			newdate = $picker.data("minDate");
+		draw($picker, {
+			"isAnim": true,
+			"isOutputToInputObject": false,
+			"keepPickedDate": true
+		}, newdate.getFullYear(), newdate.getMonth(), newdate.getDate(), newdate.getHours(), newdate.getMinutes());
 	};
 
 	var nextMonth = function($obj) {
@@ -701,7 +691,7 @@
 
 		/* Check a specified date */
 		var todayDate = new Date();
-	
+
 
 		if (isFutureOnly) {
 			if ($picker.data("current")) {
@@ -1614,7 +1604,7 @@
 				var $picker = $(PickerObjects[i]);
 				if ($picker.data('inputObjectId') != null && !$picker.data('isInline') && $picker.css('display') != 'none') {
 					/* if append input-field && float picker */
-					
+
 					// Check overlapping of cursor and picker
 					if ($picker.is(':hover')) continue;
 
