@@ -184,6 +184,15 @@
 			prevMonth: 'Praeitas mėnesis',
 			nextMonth: 'Sekantis mėnesis',
 			today: 'Šiandien'
+		},
+		is: {
+			days: ['Su', 'Má', 'Þr', 'Mi', 'Fi', 'Fö', 'La'],
+			months: [ "Jan", "Feb", "Mar", "Apr", "Maí", "Jún", "Júl", "Ágú", "Sep", "Okt", "Nóv", "Des" ],
+			sep: '-',
+			format: 'YYYY-MM-DD hh:mm',
+			prevMonth: 'Fyrri mánuður',
+			nextMonth: 'Næsti mánuður',
+			today: 'Í dag'
 		}
 	};
 	/* ----- */
