@@ -731,7 +731,7 @@
 			}
 		}
 		if(allowHoursRange != null) {
-			dateZeroHours = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0,0,0),
+			dateZeroHours = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0,0,0);
 			diff = (date.getTime() - dateZeroHours.getTime()) / 1000 / 60;
 			if (diff < allowHoursRange[0]) {
 				date.setTime(new Date(dateZeroHours.getTime() + allowHoursRange[0] * 1000 * 60));
