@@ -1061,7 +1061,7 @@
 				var time_in_minutes = hour_ * 60 + min_;
 				var is_past_time = hour_ < todayDate.getHours() || (hour_ == todayDate.getHours() && min_ < todayDate.getMinutes());
 				var is_past = isCurrentDay && is_past_time;
-				var is_notallowed = time_in_minutes < allowHoursRange[0] || time_in_minutes > allowHoursRange[1];
+				var is_notallowed = (allowHoursRange != null) && (time_in_minutes < allowHoursRange[0] || time_in_minutes > allowHoursRange[1]);
 
 				$o.addClass('timelist_item');
 				var oText = "";
