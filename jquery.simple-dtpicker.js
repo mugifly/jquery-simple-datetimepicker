@@ -862,8 +862,10 @@
 
 		/* Calendar > Table ----- */
 		$table.children().remove();
+		var $thead = $('<thead>');
+        	$table.append($thead).children("thead");
 		var $tr = $('<tr>');
-		$table.append($tr);
+		$thead.append($tr);
 
 		/* Output wday cells */
 		var firstDayDiff = 7 + firstDayOfWeek;
@@ -887,6 +889,8 @@
 		realDayObj.setSeconds(0);
 		var pickedDate = getPickedDate($picker);
 		var shownDate = getShownDate($picker);
+		var $tbody = $('<tbody>');
+        	$table.append($tbody).children("tbody");
 		for (var zz = 0; i < cellNum; i++) {
 			var realDay = i + 1 - firstWday;
 
@@ -896,7 +900,7 @@
 
 			if (i % 7 === 0) {
 				$tr = $('<tr>');
-				$table.append($tr);
+				$tbody.append($tr);
 			}
 
 			$td = $('<td>');
