@@ -862,10 +862,8 @@
 
 		/* Calendar > Table ----- */
 		$table.children().remove();
-		var $thead = $('<thead>');
-        	$table.append($thead).children("thead");
 		var $tr = $('<tr>');
-		$thead.append($tr);
+		$table.append($tr);
 
 		/* Output wday cells */
 		var firstDayDiff = 7 + firstDayOfWeek;
