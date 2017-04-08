@@ -1,6 +1,6 @@
 /**
 * jquery-simple-datetimepicker (jquery.simple-dtpicker.js)
-* v1.13.0
+* v1.13.2
 * (c) Masanori Ohgita.
 * https://github.com/mugifly/jquery-simple-datetimepicker
 **/
@@ -368,13 +368,38 @@
 		return null;
 	};
 
-	var setToNow = function($obj) {
-		var $picker = getParentPickerObject($obj);
-		var date = new Date();
+	var setToNow = function ($obj) {
+        	var $picker = getParentPickerObject($obj);
+        	var date = new Date();
+        	var year, month, day, hour, minute;
+
+        	// compare timestamps
+        	if ($picker.data('minDate') !== null && date < $picker.data('minDate')) {
+            		var minDate = new Date($picker.data('minDate'));
+            		year = minDate.getFullYear();
+            		month = minDate.getMonth();
+            		day = minDate.getDate();
+            		hour = minDate.getHours();
+            		minute = minDate.getMinutes();
+        	} else if ($picker.data('maxDate') !== null && date > $picker.data('maxDate')) {
+            		var maxDate = new Date($picker.data('maxDate'));
+            		year = maxDate.getFullYear();
+            		month = maxDate.getMonth();
+            		day = maxDate.getDate();
+            		hour = maxDate.getHours();
+            		minute = maxDate.getMinutes();
+        	} else {
+            		year = date.getFullYear();
+            		month = date.getMonth();
+            		day = date.getDate();
+            		hour = date.getHours();
+            		minute = date.getMinutes();
+        	}
+		
 		draw($picker, {
 			"isAnim": true,
 			"isOutputToInputObject": true
-		}, date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes());
+		}, year, month, day, hour, minute);
 	};
 
 	var beforeMonth = function($obj) {
