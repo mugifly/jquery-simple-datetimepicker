@@ -981,7 +981,7 @@
 					var $input = $(this);
 					var handler = new PickerHandler($picker, $input);
 
-					// Call a event-hanlder for onSelect
+					// Call a event-handler for onSelect
 					var func = $picker.data('onSelect');
 					if (func != null) {
 						func(handler, targetDate);
@@ -1083,7 +1083,13 @@
 							"isAnim": false,
 							"isOutputToInputObject": true
 						}, date.getFullYear(), date.getMonth(), date.getDate(), hour, min);
-
+						// Call a event-handler for onSelect
+						var func = $picker.data('onSelect');
+						if (func != null) {
+							var $input = $(this);
+							var handler = new PickerHandler($picker, $input);
+							func(handler, getPickedDate($picker));
+						}
 						if ($picker.data("isInline") === false && $picker.data("closeOnSelected")){
 							// Close a picker
 							ActivePickerId = -1;
