@@ -338,7 +338,7 @@
 				$picker.parent().css('top', ($input.offset().top + input_outer_height) + 'px');
 			}
 			// Move position of a picker - horizontal
-			if($picker.parent().width() + $input.offset().left > $(window).width()) {
+			if($picker.parent().width() + $input.offset().left > $(window).width() && $picker.data('timeOnly') !== true) {
 				// Display left side stick to window
 				$picker.parent().css('left', (($(window).width() - $picker.parent().width()) / 2) + 'px');
 			} else {
@@ -701,7 +701,7 @@
 
 		/* Check a specified date */
 		var todayDate = new Date();
-	
+
 
 		if (isFutureOnly) {
 			if ($picker.data("current")) {
@@ -803,6 +803,7 @@
 			$link_before_month.text('<');
 			$link_before_month.prop('alt', translate(locale,'prevMonth'));
 			$link_before_month.prop('title', translate(locale,'prevMonth') );
+			$link_before_month.prop('class', "before-month");
 			$link_before_month.click(function() {
 				beforeMonth($picker);
 			});
@@ -826,6 +827,7 @@
 			$link_next_month.text('>');
 			$link_next_month.prop('alt', translate(locale,'nextMonth'));
 			$link_next_month.prop('title', translate(locale,'nextMonth'));
+			$link_next_month.prop('class', "next-month");
 			$link_next_month.click(function() {
 				nextMonth($picker);
 			});
@@ -1609,14 +1611,21 @@
 
 	/* Set event handler to Body element, for hide a floated-picker */
 	$(function() {
-		$('body').click(function() {
+		$('body').click(function(e) {
 			for (var i=0;i<PickerObjects.length;i++) {
 				var $picker = $(PickerObjects[i]);
-				if ($picker.data('inputObjectId') != null && !$picker.data('isInline') && $picker.css('display') != 'none') {
+				if ($picker.data('inputObjectId') != null
+						&& !$picker.data('isInline')
+						&& $picker.css('display') != 'none'
+						&& !$(e.target).is('.datepicker')
+						&& !$(e.target).is('.datepicker_header')
+						&& !$(e.target).is('.next-month')
+						&& !$(e.target).is('.before-month')
+						&& !$(e.target).is('.icon-home')) {
 					/* if append input-field && float picker */
-					
+
 					// Check overlapping of cursor and picker
-					if ($picker.is(':hover')) continue;
+					if ($picker.hasClass('hover')) continue;
 
 					// Check overlapping of cursor and input-field
 					var $input = $(InputObjects[$picker.data('inputObjectId')]);
