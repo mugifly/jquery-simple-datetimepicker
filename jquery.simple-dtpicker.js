@@ -1614,14 +1614,7 @@
 		$('body').click(function(e) {
 			for (var i=0;i<PickerObjects.length;i++) {
 				var $picker = $(PickerObjects[i]);
-				if ($picker.data('inputObjectId') != null
-						&& !$picker.data('isInline')
-						&& $picker.css('display') != 'none'
-						&& !$(e.target).is('.datepicker')
-						&& !$(e.target).is('.datepicker_header')
-						&& !$(e.target).is('.next-month')
-						&& !$(e.target).is('.before-month')
-						&& !$(e.target).is('.icon-home')) {
+				if ($picker.data('inputObjectId') != null && !$picker.data('isInline') && $picker.css('display') != 'none' && !$(e.target).is('.datepicker') && !$(e.target).is('.datepicker_header') && !$(e.target).is('.next-month') && !$(e.target).is('.before-month') && !$(e.target).is('.icon-home')) {
 					/* if append input-field && float picker */
 
 					// Check overlapping of cursor and picker
