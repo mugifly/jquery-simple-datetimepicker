@@ -1,6 +1,6 @@
 /**
  * jquery-simple-datetimepicker (jquery.simple-dtpicker.js)
- * v1.13.3
+ * v1.13.4
  * (c) Masanori Ohgita.
  * https://github.com/mugifly/jquery-simple-datetimepicker
  **/
@@ -1294,7 +1294,7 @@
         /* Set event-handler to calendar */
         if (opt.calendarMouseScroll) {
             if (window.sidebar) { // Mozilla Firefox
-                $calendar.bind('DOMMouseScroll', function (e) { // Change a month with mouse wheel scroll for Fx
+                $calendar.on('DOMMouseScroll', function (e) { // Change a month with mouse wheel scroll for Fx
                     var $picker = getParentPickerObject($(this));
 
                     // up,left [delta < 0] down,right [delta > 0]
@@ -1320,7 +1320,7 @@
                     return false;
                 });
             } else { // Other browsers
-                $calendar.bind('mousewheel', function (e) { // Change a month with mouse wheel scroll
+                $calendar.on('mousewheel', function (e) { // Change a month with mouse wheel scroll
                     var $picker = getParentPickerObject($(this));
                     // up [delta > 0] down [delta < 0]
                     if (e.originalEvent.wheelDelta / 120 > 0) {
@@ -1525,7 +1525,7 @@
             }
 
             // Set an event handler for removing of an input-field
-            $(input).bind('destroyed', function () {
+            $(input).on('destroyed', function () {
                 var $input = $(this);
                 var $picker = $(PickerObjects[$input.data('pickerId')]);
                 // Generate the handler of a picker
