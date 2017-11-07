@@ -701,7 +701,7 @@
 
 		/* Check a specified date */
 		var todayDate = new Date();
-	
+
 
 		if (isFutureOnly) {
 			if ($picker.data("current")) {
@@ -981,7 +981,7 @@
 					var $input = $(this);
 					var handler = new PickerHandler($picker, $input);
 
-					// Call a event-hanlder for onSelect
+					// Call a event-handler for onSelect
 					var func = $picker.data('onSelect');
 					if (func != null) {
 						func(handler, targetDate);
@@ -1036,7 +1036,7 @@
 			var hour_ = minTime[0];
 			var min_ = minTime[1];
 
-			while( hour_*100+min_ < maxTime[0]*100+maxTime[1] ){
+			while (hour_*100+min_ < maxTime[0]*100+maxTime[1]) {
 
 				var $o = $('<div>');
 				var is_past_time = hour_ < todayDate.getHours() || (hour_ == todayDate.getHours() && min_ < todayDate.getMinutes());
@@ -1073,21 +1073,30 @@
 						if ($(this).hasClass('hover')) {
 							$(this).removeClass('hover');
 						}
+
 						$(this).addClass('active');
 
 						var $picker = getParentPickerObject($(this));
 						var date = getPickedDate($picker);
 						var hour = $(this).data("hour");
 						var min = $(this).data("min");
+
 						draw($picker, {
 							"isAnim": false,
 							"isOutputToInputObject": true
 						}, date.getFullYear(), date.getMonth(), date.getDate(), hour, min);
 
-						if ($picker.data("isInline") === false && $picker.data("closeOnSelected")){
+						if ($picker.data("isInline") === false && $picker.data("closeOnSelected")) {
 							// Close a picker
 							ActivePickerId = -1;
 							$picker.hide();
+						}
+
+						var func = $picker.data('onSelectTime');
+						if (func != null) {
+							var selectedDateWithTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), hour, min, 0, 0);
+							var stringTime = hour + ":" + min;
+							func(selectedDateWithTime, stringTime);
 						}
 					});
 
@@ -1190,6 +1199,7 @@
 		$picker.data('onShow', opt.onShow);
 		$picker.data('onHide', opt.onHide);
 		$picker.data('onSelect', opt.onSelect);
+		$picker.data('onSelectTime', opt.onSelectTime);
 		$picker.data('onInit', opt.onInit);
 		$picker.data('allowWdays', opt.allowWdays);
 		$picker.data('current', opt.current);
@@ -1336,6 +1346,7 @@
 			"onShow": null,
 			"onHide": null,
 			"onSelect": null,
+			"onSelectTime": null,
 			"allowWdays": null,
 			"amPmInTimeList": false,
 			"externalLocale": null
@@ -1614,7 +1625,7 @@
 				var $picker = $(PickerObjects[i]);
 				if ($picker.data('inputObjectId') != null && !$picker.data('isInline') && $picker.css('display') != 'none') {
 					/* if append input-field && float picker */
-					
+
 					// Check overlapping of cursor and picker
 					if ($picker.is(':hover')) continue;
 
