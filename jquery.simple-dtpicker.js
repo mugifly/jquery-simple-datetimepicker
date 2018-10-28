@@ -43,12 +43,8 @@
 			format: 'DD/MM/YYYY hh:mm'
 		},
 		pt: {
-			days: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
-			months: [ "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" ],
-			format: 'DD-MM-YYYY hh:mm',
-			prevMonth: 'Anterior',
-			nextMonth: 'Próximo',
-			today: 'Hoje'
+			days: ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'],
+			months: [ "janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro" ]
 		},
 		cn: {
 			days: ['日', '一', '二', '三', '四', '五', '六'],
@@ -699,11 +695,6 @@
 			allowWdays = null;
 		}
 
-		var allowHoursRange = $picker.data("allowHoursRange");
-		if (allowHoursRange == null || isObj('Array', allowHoursRange) === false || allowHoursRange.length != 2) {
-			allowHoursRange = null;
-		}
-
 		var minTime = $picker.data("minTime");
 		var maxTime = $picker.data("maxTime");
 
@@ -727,16 +718,6 @@
 				} else {
 					break;
 				}
-			}
-		}
-		if(allowHoursRange != null) {
-			dateZeroHours = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0,0,0);
-			diff = (date.getTime() - dateZeroHours.getTime()) / 1000 / 60;
-			if (diff < allowHoursRange[0]) {
-				date.setTime(new Date(dateZeroHours.getTime() + allowHoursRange[0] * 1000 * 60));
-			}
-			if (diff > allowHoursRange[1]) {
-				date.setTime(new Date(dateZeroHours.getTime() + allowHoursRange[1] * 1000 * 60));
 			}
 		}
 
@@ -1057,10 +1038,8 @@
 			while( hour_*100+min_ < maxTime[0]*100+maxTime[1] ){
 
 				var $o = $('<div>');
-				var time_in_minutes = hour_ * 60 + min_;
 				var is_past_time = hour_ < todayDate.getHours() || (hour_ == todayDate.getHours() && min_ < todayDate.getMinutes());
 				var is_past = isCurrentDay && is_past_time;
-				var is_notallowed = (allowHoursRange != null) && (time_in_minutes < allowHoursRange[0] || time_in_minutes > allowHoursRange[1]);
 
 				$o.addClass('timelist_item');
 				var oText = "";
@@ -1075,15 +1054,13 @@
 				$o.data("hour", hour_);
 				$o.data("min", min_);
 
-				if(!is_notallowed) {
-					$timelist.append($o);
-				}
+				$timelist.append($o);
 
 				realDayObj.setHours(hour_);
 				realDayObj.setMinutes(min_);
 
 				if (
-					((minDate != null) && (minDate > realDayObj.getTime())) || ((maxDate != null) && (maxDate < realDayObj.getTime())) || is_notallowed
+					((minDate != null) && (minDate > realDayObj.getTime())) || ((maxDate != null) && (maxDate < realDayObj.getTime()))
 				) { // Out of range cell
 					$o.addClass('out_of_range');
 				} else if (isFutureOnly && is_past) { // Past cell
@@ -1237,7 +1214,7 @@
 		}
 		$picker.data("state", 0);
 
-		if( 5 <= opt.minuteInterval && opt.minuteInterval <= 60 ){
+		if( 5 <= opt.minuteInterval && opt.minuteInterval <= 30 ){
 			$picker.data("minuteInterval", opt.minuteInterval);
 		} else {
 			$picker.data("minuteInterval", 30);
@@ -1359,7 +1336,6 @@
 			"onHide": null,
 			"onSelect": null,
 			"allowWdays": null,
-			"allowHoursRange": null,
 			"amPmInTimeList": false,
 			"externalLocale": null
 		};
