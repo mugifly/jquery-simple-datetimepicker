@@ -5,11 +5,13 @@
  * https://github.com/mugifly/jquery-simple-datetimepicker
  **/
 
-(function ($) {
+(function($) {
     var lang = {
         en: {
             days: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-            months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug",
+                "Sep", "Oct", "Nov", "Dec"
+            ],
             sep: '-',
             format: 'YYYY-MM-DD hh:mm',
             prevMonth: 'Previous month',
@@ -18,7 +20,9 @@
         },
         ro: {
             days: ['Dum', 'Lun', 'Mar', 'Mie', 'Joi', 'Vin', 'Sâm'],
-            months: ['Ian', 'Feb', 'Mar', 'Apr', 'Mai', 'Iun', 'Iul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            months: ['Ian', 'Feb', 'Mar', 'Apr', 'Mai', 'Iun', 'Iul', 'Aug',
+                'Sep', 'Oct', 'Nov', 'Dec'
+            ],
             sep: '.',
             format: 'DD.MM.YYYY hh:mm',
             prevMonth: 'Luna precedentă',
@@ -28,31 +32,45 @@
 
         ja: {
             days: ['日', '月', '火', '水', '木', '金', '土'],
-            months: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
+            months: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10",
+                "11", "12"
+            ],
             sep: '/',
             format: 'YYYY/MM/DD hh:mm'
         },
         ru: {
             days: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-            months: ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"],
+            months: ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг",
+                "Сен", "Окт", "Ноя", "Дек"
+            ],
             format: 'DD.MM.YYYY hh:mm'
         },
         br: {
             days: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
-            months: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+            months: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+                "Julho", "Agosto", "Setembro", "Outubro", "Novembro",
+                "Dezembro"
+            ],
             format: 'DD/MM/YYYY hh:mm'
         },
         pt: {
             days: ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'],
-            months: ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"]
+            months: ["janeiro", "fevereiro", "março", "abril", "maio", "junho",
+                "julho", "agosto", "setembro", "outubro", "novembro",
+                "dezembro"
+            ]
         },
         cn: {
             days: ['日', '一', '二', '三', '四', '五', '六'],
-            months: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"]
+            months: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月",
+                "十一月", "十二月"
+            ]
         },
         da: {
             days: ['Sø', 'Ma', 'Ti', 'On', 'To', 'Fr', 'Lø'],
-            months: ["Jan", "Feb", "Mar", "Apr", "Maj", "Juni", "Juli", "Aug", "Sept", "Okt", "Nov", "Dec"],
+            months: ["Jan", "Feb", "Mar", "Apr", "Maj", "Juni", "Juli", "Aug",
+                "Sept", "Okt", "Nov", "Dec"
+            ],
             sep: '-',
             format: 'DD-MM-YYYY hh:mm',
             prevMonth: 'Forrige måned',
@@ -61,34 +79,48 @@
         },
         de: {
             days: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
-            months: ["Jan", "Feb", "März", "Apr", "Mai", "Juni", "Juli", "Aug", "Sept", "Okt", "Nov", "Dez"],
+            months: ["Jan", "Feb", "März", "Apr", "Mai", "Juni", "Juli", "Aug",
+                "Sept", "Okt", "Nov", "Dez"
+            ],
             format: 'DD.MM.YYYY hh:mm'
         },
         sv: {
             days: ['Sö', 'Må', 'Ti', 'On', 'To', 'Fr', 'Lö'],
-            months: ["Jan", "Feb", "Mar", "Apr", "Maj", "Juni", "Juli", "Aug", "Sept", "Okt", "Nov", "Dec"]
+            months: ["Jan", "Feb", "Mar", "Apr", "Maj", "Juni", "Juli", "Aug",
+                "Sept", "Okt", "Nov", "Dec"
+            ]
         },
         id: {
             days: ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'],
-            months: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"]
+            months: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu",
+                "Sep", "Okt", "Nov", "Des"
+            ]
         },
         it: {
             days: ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'],
-            months: ["Gen", "Feb", "Mar", "Apr", "Mag", "Giu", "Lug", "Ago", "Set", "Ott", "Nov", "Dic"],
+            months: ["Gen", "Feb", "Mar", "Apr", "Mag", "Giu", "Lug", "Ago",
+                "Set", "Ott", "Nov", "Dic"
+            ],
             format: 'DD/MM/YYYY hh:mm'
         },
         tr: {
             days: ['Pz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cu', 'Cts'],
-            months: ["Ock", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Agu", "Eyl", "Ekm", "Kas", "Arlk"]
+            months: ["Ock", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Agu",
+                "Eyl", "Ekm", "Kas", "Arlk"
+            ]
         },
         es: {
             days: ['dom', 'lun', 'mar', 'miér', 'jue', 'vie', 'sáb'],
-            months: ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"],
+            months: ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago",
+                "sep", "oct", "nov", "dic"
+            ],
             format: 'DD/MM/YYYY hh:mm'
         },
         ko: {
             days: ['일', '월', '화', '수', '목', '금', '토'],
-            months: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
+            months: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10",
+                "11", "12"
+            ],
             sep: '/',
             prevMonth: '이전 달',
             nextMonth: '다음 달',
@@ -96,12 +128,16 @@
         },
         nl: {
             days: ['zo', 'ma', 'di', 'wo', 'do', 'vr', 'za'],
-            months: ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec"],
+            months: ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug",
+                "sep", "okt", "nov", "dec"
+            ],
             format: 'DD-MM-YYYY hh:mm'
         },
         no: {
             days: ['Søn', 'Man', 'Tir', 'Ons', 'Tor', 'Fre', 'Lør'],
-            months: ["Jan", "Feb", "Mar", "Apr", "Mi", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Des"],
+            months: ["Jan", "Feb", "Mar", "Apr", "Mi", "Jun", "Jul", "Aug", "Sep",
+                "Okt", "Nov", "Des"
+            ],
             sep: '.',
             format: 'YYYY-MM-DD hh:mm',
             prevMonth: 'Forrige Måned',
@@ -110,17 +146,25 @@
         },
         cz: {
             days: ['Ne', 'Po', 'Út', 'St', 'Čt', 'Pá', 'So'],
-            months: ["Led", "Úno", "Bře", "Dub", "Kvě", "Čer", "Čvc", "Srp", "Zář", "Říj", "Lis", "Pro"],
+            months: ["Led", "Úno", "Bře", "Dub", "Kvě", "Čer", "Čvc", "Srp",
+                "Zář", "Říj", "Lis", "Pro"
+            ],
             format: 'DD.MM.YYYY hh:mm'
         },
         fr: {
             days: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
-            months: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
+            months: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
+                "Juillet", "Août", "Septembre", "Octobre", "Novembre",
+                "Décembre"
+            ],
             format: 'DD-MM-YYYY hh:mm'
         },
         pl: {
             days: ['N', 'Pn', 'Wt', 'Śr', 'Cz', 'Pt', 'So'],
-            months: ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"],
+            months: ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec",
+                "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad",
+                "Grudzień"
+            ],
             sep: '-',
             format: 'YYYY-MM-DD hh:mm',
             prevMonth: 'Poprzedni miesiąc',
@@ -129,7 +173,9 @@
         },
         gr: {
             days: ['Κυ', 'Δε', 'Τρ', 'Τε', 'Πε', 'Πα', 'Σα'],
-            months: ["Ιαν", "Φεβ", "Μαρ", "Απρ", "Μαϊ", "Ιουν", "Ιουλ", "Αυγ", "Σεπ", "Οκτ", "Νοε", "Δεκ"],
+            months: ["Ιαν", "Φεβ", "Μαρ", "Απρ", "Μαϊ", "Ιουν", "Ιουλ", "Αυγ",
+                "Σεπ", "Οκτ", "Νοε", "Δεκ"
+            ],
             sep: '-',
             format: 'DD-MM-YYYY hh:mm',
             prevMonth: 'Προηγ. μήνας',
@@ -137,8 +183,13 @@
             today: 'Σήμερα'
         },
         ua: {
-            days: ["Неділя", "Понеділок", "Вівторок", "Cереда", "Четвер", "П'ятниця", "Субота"],
-            months: ["Cічень", "Лютий", "Березень", "Квітень", "Травень", "Червня", "Липня", "Серпня", "Вересня", "Жовтень", "Листопада", "Грудня"],
+            days: ["Неділя", "Понеділок", "Вівторок", "Cереда", "Четвер",
+                "П'ятниця", "Субота"
+            ],
+            months: ["Cічень", "Лютий", "Березень", "Квітень", "Травень",
+                "Червня", "Липня", "Серпня", "Вересня", "Жовтень",
+                "Листопада", "Грудня"
+            ],
             format: 'YYYY-MM-DD hh:mm',
             prevMonth: 'Попередній місяць',
             nextMonth: 'Наступний місяць',
@@ -146,7 +197,9 @@
         },
         et: {
             days: ['P', 'E', 'T', 'K', 'N', 'R', 'L'],
-            months: ["Jaan", "Veebr", "Märts", "Apr", "Mai", "Juun", "Juul", "Aug", "Sept", "Okt", "Nov", "Dets"],
+            months: ["Jaan", "Veebr", "Märts", "Apr", "Mai", "Juun", "Juul",
+                "Aug", "Sept", "Okt", "Nov", "Dets"
+            ],
             sep: '.',
             format: 'DD.MM.YYYY hh:mm',
             prevMonth: 'Eelmine kuu',
@@ -155,7 +208,9 @@
         },
         hu: {
             days: ['Va', 'Hé', 'Ke', 'Sze', 'Cs', 'Pé', 'Szo'],
-            months: ["Jan", "Feb", "Már", "Ápr", "Máj", "Jún", "Júl", "Aug", "Szep", "Okt", "Nov", "Dec"],
+            months: ["Jan", "Feb", "Már", "Ápr", "Máj", "Jún", "Júl", "Aug",
+                "Szep", "Okt", "Nov", "Dec"
+            ],
             sep: '-',
             format: 'YYYY-MM-DD hh:mm:00',
             prevMonth: 'Előző hónap',
@@ -163,8 +218,12 @@
             today: 'Ma'
         },
         fa: {
-            days: ['یکشنبه', 'دوشنبه', 'سه شنبه', 'چهارشنبه', 'پنج شنبه', 'جمعه', 'شنبه'],
-            months: ["ژانویه", "فبریه", "مارچ", "آپریل", "می", "ژوئن", "جولای", "آگوست", "سپتامبر", "اکتبر", "نوامبر", "دسامبر"],
+            days: ['یکشنبه', 'دوشنبه', 'سه شنبه', 'چهارشنبه', 'پنج شنبه', 'جمعه',
+                'شنبه'
+            ],
+            months: ["ژانویه", "فبریه", "مارچ", "آپریل", "می", "ژوئن", "جولای",
+                "آگوست", "سپتامبر", "اکتبر", "نوامبر", "دسامبر"
+            ],
             sep: '-',
             format: 'YYYY-MM-DD hh:mm',
             prevMonth: 'ماه قبل',
@@ -173,12 +232,16 @@
         },
         lv: {
             days: ['Sv', 'P', 'O', 'T', 'C', 'P', 'S'],
-            months: ["Jan", "Feb", "Mar", "Apr", "Mai", "Jūn", "Jūl", "Avg", "Sep", "Okt", "Nov", "Dec"],
+            months: ["Jan", "Feb", "Mar", "Apr", "Mai", "Jūn", "Jūl", "Avg",
+                "Sep", "Okt", "Nov", "Dec"
+            ],
             format: 'DD.MM.YYYY hh:mm'
         },
         lt: {
             days: ['Pr', 'A', 'T', 'K', 'P', 'Š', 'S'],
-            months: ["Saus.", "Vas.", "Kovas", "Bal.", "Geg.", "Birž.", "Liepa", "Rugp.", "Rugs.", "Spal.", "Lapkr.", "Gruod."],
+            months: ["Saus.", "Vas.", "Kovas", "Bal.", "Geg.", "Birž.", "Liepa",
+                "Rugp.", "Rugs.", "Spal.", "Lapkr.", "Gruod."
+            ],
             sep: '-',
             format: 'YYYY-MM-DD hh:mm',
             prevMonth: 'Praeitas mėnesis',
@@ -191,23 +254,23 @@
     /**
      PickerHandler Object
      **/
-    var PickerHandler = function ($picker, $input) {
+    var PickerHandler = function($picker, $input) {
         this.$pickerObject = $picker;
         this.$inputObject = $input;
     };
 
     /* Get a picker */
-    PickerHandler.prototype.getPicker = function () {
+    PickerHandler.prototype.getPicker = function() {
         return this.$pickerObject;
     };
 
     /* Get a input-field */
-    PickerHandler.prototype.getInput = function () {
+    PickerHandler.prototype.getInput = function() {
         return this.$inputObject;
     };
 
     /* Get the display state of a picker */
-    PickerHandler.prototype.isShow = function () {
+    PickerHandler.prototype.isShow = function() {
         var is_show = true;
         if (this.$pickerObject.css('display') == 'none') {
             is_show = false;
@@ -216,7 +279,7 @@
     };
 
     /* Show a picker */
-    PickerHandler.prototype.show = function () {
+    PickerHandler.prototype.show = function() {
         var $picker = this.$pickerObject;
         var $input = this.$inputObject;
 
@@ -231,21 +294,21 @@
     };
 
     /* Hide a picker */
-    PickerHandler.prototype.hide = function () {
+    PickerHandler.prototype.hide = function() {
         var $picker = this.$pickerObject;
         var $input = this.$inputObject;
         $picker.hide();
     };
 
     /* Get a selected date from a picker */
-    PickerHandler.prototype.getDate = function () {
+    PickerHandler.prototype.getDate = function() {
         var $picker = this.$pickerObject;
         var $input = this.$inputObject;
         return getPickedDate($picker);
     };
 
     /* Set a specific date to a picker */
-    PickerHandler.prototype.setDate = function (date) {
+    PickerHandler.prototype.setDate = function(date) {
         var $picker = this.$pickerObject;
         var $input = this.$inputObject;
         if (!isObj('Date', date)) {
@@ -259,7 +322,7 @@
     };
 
     /* Set a specific min date to a picker and redraw */
-    PickerHandler.prototype.setMinDate = function (date) {
+    PickerHandler.prototype.setMinDate = function(date) {
         var $picker = this.$pickerObject;
         var $input = this.$inputObject;
         if (!isObj('Date', date)) {
@@ -281,7 +344,7 @@
     };
 
     /* Set a specific max date to a picker and redraw */
-    PickerHandler.prototype.setMaxDate = function (date) {
+    PickerHandler.prototype.setMaxDate = function(date) {
         var $picker = this.$pickerObject;
         var $input = this.$inputObject;
         if (!isObj('Date', date)) {
@@ -303,7 +366,7 @@
     };
 
     /* Destroy a picker */
-    PickerHandler.prototype.destroy = function () {
+    PickerHandler.prototype.destroy = function() {
         var $picker = this.$pickerObject;
         var picker_id = $picker.data('pickerId');
         PickerObjects[picker_id] = null;
@@ -311,36 +374,46 @@
     };
 
     /* Relocate a picker to position of the appended input-field. */
-    PickerHandler.prototype._relocate = function () {
+    PickerHandler.prototype._relocate = function() {
         var $picker = this.$pickerObject;
         var $input = this.$inputObject;
 
         if ($input != null && $picker.data('isInline') === false) { // Float mode
             // Move position of a picker - vertical
-            var input_outer_height = $input.outerHeight({'margin': true});
+            var input_outer_height = $input.outerHeight({
+                'margin': true
+            });
             if (!isObj('Number', input_outer_height)) {
                 input_outer_height = $input.outerHeight();
             }
-            var picker_outer_height = $picker.outerHeight({'margin': true});
+            var picker_outer_height = $picker.outerHeight({
+                'margin': true
+            });
             if (!isObj('Number', picker_outer_height)) {
                 picker_outer_height = $picker.outerHeight();
             }
 
             // Set width to assure date and time are side by side
-            if ($(".datepicker_calendar", $picker).width() !== 0 && $(".datepicker_timelist", $picker).width() !== 0) {
-                $picker.parent().width($(".datepicker_calendar", $picker).width() + $(".datepicker_timelist", $picker).width() + 6);
+            if ($(".datepicker_calendar", $picker).width() !== 0 && $(
+                    ".datepicker_timelist", $picker).width() !== 0) {
+                $picker.parent().width($(".datepicker_calendar", $picker).width() +
+                    $(".datepicker_timelist", $picker).width() + 6);
             }
-            if (parseInt($(window).height()) <= ($input.offset().top - $(document).scrollTop() + input_outer_height + picker_outer_height)) {
+            if (parseInt($(window).height()) <= ($input.offset().top - $(document)
+                    .scrollTop() + input_outer_height + picker_outer_height)) {
                 // Display to top of an input-field
-                $picker.parent().css('top', ($input.offset().top - (input_outer_height / 2) - picker_outer_height) + 'px');
+                $picker.parent().css('top', ($input.offset().top - (
+                    input_outer_height / 2) - picker_outer_height) + 'px');
             } else {
                 // Display to bottom of an input-field
-                $picker.parent().css('top', ($input.offset().top + input_outer_height) + 'px');
+                $picker.parent().css('top', ($input.offset().top +
+                    input_outer_height) + 'px');
             }
             // Move position of a picker - horizontal
             if ($picker.parent().width() + $input.offset().left > $(window).width()) {
                 // Display left side stick to window
-                $picker.parent().css('left', (($(window).width() - $picker.parent().width()) / 2) + 'px');
+                $picker.parent().css('left', (($(window).width() - $picker.parent()
+                    .width()) / 2) + 'px');
             } else {
                 // Display left side stick to input
                 $picker.parent().css('left', $input.offset().left + 'px');
@@ -356,11 +429,11 @@
     var InputObjects = [];
     var ActivePickerId = -1;
 
-    var getParentPickerObject = function (obj) {
+    var getParentPickerObject = function(obj) {
         return $(obj).closest('.datepicker');
     };
 
-    var getPickersInputObject = function ($obj) {
+    var getPickersInputObject = function($obj) {
         var $picker = getParentPickerObject($obj);
         if ($picker.data("inputObjectId") != null) {
             return $(InputObjects[$picker.data("inputObjectId")]);
@@ -368,7 +441,7 @@
         return null;
     };
 
-    var setToNow = function ($obj) {
+    var setToNow = function($obj) {
         var $picker = getParentPickerObject($obj);
         var date = new Date();
         var year, month, day, hour, minute;
@@ -381,7 +454,8 @@
             day = minDate.getDate();
             hour = minDate.getHours();
             minute = minDate.getMinutes();
-        } else if ($picker.data('maxDate') !== null && date > $picker.data('maxDate')) {
+        } else if ($picker.data('maxDate') !== null && date > $picker.data(
+                'maxDate')) {
             var maxDate = new Date($picker.data('maxDate'));
             year = maxDate.getFullYear();
             month = maxDate.getMonth();
@@ -402,7 +476,7 @@
         }, year, month, day, hour, minute);
     };
 
-    var beforeMonth = function ($obj) {
+    var beforeMonth = function($obj) {
         var $picker = getParentPickerObject($obj);
 
         if ($picker.data('stateAllowBeforeMonth') === false) { // Not allowed
@@ -410,15 +484,17 @@
         }
 
         var date = getShownDate($picker);
-        var targetMonth_lastDay = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
+        var targetMonth_lastDay = new Date(date.getFullYear(), date.getMonth(), 0)
+            .getDate();
         if (targetMonth_lastDay < date.getDate()) {
             date.setDate(targetMonth_lastDay);
         }
         draw($picker, {
-            "isAnim": true,
-            "isOutputToInputObject": false,
-            "keepPickedDate": true
-        }, date.getFullYear(), date.getMonth() - 1, date.getDate(), date.getHours(), date.getMinutes());
+                "isAnim": true,
+                "isOutputToInputObject": false,
+                "keepPickedDate": true
+            }, date.getFullYear(), date.getMonth() - 1, date.getDate(), date.getHours(),
+            date.getMinutes());
 
         var todayDate = new Date();
         if ($picker.data("futureOnly") && $picker.data("current")) {
@@ -432,21 +508,24 @@
             if (targetMonth_lastDay < date.getDate()) {
                 date.setDate(targetMonth_lastDay);
             }
-            var newdate = new Date(date.getFullYear(), date.getMonth() - 1, date.getDate(), date.getHours(), date.getMinutes());
+            var newdate = new Date(date.getFullYear(), date.getMonth() - 1, date.getDate(),
+                date.getHours(), date.getMinutes());
             if ($picker.data("minDate") && newdate < $picker.data("minDate"))
                 newdate = new Date($picker.data("minDate"));
             draw($picker, {
-                "isAnim": true,
-                "isOutputToInputObject": false,
-                "keepPickedDate": true
-            }, newdate.getFullYear(), newdate.getMonth(), newdate.getDate(), newdate.getHours(), newdate.getMinutes());
+                    "isAnim": true,
+                    "isOutputToInputObject": false,
+                    "keepPickedDate": true
+                }, newdate.getFullYear(), newdate.getMonth(), newdate.getDate(),
+                newdate.getHours(), newdate.getMinutes());
         }
     };
 
-    var nextMonth = function ($obj) {
+    var nextMonth = function($obj) {
         var $picker = getParentPickerObject($obj);
         var date = getShownDate($picker);
-        var targetMonth_lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+        var targetMonth_lastDay = new Date(date.getFullYear(), date.getMonth() +
+            1, 0).getDate();
         if (targetMonth_lastDay < date.getDate()) {
             date.setDate(targetMonth_lastDay);
         }
@@ -455,47 +534,49 @@
         if (getLastDate(date.getFullYear(), date.getMonth() + 1) < date.getDate()) {
             date.setDate(getLastDate(date.getFullYear(), date.getMonth() + 1));
         }
-        var newdate = new Date(date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours(), date.getMinutes());
+        var newdate = new Date(date.getFullYear(), date.getMonth() + 1, date.getDate(),
+            date.getHours(), date.getMinutes());
         if ($picker.data("maxDate") && newdate > $picker.data("maxDate"))
             newdate = new Date($picker.data("maxDate"));
         draw($picker, {
-            "isAnim": true,
-            "isOutputToInputObject": false,
-            "keepPickedDate": true
-        }, newdate.getFullYear(), newdate.getMonth(), newdate.getDate(), newdate.getHours(), newdate.getMinutes());
+                "isAnim": true,
+                "isOutputToInputObject": false,
+                "keepPickedDate": true
+            }, newdate.getFullYear(), newdate.getMonth(), newdate.getDate(),
+            newdate.getHours(), newdate.getMinutes());
     };
 
     /**
      Check a last date of a specified year and month
      **/
-    var getLastDate = function (year, month) {
+    var getLastDate = function(year, month) {
         var date = new Date(year, month + 1, 0);
         return date.getDate();
     };
 
-    var getDateFormat = function (format, locale, is_date_only, is_time_only) {
+    var getDateFormat = function(format, locale, is_date_only, is_time_only) {
         if (format == "default") {
             // Default format
             format = translate(locale, 'format');
             if (is_date_only) {
                 // Convert the format to date-only (ex: YYYY/MM/DD)
                 format = format.substring(0, format.search(' '));
-            }
-            else if (is_time_only) {
+            } else if (is_time_only) {
                 format = format.substring(format.search(' ') + 1);
             }
         }
         return format; // Return date-format
     };
 
-    var normalizeYear = function (year) {
+    var normalizeYear = function(year) {
         if (year < 99) { // change year for 4 digits
             var date = new Date();
-            return parseInt(year) + parseInt(date.getFullYear().toString().substr(0, 2) + "00");
+            return parseInt(year) + parseInt(date.getFullYear().toString().substr(
+                0, 2) + "00");
         }
         return year;
     };
-    var parseDate = function (str, opt_date_format) {
+    var parseDate = function(str, opt_date_format) {
         var re, m, date;
         if (opt_date_format != null) {
             // Parse date & time with date-format
@@ -521,7 +602,8 @@
                     var format_c = df_.substring(0, 1);
                     df_ = df_.substring(1, df_.length);
                     if (format_before_c != format_c) {
-                        if (/(YYYY|YY|MM|DD|mm|dd|M|D|HH|H|hh|h|m|tt|TT)/.test(format_buf)) {
+                        if (/(YYYY|YY|MM|DD|mm|dd|M|D|HH|H|hh|h|m|tt|TT)/.test(
+                                format_buf)) {
                             formats.push(format_buf);
                             format_buf = '';
                         } else {
@@ -531,7 +613,9 @@
                     format_buf += format_c;
                     format_before_c = format_c;
                 }
-                if (format_buf !== '' && /(YYYY|YY|MM|DD|mm|dd|M|D|HH|H|hh|h|m|tt|TT)/.test(format_buf)) {
+                if (format_buf !== '' &&
+                    /(YYYY|YY|MM|DD|mm|dd|M|D|HH|H|hh|h|m|tt|TT)/.test(format_buf)
+                ) {
                     formats.push(format_buf);
                 }
 
@@ -587,7 +671,8 @@
                 }
                 date = new Date(year, month, day, hour, min);
 
-                if (is_successful === true && isNaN(date) === false && isNaN(date.getDate()) === false) { // Parse successful
+                if (is_successful === true && isNaN(date) === false && isNaN(date
+                        .getDate()) === false) { // Parse successful
                     return date;
                 }
             }
@@ -614,7 +699,7 @@
         }
         return false;
     };
-    var getFormattedDate = function (date, date_format) {
+    var getFormattedDate = function(date, date_format) {
         if (date == null) {
             date = new Date();
         }
@@ -626,14 +711,15 @@
         var min = date.getMinutes();
 
         date_format = date_format.replace(/YYYY/gi, y)
-            .replace(/YY/g, y - 2000)/* century */
+            .replace(/YY/g, y - 2000) /* century */
             .replace(/MM/g, zpadding(m))
             .replace(/M/g, m)
             .replace(/DD/g, zpadding(d))
             .replace(/D/g, d)
             .replace(/hh/g, zpadding(hou))
             .replace(/h/g, hou)
-            .replace(/HH/g, (hou > 12 ? zpadding(hou - 12) : (hou < 1 ? 12 : zpadding(hou))))
+            .replace(/HH/g, (hou > 12 ? zpadding(hou - 12) : (hou < 1 ? 12 :
+                zpadding(hou))))
             .replace(/H/g, (hou > 12 ? hou - 12 : (hou < 1 ? 12 : hou)))
             .replace(/mm/g, zpadding(min))
             .replace(/m/g, min)
@@ -642,14 +728,15 @@
         return date_format;
     };
 
-    var outputToInputObject = function ($picker) {
+    var outputToInputObject = function($picker) {
         var $inp = getPickersInputObject($picker);
         if ($inp == null) {
             return;
         }
         var date = getPickedDate($picker);
         var locale = $picker.data("locale");
-        var format = getDateFormat($picker.data("dateFormat"), locale, $picker.data('dateOnly'), $picker.data('timeOnly'));
+        var format = getDateFormat($picker.data("dateFormat"), locale, $picker.data(
+            'dateOnly'), $picker.data('timeOnly'));
         var old = $inp.val();
         $inp.val(getFormattedDate(date, format));
         if (old != $inp.val()) { // only trigger if it actually changed to avoid a nasty loop condition
@@ -657,32 +744,33 @@
         }
     };
 
-    var getShownDate = function ($obj) {
+    var getShownDate = function($obj) {
         var $picker = getParentPickerObject($obj);
         return $picker.data("shownDate");
     };
 
-    var getPickedDate = function ($obj) {
+    var getPickedDate = function($obj) {
         var $picker = getParentPickerObject($obj);
         return $picker.data("pickedDate");
     };
 
-    var zpadding = function (num) {
+    var zpadding = function(num) {
         num = ("0" + num).slice(-2);
         return num;
     };
 
-    var draw_date = function ($picker, option, date) {
+    var draw_date = function($picker, option, date) {
         //console.log("draw_date - " + date.toString());
-        draw($picker, option, date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes());
+        draw($picker, option, date.getFullYear(), date.getMonth(), date.getDate(),
+            date.getHours(), date.getMinutes());
     };
-    var translate = function (locale, s) {
+    var translate = function(locale, s) {
         if (typeof lang[locale][s] !== "undefined") {
             return lang[locale][s];
         }
         return lang.en[s];
     };
-    var draw = function ($picker, option, year, month, day, hour, min) {
+    var draw = function($picker, option, year, month, day, hour, min) {
         var date = new Date();
 
         if (hour != null) {
@@ -698,7 +786,7 @@
         var isCloseButton = $picker.data("closeButton");
         var isScroll = option.isAnim;
         /* It same with isAnim */
-        if ($picker.data("timelistScroll") === false) {// If disabled by user option.
+        if ($picker.data("timelistScroll") === false) { // If disabled by user option.
             isScroll = false;
         }
 
@@ -719,7 +807,8 @@
         var firstDayOfWeek = $picker.data("firstDayOfWeek");
 
         var allowWdays = $picker.data("allowWdays");
-        if (allowWdays == null || isObj('Array', allowWdays) === false || allowWdays.length <= 0) {
+        if (allowWdays == null || isObj('Array', allowWdays) === false ||
+            allowWdays.length <= 0) {
             allowWdays = null;
         }
 
@@ -756,9 +845,11 @@
         }
 
         /* Calculate dates */
-        var firstWday = new Date(date.getFullYear(), date.getMonth(), 1).getDay() - firstDayOfWeek;
+        var firstWday = new Date(date.getFullYear(), date.getMonth(), 1).getDay() -
+            firstDayOfWeek;
         var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-        var beforeMonthLastDay = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
+        var beforeMonthLastDay = new Date(date.getFullYear(), date.getMonth(), 0)
+            .getDate();
         var dateBeforeMonth = new Date(date.getFullYear(), date.getMonth(), 0);
         var dateNextMonth = new Date(date.getFullYear(), date.getMonth() + 2, 0);
         var isCurrentYear = todayDate.getFullYear() == date.getFullYear();
@@ -768,25 +859,31 @@
         var isNextMonth = (isCurrentYear && todayDate.getMonth() + 1 == date.getMonth()) ||
             (isNextYear && todayDate.getMonth() === 11 && date.getMonth() === 0);
         var isPastMonth = false;
-        if (date.getFullYear() < todayDate.getFullYear() || (isCurrentYear && date.getMonth() < todayDate.getMonth())) {
+        if (date.getFullYear() < todayDate.getFullYear() || (isCurrentYear &&
+                date.getMonth() < todayDate.getMonth())) {
             isPastMonth = true;
         }
 
         /* Collect each part */
         var $header = $picker.children('.datepicker_header');
         var $inner = $picker.children('.datepicker_inner_container');
-        var $calendar = $picker.children('.datepicker_inner_container').children('.datepicker_calendar');
+        var $calendar = $picker.children('.datepicker_inner_container').children(
+            '.datepicker_calendar');
         var $table = $calendar.children('.datepicker_table');
-        var $timelist = $picker.children('.datepicker_inner_container').children('.datepicker_timelist');
+        var $timelist = $picker.children('.datepicker_inner_container').children(
+            '.datepicker_timelist');
 
         /* Grasp a point that will be changed */
         var changePoint = "";
         var oldDate = getPickedDate($picker);
         if (oldDate != null) {
-            if (oldDate.getMonth() != date.getMonth() || oldDate.getDate() != date.getDate()) {
+            if (oldDate.getMonth() != date.getMonth() || oldDate.getDate() !=
+                date.getDate()) {
                 changePoint = "calendar";
-            } else if (oldDate.getHours() != date.getHours() || oldDate.getMinutes() != date.getMinutes()) {
-                if (date.getMinutes() === 0 || date.getMinutes() % minuteInterval === 0) {
+            } else if (oldDate.getHours() != date.getHours() || oldDate.getMinutes() !=
+                date.getMinutes()) {
+                if (date.getMinutes() === 0 || date.getMinutes() % minuteInterval ===
+                    0) {
                     changePoint = "timelist";
                 }
             }
@@ -824,13 +921,13 @@
         cDate.setDate(0); // last day of previous month
 
         var $link_before_month = null;
-        if ((!isFutureOnly || !isCurrentMonth) && ((minDate == null) || (minDate < cDate.getTime()))
-        ) {
+        if ((!isFutureOnly || !isCurrentMonth) && ((minDate == null) || (minDate <
+                cDate.getTime()))) {
             $link_before_month = $('<a>');
             $link_before_month.text('<');
             $link_before_month.prop('alt', translate(locale, 'prevMonth'));
             $link_before_month.prop('title', translate(locale, 'prevMonth'));
-            $link_before_month.click(function () {
+            $link_before_month.click(function() {
                 beforeMonth($picker);
             });
             $picker.data('stateAllowBeforeMonth', true);
@@ -845,7 +942,8 @@
         cDate.setMonth(date.getMonth() + 1);
 
         var $now_month = $('<span>');
-        $now_month.text(date.getFullYear() + " " + translate(locale, 'sep') + " " + translate(locale, 'months')[date.getMonth()]);
+        $now_month.text(date.getFullYear() + " " + translate(locale, 'sep') + " " +
+            translate(locale, 'months')[date.getMonth()]);
 
         var $link_next_month = null;
         if ((maxDate == null) || (maxDate > cDate.getTime())) {
@@ -853,7 +951,7 @@
             $link_next_month.text('>');
             $link_next_month.prop('alt', translate(locale, 'nextMonth'));
             $link_next_month.prop('title', translate(locale, 'nextMonth'));
-            $link_next_month.click(function () {
+            $link_next_month.click(function() {
                 nextMonth($picker);
             });
         }
@@ -863,7 +961,7 @@
             $link_today.addClass('icon-home');
             $link_today.prop('alt', translate(locale, 'today'));
             $link_today.prop('title', translate(locale, 'today'));
-            $link_today.click(function () {
+            $link_today.click(function() {
                 setToNow($picker);
             });
             $header.append($link_today);
@@ -873,7 +971,7 @@
             $link_close.addClass('icon-close');
             $link_close.prop('alt', translate(locale, 'close'));
             $link_close.prop('title', translate(locale, 'close'));
-            $link_close.click(function () {
+            $link_close.click(function() {
                 $picker.hide();
             });
             $header.append($link_close);
@@ -921,7 +1019,8 @@
 
             var isPast = isPastMonth ||
                 (isCurrentMonth && realDay < todayDate.getDate()) ||
-                (isNextMonth && firstWday > i && (beforeMonthLastDay + realDay) < todayDate.getDate());
+                (isNextMonth && firstWday > i && (beforeMonthLastDay + realDay) <
+                    todayDate.getDate());
 
             if (i % 7 === 0) {
                 $tr = $('<tr>');
@@ -933,23 +1032,28 @@
 
             $tr.append($td);
 
-            if (firstWday > i) {/* Before months day */
+            if (firstWday > i) { /* Before months day */
                 $td.text(beforeMonthLastDay + realDay);
                 $td.addClass('day_another_month');
-                $td.data("dateStr", dateBeforeMonth.getFullYear() + "/" + (dateBeforeMonth.getMonth() + 1) + "/" + (beforeMonthLastDay + realDay));
+                $td.data("dateStr", dateBeforeMonth.getFullYear() + "/" + (
+                    dateBeforeMonth.getMonth() + 1) + "/" + (
+                    beforeMonthLastDay + realDay));
                 realDayObj.setDate(beforeMonthLastDay + realDay);
                 realDayObj.setMonth(dateBeforeMonth.getMonth());
                 realDayObj.setYear(dateBeforeMonth.getFullYear());
-            } else if (i < firstWday + lastDay) {/* Now months day */
+            } else if (i < firstWday + lastDay) { /* Now months day */
                 $td.text(realDay);
-                $td.data("dateStr", (date.getFullYear()) + "/" + (date.getMonth() + 1) + "/" + realDay);
+                $td.data("dateStr", (date.getFullYear()) + "/" + (date.getMonth() +
+                    1) + "/" + realDay);
                 realDayObj.setDate(realDay);
                 realDayObj.setMonth(date.getMonth());
                 realDayObj.setYear(date.getFullYear());
-            } else {/* Next months day */
+            } else { /* Next months day */
                 $td.text(realDay - lastDay);
                 $td.addClass('day_another_month');
-                $td.data("dateStr", dateNextMonth.getFullYear() + "/" + (dateNextMonth.getMonth() + 1) + "/" + (realDay - lastDay));
+                $td.data("dateStr", dateNextMonth.getFullYear() + "/" + (
+                    dateNextMonth.getMonth() + 1) + "/" + (realDay -
+                    lastDay));
                 realDayObj.setDate(realDay - lastDay);
                 realDayObj.setMonth(dateNextMonth.getMonth());
                 realDayObj.setYear(dateNextMonth.getFullYear());
@@ -962,14 +1066,15 @@
                     $td.addClass('day_in_unallowed');
                     continue; // Skip
                 }
-            } else if (wday === 0) {/* Sunday */
+            } else if (wday === 0) { /* Sunday */
                 $td.addClass('wday_sun');
-            } else if (wday == 6) {/* Saturday */
+            } else if (wday == 6) { /* Saturday */
                 $td.addClass('wday_sat');
             }
 
             /* Set a special mark class */
-            if (shownDate.getFullYear() == pickedDate.getFullYear() && shownDate.getMonth() == pickedDate.getMonth() && realDay == pickedDate.getDate()) { /* selected day */
+            if (shownDate.getFullYear() == pickedDate.getFullYear() && shownDate.getMonth() ==
+                pickedDate.getMonth() && realDay == pickedDate.getDate()) { /* selected day */
                 $td.addClass('active');
             }
 
@@ -984,14 +1089,15 @@
 
             if (
                 // compare to 23:59:59 on the current day (if MIN is 1pm, then we still need to show this day
-            ((minDate != null) && (minDate > realDayObjMN.getTime())) || ((maxDate != null) && (maxDate < realDayObj.getTime())) // compare to 00:00:00
+                ((minDate != null) && (minDate > realDayObjMN.getTime())) || ((
+                    maxDate != null) && (maxDate < realDayObj.getTime())) // compare to 00:00:00
             ) { // Out of range day
                 $td.addClass('out_of_range');
             } else if (isFutureOnly && isPast) { // Past day
                 $td.addClass('day_in_past');
             } else {
                 /* Set event-handler to day cell */
-                $td.click(function (ev) {
+                $td.click(function(ev) {
                     ev.stopPropagation();
                     if ($(this).hasClass('hover')) {
                         $(this).removeClass('hover');
@@ -1002,9 +1108,11 @@
                     var targetDate = new Date($(this).data("dateStr"));
                     var selectedDate = getPickedDate($picker);
                     draw($picker, {
-                        "isAnim": false,
-                        "isOutputToInputObject": true
-                    }, targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate(), selectedDate.getHours(), selectedDate.getMinutes());
+                            "isAnim": false,
+                            "isOutputToInputObject": true
+                        }, targetDate.getFullYear(), targetDate.getMonth(),
+                        targetDate.getDate(), selectedDate.getHours(),
+                        selectedDate.getMinutes());
 
                     // Generate the handler of a picker
                     var $input = $(this);
@@ -1016,18 +1124,20 @@
                         func(handler, targetDate);
                     }
 
-                    if ($picker.data("dateOnly") === true && $picker.data("isInline") === false && $picker.data("closeOnSelected")) {
+                    if ($picker.data("dateOnly") === true && $picker.data(
+                            "isInline") === false && $picker.data(
+                            "closeOnSelected")) {
                         // Close a picker
                         ActivePickerId = -1;
                         $picker.hide();
                     }
                 });
 
-                $td.hover(function () {
+                $td.hover(function() {
                     if (!$(this).hasClass('active')) {
                         $(this).addClass('hover');
                     }
-                }, function () {
+                }, function() {
                     if ($(this).hasClass('hover')) {
                         $(this).removeClass('hover');
                     }
@@ -1059,7 +1169,8 @@
             }
 
             realDayObj = new Date(date.getTime());
-            $timelist.css("height", Math.max($calendar.innerHeight() - 10, 200) + 'px');
+            $timelist.css("height", Math.max($calendar.innerHeight() - 10, 200) +
+                'px');
 
             /* Output time cells */
             var hour_ = minTime[0];
@@ -1068,13 +1179,15 @@
             while (hour_ * 100 + min_ < maxTime[0] * 100 + maxTime[1]) {
 
                 var $o = $('<div>');
-                var is_past_time = hour_ < todayDate.getHours() || (hour_ == todayDate.getHours() && min_ < todayDate.getMinutes());
+                var is_past_time = hour_ < todayDate.getHours() || (hour_ ==
+                    todayDate.getHours() && min_ < todayDate.getMinutes());
                 var is_past = isCurrentDay && is_past_time;
 
                 $o.addClass('timelist_item');
                 var oText = "";
                 if ($picker.data("amPmInTimeList")) {
-                    oText = /*zpadding*/(hour_ > 12 ? hour_ - 12 : (hour_ < 1 ? 12 : hour_));
+                    oText = /*zpadding*/ (hour_ > 12 ? hour_ - 12 : (hour_ < 1 ?
+                        12 : hour_));
                     oText += ":" + zpadding(min_);
                     oText += (hour_ >= 12 ? "PM" : "AM");
                 } else {
@@ -1090,14 +1203,15 @@
                 realDayObj.setMinutes(min_);
 
                 if (
-                    ((minDate != null) && (minDate > realDayObj.getTime())) || ((maxDate != null) && (maxDate < realDayObj.getTime()))
+                    ((minDate != null) && (minDate > realDayObj.getTime())) || ((
+                        maxDate != null) && (maxDate < realDayObj.getTime()))
                 ) { // Out of range cell
                     $o.addClass('out_of_range');
                 } else if (isFutureOnly && is_past) { // Past cell
                     $o.addClass('time_in_past');
                 } else { // Normal cell
                     /* Set event handler to time cell */
-                    $o.click(function (ev) {
+                    $o.click(function(ev) {
                         ev.stopPropagation();
                         if ($(this).hasClass('hover')) {
                             $(this).removeClass('hover');
@@ -1109,22 +1223,24 @@
                         var hour = $(this).data("hour");
                         var min = $(this).data("min");
                         draw($picker, {
-                            "isAnim": false,
-                            "isOutputToInputObject": true
-                        }, date.getFullYear(), date.getMonth(), date.getDate(), hour, min);
+                                "isAnim": false,
+                                "isOutputToInputObject": true
+                            }, date.getFullYear(), date.getMonth(),
+                            date.getDate(), hour, min);
 
-                        if ($picker.data("isInline") === false && $picker.data("closeOnSelected")) {
+                        if ($picker.data("isInline") === false && $picker
+                            .data("closeOnSelected")) {
                             // Close a picker
                             ActivePickerId = -1;
                             $picker.hide();
                         }
                     });
 
-                    $o.hover(function () {
+                    $o.hover(function() {
                         if (!$(this).hasClass('active')) {
                             $(this).addClass('hover');
                         }
-                    }, function () {
+                    }, function() {
                         if ($(this).hasClass('hover')) {
                             $(this).removeClass('hover');
                         }
@@ -1147,7 +1263,8 @@
             /* Scroll the timelist */
             if (isScroll === true) {
                 /* Scroll to new active time-cell position */
-                $timelist.scrollTop(timelist_activeTimeCell_offsetTop - $timelist.offset().top);
+                $timelist.scrollTop(timelist_activeTimeCell_offsetTop - $timelist
+                    .offset().top);
             } else {
                 /* Scroll to position that before redraw. */
                 $timelist.scrollTop(drawBefore_timeList_scrollTop);
@@ -1158,7 +1275,8 @@
         if (isAnim === true) {
             if (changePoint == 'calendar' && $picker.data('timeOnly') === false) {
                 $calendar.fadeTo('fast', 1.0);
-            } else if (changePoint == 'timelist' && $picker.data('dateOnly') === false) {
+            } else if (changePoint == 'timelist' && $picker.data('dateOnly') ===
+                false) {
                 $timelist.fadeTo('fast', 1.0);
             }
         }
@@ -1170,17 +1288,17 @@
     };
 
     /* Check for object type */
-    var isObj = function (type, obj) {
+    var isObj = function(type, obj) {
         /* http://qiita.com/Layzie/items/465e715dae14e2f601de */
         var clas = Object.prototype.toString.call(obj).slice(8, -1);
         return obj !== undefined && obj !== null && clas === type;
     };
 
-    var init = function ($obj, opt) {
+    var init = function($obj, opt) {
         /* Container */
         var $picker = $('<div>');
 
-        $picker.destroy = function () {
+        $picker.destroy = function() {
             window.alert('destroy!');
         };
 
@@ -1191,7 +1309,8 @@
         if (!opt.current) {
             opt.current = new Date();
         } else {
-            var format = getDateFormat(opt.dateFormat, opt.locale, opt.dateOnly, opt.timeOnly);
+            var format = getDateFormat(opt.dateFormat, opt.locale, opt.dateOnly,
+                opt.timeOnly);
             var date = parseDate(opt.current, format);
             if (date) {
                 opt.current = date;
@@ -1238,7 +1357,7 @@
 
         var maxDate = Date.parse(opt.maxDate);
         if (isNaN(maxDate)) { // invalid date?
-            $picker.data('maxDate', null);  // set to null
+            $picker.data('maxDate', null); // set to null
         } else {
             $picker.data('maxDate', maxDate);
         }
@@ -1252,16 +1371,16 @@
         opt.minTime = opt.minTime.split(':');
         opt.maxTime = opt.maxTime.split(':');
 
-        if (!((opt.minTime[0] >= 0 ) && (opt.minTime[0] < 24 ))) {
+        if (!((opt.minTime[0] >= 0) && (opt.minTime[0] < 24))) {
             opt.minTime[0] = "00";
         }
-        if (!((opt.maxTime[0] >= 0 ) && (opt.maxTime[0] < 24 ))) {
+        if (!((opt.maxTime[0] >= 0) && (opt.maxTime[0] < 24))) {
             opt.maxTime[0] = "23";
         }
-        if (!((opt.minTime[1] >= 0 ) && (opt.minTime[1] < 60 ))) {
+        if (!((opt.minTime[1] >= 0) && (opt.minTime[1] < 60))) {
             opt.minTime[1] = "00";
         }
-        if (!((opt.maxTime[1] >= 0 ) && (opt.maxTime[1] < 24 ))) {
+        if (!((opt.maxTime[1] >= 0) && (opt.maxTime[1] < 24))) {
             opt.maxTime[1] = "59";
         }
         opt.minTime[0] = parseInt(opt.minTime[0], 10); // parse as decimal number
@@ -1294,7 +1413,7 @@
         /* Set event-handler to calendar */
         if (opt.calendarMouseScroll) {
             if (window.sidebar) { // Mozilla Firefox
-                $calendar.bind('DOMMouseScroll', function (e) { // Change a month with mouse wheel scroll for Fx
+                $calendar.bind('DOMMouseScroll', function(e) { // Change a month with mouse wheel scroll for Fx
                     var $picker = getParentPickerObject($(this));
 
                     // up,left [delta < 0] down,right [delta > 0]
@@ -1320,7 +1439,7 @@
                     return false;
                 });
             } else { // Other browsers
-                $calendar.bind('mousewheel', function (e) { // Change a month with mouse wheel scroll
+                $calendar.bind('mousewheel', function(e) { // Change a month with mouse wheel scroll
                     var $picker = getParentPickerObject($(this));
                     // up [delta > 0] down [delta < 0]
                     if (e.originalEvent.wheelDelta / 120 > 0) {
@@ -1341,7 +1460,7 @@
         }, opt.current);
     };
 
-    var getDefaults = function () {
+    var getDefaults = function() {
         return {
             "current": null,
             "dateFormat": "default",
@@ -1374,7 +1493,7 @@
     /**
      * Initialize dtpicker
      */
-    $.fn.dtpicker = function (config) {
+    $.fn.dtpicker = function(config) {
         var date = new Date();
         var defaults = getDefaults();
 
@@ -1385,7 +1504,7 @@
         defaults.inputObjectId = undefined;
         var options = $.extend(defaults, config);
 
-        return this.each(function (i) {
+        return this.each(function(i) {
             init($(this), options);
         });
     };
@@ -1393,11 +1512,12 @@
     /**
      * Initialize dtpicker, append to Text input field
      * */
-    $.fn.appendDtpicker = function (config) {
+    $.fn.appendDtpicker = function(config) {
         var date = new Date();
         var defaults = getDefaults();
 
-        if (typeof config !== "undefined" && config.inline === true && config.closeButton !== true) {
+        if (typeof config !== "undefined" && config.inline === true && config.closeButton !==
+            true) {
             defaults.closeButton = false;
         }
 
@@ -1408,7 +1528,7 @@
             lang = $.extend(lang, options.externalLocale);
         }
 
-        return this.each(function (i) {
+        return this.each(function(i) {
             /* Checking exist a picker */
             var input = this;
             if (0 < $(PickerObjects[$(input).data('pickerId')]).length) {
@@ -1450,14 +1570,20 @@
 
             /* Set event handler to input-field */
 
-            $(input).keyup(function () {
+            $(input).keyup(function() {
                 var $input = $(this);
-                var $picker = $(PickerObjects[$input.data('pickerId')]);
+                var $picker = $(PickerObjects[$input.data(
+                    'pickerId')]);
                 if ($input.val() != null && (
                         $input.data('beforeVal') == null ||
-                        ( $input.data('beforeVal') != null && $input.data('beforeVal') != $input.val())    )
-                ) { /* beforeValue == null || beforeValue != nowValue  */
-                    var format = getDateFormat($picker.data('dateFormat'), $picker.data('locale'), $picker.data('dateOnly'), $picker.data('timeOnly'));
+                        ($input.data('beforeVal') != null &&
+                            $input.data('beforeVal') != $input.val()
+                        ))) { /* beforeValue == null || beforeValue != nowValue  */
+                    var format = getDateFormat($picker.data(
+                        'dateFormat'), $picker.data(
+                        'locale'), $picker.data(
+                        'dateOnly'), $picker.data(
+                        'timeOnly'));
                     var date = parseDate($input.val(), format);
                     //console.log("dtpicker - inputKeyup - format: " + format + ", date: " + $input.val() + " -> " + date);
                     if (date) {
@@ -1470,7 +1596,7 @@
                 $input.data('beforeVal', $input.val());
             });
 
-            $(input).change(function () {
+            $(input).change(function() {
                 $(this).trigger('keyup');
             });
 
@@ -1491,13 +1617,15 @@
                 $picker.hide();
 
                 /* Set onClick event handler for input-field */
-                $(input).on('click, focus', function (ev) {
+                $(input).on('click, focus', function(ev) {
                     ev.stopPropagation();
                     var $input = $(this);
-                    var $picker = $(PickerObjects[$input.data('pickerId')]);
+                    var $picker = $(PickerObjects[$input.data(
+                        'pickerId')]);
 
                     // Generate the handler of a picker
-                    var handler = new PickerHandler($picker, $input);
+                    var handler = new PickerHandler($picker,
+                        $input);
                     // Get the display state of a picker
                     var is_showed = handler.isShow();
                     if (!is_showed) {
@@ -1507,27 +1635,30 @@
                         // Call a event-hanlder
                         var func = $picker.data('onShow');
                         if (func != null) {
-                            console.log("dtpicker- Call the onShow handler");
+                            console.log(
+                                "dtpicker- Call the onShow handler"
+                            );
                             func(handler);
                         }
                     }
                 });
 
                 // Set an event handler for resizing of a window
-                (function (handler) {
-                    $(window).resize(function () {
+                (function(handler) {
+                    $(window).resize(function() {
                         handler._relocate();
                     });
-                    $(window).scroll(function () {
+                    $(window).scroll(function() {
                         handler._relocate();
                     });
                 })(handler);
             }
 
             // Set an event handler for removing of an input-field
-            $(input).bind('destroyed', function () {
+            $(input).bind('destroyed', function() {
                 var $input = $(this);
-                var $picker = $(PickerObjects[$input.data('pickerId')]);
+                var $picker = $(PickerObjects[$input.data(
+                    'pickerId')]);
                 // Generate the handler of a picker
                 var handler = new PickerHandler($picker, $input);
                 // Destroy a picker
@@ -1547,7 +1678,7 @@
      * Handle a appended dtpicker
      * */
     var methods = {
-        show: function () {
+        show: function() {
             var $input = $(this);
             var $picker = $(PickerObjects[$input.data('pickerId')]);
             if ($picker != null) {
@@ -1556,7 +1687,7 @@
                 handler.show();
             }
         },
-        hide: function () {
+        hide: function() {
             var $input = $(this);
             var $picker = $(PickerObjects[$input.data('pickerId')]);
             if ($picker != null) {
@@ -1565,7 +1696,7 @@
                 handler.hide();
             }
         },
-        setDate: function (date) {
+        setDate: function(date) {
             var $input = $(this);
             var $picker = $(PickerObjects[$input.data('pickerId')]);
             if ($picker != null) {
@@ -1574,7 +1705,7 @@
                 handler.setDate(date);
             }
         },
-        setMinDate: function (date) {
+        setMinDate: function(date) {
             var $input = $(this);
             var $picker = $(PickerObjects[$input.data('pickerId')]);
             if ($picker != null) {
@@ -1583,7 +1714,7 @@
                 handler.setMinDate(date);
             }
         },
-        setMaxDate: function (date) {
+        setMaxDate: function(date) {
             var $input = $(this);
             var $picker = $(PickerObjects[$input.data('pickerId')]);
             if ($picker != null) {
@@ -1592,7 +1723,7 @@
                 handler.setMaxDate(date);
             }
         },
-        getDate: function () {
+        getDate: function() {
             var $input = $(this);
             var $picker = $(PickerObjects[$input.data('pickerId')]);
             if ($picker != null) {
@@ -1601,7 +1732,7 @@
                 return handler.getDate();
             }
         },
-        destroy: function () {
+        destroy: function() {
             var $input = $(this);
             var $picker = $(PickerObjects[$input.data('pickerId')]);
             if ($picker != null) {
@@ -1612,25 +1743,26 @@
         }
     };
 
-    $.fn.handleDtpicker = function (method) {
+    $.fn.handleDtpicker = function(method) {
         if (methods[method]) {
-            return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+            return methods[method].apply(this, Array.prototype.slice.call(
+                arguments, 1));
         } else if (typeof method === 'object' || !method) {
             return methods.init.apply(this, arguments);
         } else {
-            $.error('Method ' + method + ' does not exist on jQuery.handleDtpicker');
+            $.error('Method ' + method +
+                ' does not exist on jQuery.handleDtpicker');
         }
     };
 
     if (!window.console) { // Not available a console on this environment.
         window.console = {};
-        window.console.log = function () {
-        };
+        window.console.log = function() {};
     }
 
     /* Define a special event for catch when destroy of an input-field. */
     $.event.special.destroyed = {
-        remove: function (o) {
+        remove: function(o) {
             if (o.handler) {
                 o.handler.apply(this, arguments);
             }
@@ -1638,18 +1770,21 @@
     };
 
     /* Set event handler to Body element, for hide a floated-picker */
-    $(function () {
-        $('body').click(function () {
+    $(function() {
+        $('body').click(function() {
             for (var i = 0; i < PickerObjects.length; i++) {
                 var $picker = $(PickerObjects[i]);
-                if ($picker.data('inputObjectId') != null && !$picker.data('isInline') && $picker.css('display') != 'none') {
+                if ($picker.data('inputObjectId') != null && !$picker
+                    .data('isInline') && $picker.css('display') !=
+                    'none') {
                     /* if append input-field && float picker */
 
                     // Check overlapping of cursor and picker
                     if ($picker.is(':hover')) continue;
 
                     // Check overlapping of cursor and input-field
-                    var $input = $(InputObjects[$picker.data('inputObjectId')]);
+                    var $input = $(InputObjects[$picker.data(
+                        'inputObjectId')]);
                     if ($input.is(':focus')) continue;
 
                     // Hide a picker
@@ -1659,7 +1794,8 @@
                     // Call a event-hanlder
                     var func = $picker.data('onHide');
                     if (func != null) {
-                        console.log('dtpicker- Call the onHide handler');
+                        console.log(
+                            'dtpicker- Call the onHide handler');
                         func(handler);
                     }
                 }
