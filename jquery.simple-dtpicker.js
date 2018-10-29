@@ -1,6 +1,6 @@
 /**
  * jquery-simple-datetimepicker (jquery.simple-dtpicker.js)
- * v1.13.0
+ * v1.13.3
  * (c) Masanori Ohgita.
  * https://github.com/mugifly/jquery-simple-datetimepicker
  **/
@@ -263,7 +263,7 @@
     /* ----- */
 
     /**
-    	PickerHandler Object
+     PickerHandler Object
     **/
     var PickerHandler = function($picker, $input) {
         this.$pickerObject = $picker;
@@ -456,11 +456,36 @@
     var setToNow = function($obj) {
         var $picker = getParentPickerObject($obj);
         var date = new Date();
+        var year, month, day, hour, minute;
+
+        // compare timestamps
+        if ($picker.data('minDate') !== null && date < $picker.data('minDate')) {
+            var minDate = new Date($picker.data('minDate'));
+            year = minDate.getFullYear();
+            month = minDate.getMonth();
+            day = minDate.getDate();
+            hour = minDate.getHours();
+            minute = minDate.getMinutes();
+        } else if ($picker.data('maxDate') !== null && date > $picker.data(
+                'maxDate')) {
+            var maxDate = new Date($picker.data('maxDate'));
+            year = maxDate.getFullYear();
+            month = maxDate.getMonth();
+            day = maxDate.getDate();
+            hour = maxDate.getHours();
+            minute = maxDate.getMinutes();
+        } else {
+            year = date.getFullYear();
+            month = date.getMonth();
+            day = date.getDate();
+            hour = date.getHours();
+            minute = date.getMinutes();
+        }
+
         draw($picker, {
-                "isAnim": true,
-                "isOutputToInputObject": true
-            }, date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(),
-            date.getMinutes());
+            "isAnim": true,
+            "isOutputToInputObject": true
+        }, year, month, day, hour, minute);
     };
 
     var beforeMonth = function($obj) {
@@ -473,6 +498,15 @@
         var date = getShownDate($picker);
         var targetMonth_lastDay = new Date(date.getFullYear(), date.getMonth(), 0)
             .getDate();
+        if (targetMonth_lastDay < date.getDate()) {
+            date.setDate(targetMonth_lastDay);
+        }
+        draw($picker, {
+                "isAnim": true,
+                "isOutputToInputObject": false,
+                "keepPickedDate": true
+            }, date.getFullYear(), date.getMonth() - 1, date.getDate(), date.getHours(),
+            date.getMinutes());
 
         var todayDate = new Date();
         if ($picker.data("futureOnly") && $picker.data("current")) {
@@ -482,19 +516,21 @@
         var isCurrentYear = todayDate.getFullYear() == date.getFullYear();
         var isCurrentMonth = isCurrentYear && todayDate.getMonth() == date.getMonth();
 
-        if (targetMonth_lastDay < date.getDate()) {
-            date.setDate(targetMonth_lastDay);
+        if (!isCurrentMonth || !$picker.data("futureOnly")) {
+            if (targetMonth_lastDay < date.getDate()) {
+                date.setDate(targetMonth_lastDay);
+            }
+            var newdate = new Date(date.getFullYear(), date.getMonth() - 1, date.getDate(),
+                date.getHours(), date.getMinutes());
+            if ($picker.data("minDate") && newdate < $picker.data("minDate"))
+                newdate = new Date($picker.data("minDate"));
+            draw($picker, {
+                    "isAnim": true,
+                    "isOutputToInputObject": false,
+                    "keepPickedDate": true
+                }, newdate.getFullYear(), newdate.getMonth(), newdate.getDate(),
+                newdate.getHours(), newdate.getMinutes());
         }
-        var newdate = new Date(date.getFullYear(), date.getMonth() - 1, date.getDate(),
-            date.getHours(), date.getMinutes());
-        if ($picker.data("minDate") && newdate < $picker.data("minDate"))
-            newdate = $picker.data("minDate");
-        draw($picker, {
-                "isAnim": true,
-                "isOutputToInputObject": false,
-                "keepPickedDate": true
-            }, newdate.getFullYear(), newdate.getMonth(), newdate.getDate(),
-            newdate.getHours(), newdate.getMinutes());
     };
 
     var nextMonth = function($obj) {
@@ -513,7 +549,7 @@
         var newdate = new Date(date.getFullYear(), date.getMonth() + 1, date.getDate(),
             date.getHours(), date.getMinutes());
         if ($picker.data("maxDate") && newdate > $picker.data("maxDate"))
-            newdate = $picker.data("maxDate");
+            newdate = new Date($picker.data("maxDate"));
         draw($picker, {
                 "isAnim": true,
                 "isOutputToInputObject": false,
@@ -523,8 +559,8 @@
     };
 
     /**
-    	Check a last date of a specified year and month
-    **/
+     Check a last date of a specified year and month
+     **/
     var getLastDate = function(year, month) {
         var date = new Date(year, month + 1, 0);
         return date.getDate();
@@ -760,7 +796,8 @@
         /* Read options */
         var isTodayButton = $picker.data("todayButton");
         var isCloseButton = $picker.data("closeButton");
-        var isScroll = option.isAnim; /* It same with isAnim */
+        var isScroll = option.isAnim;
+        /* It same with isAnim */
         if ($picker.data("timelistScroll") === false) { // If disabled by user option.
             isScroll = false;
         }
@@ -989,6 +1026,8 @@
         realDayObj.setSeconds(0);
         var pickedDate = getPickedDate($picker);
         var shownDate = getShownDate($picker);
+        var $tbody = $('<tbody>');
+        $table.append($tbody).children("tbody");
         for (var zz = 0; i < cellNum; i++) {
             var realDay = i + 1 - firstWday;
 
@@ -999,7 +1038,7 @@
 
             if (i % 7 === 0) {
                 $tr = $('<tr>');
-                $table.append($tr);
+                $tbody.append($tr);
             }
 
             $td = $('<td>');
@@ -1093,7 +1132,7 @@
                     var $input = $(this);
                     var handler = new PickerHandler($picker, $input);
 
-                    // Call a event-handler for onSelect
+                    // Call a event-hanlder for onSelect
                     var func = $picker.data('onSelect');
                     if (func != null) {
                         func(handler, targetDate);
@@ -1404,11 +1443,11 @@
                     // this code need to be commented - it's seems to be unnecessary
                     // normalization (/3) is not needed as we move one month back or forth
                     if(e.originalEvent.axis !== undefined && e.originalEvent.axis == e.originalEvent.HORIZONTAL_AXIS){
-                    	e.deltaX = delta;
-                    	e.deltaY = 0;
+                        e.deltaX = delta;
+                        e.deltaY = 0;
                     } else {
-                    	e.deltaX = 0;
-                    	e.deltaY = delta;
+                        e.deltaX = 0;
+                        e.deltaY = delta;
                     }
                     e.deltaX /= 3;
                     e.deltaY /= 3;
