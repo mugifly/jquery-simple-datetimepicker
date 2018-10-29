@@ -258,6 +258,18 @@
             prevMonth: 'Fyrri mánuður',
             nextMonth: 'Næsti mánuður',
             today: 'Í dag'
+        },
+        fi: {
+            days: ['Su', 'Ma', 'Ti', 'Ke', 'To', 'Pe', 'La'],
+            months: ["Tammikuu", "Helmikuu", "Maaliskuu", "Huhtikuu", "Toukokuu",
+                "Kesäkuu", "Heinäkuu", "Elokuu", "Syyskuu", "Lokakuu",
+                "Marraskuu", "Joulukuu"
+            ],
+            sep: '-',
+            format: 'D.M.YYYY h:mm',
+            prevMonth: 'Edellinen kuukausi',
+            nextMonth: 'Seuraava kuukausi',
+            today: 'Tänään'
         }
     };
     /* ----- */
