@@ -1,6 +1,15 @@
 Version history for query-simple-datetimepicker
 https://github.com/mugifly/jquery-simple-datetimepicker/
 
+1.14.0  2018-10-29
+  - Merge long waiting pull requests from many contributors, mainly:
+    - Locales: icelandic, finnish.
+    - [Add] Close button option.
+    - CSS-Compatibility with JQuery 3.x
+    - Replace deprecated .bind() calls with .on()
+    - Correction and completion of the PT local, option to specify time range available in the list.
+    - fix double rendering when navigating to previousMonth
+
 1.13.0  2015-xx-xx (JST)
   - [Add] Locales: Ukrainian, Hungarian, Danish, Estonian, Norwegian.
   - [Add] Close button option.
