@@ -16,6 +16,8 @@
 			format: 'YYYY-MM-DD hh:mm',
 			prevMonth: 'Previous month',
 			nextMonth: 'Next month',
+			prevYear: 'Previous year',
+			nextYear: 'Next year',
 			today: 'Today'
 		},
 		ro: {
@@ -544,7 +546,29 @@
 				newdate.getHours(), newdate.getMinutes());
 		}
 	};
+	var beforeYear = function($obj) {
+		var $picker = getParentPickerObject($obj);
 
+		
+		var date = getPickedDate($picker);
+		var targetYear_lastDay = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
+		if (targetYear_lastDay < date.getDate()) {
+			date.setDate(targetYear_lastDay);
+		}
+		draw($picker, {
+			"isAnim": true,
+			"isOutputToInputObject": true
+		}, date.getFullYear() - 1, date.getMonth(), date.getDate(), date.getHours(), date.getMinutes());
+
+		var todayDate = new Date();
+		var isCurrentYear = todayDate.getFullYear() == date.getFullYear();
+		var isCurrentMonth = isCurrentYear && todayDate.getMonth() == date.getMonth();
+		
+		draw($picker, {
+			"isAnim": true,
+			"isOutputToInputObject": true
+		}, date.getFullYear() - 1, date.getMonth(), date.getDate(), date.getHours(), date.getMinutes());
+	};
 	var nextMonth = function($obj) {
 		var $picker = getParentPickerObject($obj);
 		var date = getShownDate($picker);
@@ -568,6 +592,24 @@
 				"keepPickedDate": true
 			}, newdate.getFullYear(), newdate.getMonth(), newdate.getDate(),
 			newdate.getHours(), newdate.getMinutes());
+	};
+	var nextYear = function($obj) {
+		var $picker = getParentPickerObject($obj);
+		var date = getPickedDate($picker);
+		var targetYear_lastDay = new Date(date.getFullYear() + 1, date.getMonth(), 0).getDate();
+		if (targetYear_lastDay < date.getDate()) {
+			date.setDate(targetYear_lastDay);
+		}
+
+		// Check a last date of a next month
+		if (getLastDate(date.getFullYear() + 1, date.getMonth()) < date.getDate()) {
+			date.setDate(getLastDate(date.getFullYear() + 1, date.getMonth()));
+		}
+
+		draw($picker, {
+			"isAnim": true,
+			"isOutputToInputObject": true
+		}, date.getFullYear() + 1, date.getMonth(), date.getDate(), date.getHours(), date.getMinutes());
 	};
 
 	/**
@@ -981,7 +1023,30 @@
 				nextMonth($picker);
 			});
 		}
-
+		var $link_next_year = null;
+		if ((maxDate == null) || (maxDate > cDate.getTime())) {
+			$link_next_year = $('<a>');
+			$link_next_year.text('>>');
+			$link_next_year.prop('alt', translate(locale,'nextYear'));
+			$link_next_year.prop('title', translate(locale,'nextYear'));
+			$link_next_year.click(function() {
+				nextYear($picker);
+			});
+		}
+		var $link_before_year = null;
+		if ((!isFutureOnly || !isCurrentMonth) && ((minDate == null) || (minDate < cDate.getTime()))
+		) {
+			$link_before_year = $('<a>');
+			$link_before_year.text('<<');
+			$link_before_year.prop('alt', translate(locale,'prevYear'));
+			$link_before_year.prop('title', translate(locale,'prevYear') );
+			$link_before_year.click(function() {
+				beforeYear($picker);
+			});
+			$picker.data('stateAllowBeforeYear', true);
+		} else {
+			$picker.data('stateAllowBeforeYear', false);
+		}
 		if (isTodayButton) {
 			var $link_today = $('<a><div/></a>');
 			$link_today.addClass('icon-home');
@@ -1004,11 +1069,11 @@
 		}
 
 		if ($link_before_month != null) {
-			$header.append($link_before_month);
+			$header.append($link_before_year, ' ', $link_before_month);
 		}
 		$header.append($now_month);
 		if ($link_next_month != null) {
-			$header.append($link_next_month);
+			$header.append($link_next_month, ' ', $link_next_year);
 		}
 
 		/* Calendar > Table ----- */
