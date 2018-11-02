@@ -53,6 +53,15 @@
 			],
 			format: 'DD/MM/YYYY hh:mm'
 		},
+		pl: {
+			days: ['Nie', 'Pon', 'Wto', 'Śro', 'Czw', 'Pią', 'Sob'],
+			months: [ "Sty", "Lut", "Mar", "Kwi", "Maj", "Cze", "Lip", "Sie", "Wrz", "Paź", "Lis", "Gru" ],
+			sep: '-',
+			format: 'YYYY-MM-DD hh:mm',
+			prevMonth: 'Poprzedni miesiąc',
+			nextMonth: 'Następny miesiąc',
+			today: 'Dzisiaj'
+		},
 		pt: {
 			days: ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'],
 			months: ["janeiro", "fevereiro", "março", "abril", "maio", "junho",
