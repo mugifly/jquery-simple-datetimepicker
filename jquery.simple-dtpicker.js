@@ -1257,6 +1257,10 @@
 						if ($picker.data("isInline") === false && $picker
 							.data("closeOnSelected")) {
 							// Close a picker
+							var func = $picker.data('onHide');
+							if (typeof func === 'function') {
+								func();
+							}
 							ActivePickerId = -1;
 							$picker.hide();
 						}
