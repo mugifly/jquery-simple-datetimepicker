@@ -465,6 +465,11 @@
 		return null;
 	};
 
+	var isPickerInputDisabled = function($picker) {
+		var $input = getPickersInputObject($picker);
+		return $input != null && $input.is(':disabled');
+	};
+
 	var setToNow = function($obj) {
 		var $picker = getParentPickerObject($obj);
 		var date = new Date();
@@ -988,7 +993,9 @@
 			$link_today.prop('alt', translate(locale, 'today'));
 			$link_today.prop('title', translate(locale, 'today'));
 			$link_today.click(function() {
-				setToNow($picker);
+				if (!isPickerInputDisabled($picker)) {
+					setToNow($picker);
+				}
 			});
 			$header.append($link_today);
 		}
@@ -1125,12 +1132,13 @@
 				/* Set event-handler to day cell */
 				$td.click(function(ev) {
 					ev.stopPropagation();
+					var $picker = getParentPickerObject($(this));
+					if (isPickerInputDisabled($picker)) return;
 					if ($(this).hasClass('hover')) {
 						$(this).removeClass('hover');
 					}
 					$(this).addClass('active');
 
-					var $picker = getParentPickerObject($(this));
 					var targetDate = new Date($(this).data("dateStr"));
 					var selectedDate = getPickedDate($picker);
 					draw($picker, {
@@ -1239,12 +1247,13 @@
 					/* Set event handler to time cell */
 					$o.click(function(ev) {
 						ev.stopPropagation();
+						var $picker = getParentPickerObject($(this));
+						if (isPickerInputDisabled($picker)) return;
 						if ($(this).hasClass('hover')) {
 							$(this).removeClass('hover');
 						}
 						$(this).addClass('active');
 
-						var $picker = getParentPickerObject($(this));
 						var date = getPickedDate($picker);
 						var hour = $(this).data("hour");
 						var min = $(this).data("min");
